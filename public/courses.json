@@ -1,0 +1,29 @@
+[
+    {
+      "code": "INF1007",
+      "name": "Introduction to Programming",
+      "credits": 3,
+      "major": "Computer Science",
+      "groups": [
+        {
+          "groupNumber": 1,
+          "professor": "Dr. John Doe",
+          "semester": "Fall 2024",
+          "timeslots": [
+            { "day": "Monday", "time": "08:00-10:00", "classroom": "Room 101" },
+            { "day": "Wednesday", "time": "10:00-12:00", "classroom": "Room 102" }
+          ]
+        },
+        {
+          "groupNumber": 2,
+          "professor": "Dr. Jane Smith",
+          "semester": "Fall 2024",
+          "timeslots": [
+            { "day": "Tuesday", "time": "13:00-15:00", "classroom": "Room 201" },
+            { "day": "Thursday", "time": "15:00-17:00", "classroom": "Room 202" }
+          ]
+        }
+      ]
+    }
+  ]
+  
