@@ -14,6 +14,9 @@ const optimizationOptions = ref({
   minimizeCertificationPeriods: false
 });
 const generatedSchedules = ref([]);
+const snackbar = ref(false); // Added for alert
+const snackbarText = ref(''); // Added for alert message
+const snackbarColor = ref('warning'); // Added for alert styling
 
 // Handle course selection confirmation
 const handleConfirmCourses = (courses) => {
@@ -21,11 +24,22 @@ const handleConfirmCourses = (courses) => {
   currentStep.value = 1; // Move to next step
 };
 
+// Handle continue button click with validation
+const handleContinue = () => {
+  if (currentStep.value === 0 && selectedCourses.value.length === 0) {
+    snackbarText.value = 'Please select at least one course to continue!';
+    snackbarColor.value = 'warning';
+    snackbar.value = true;
+  } else if (currentStep.value < 2) {
+    currentStep.value++;
+  }
+};
+
 // Generate schedules (mocked for now)
 const generateSchedules = () => {
   generatedSchedules.value = [
     {
-      courses: selectedCourses.value,
+      courses: selectedCourses.value.map(course => course.course_code), // Use course codes
       days: ['Mon 08:00-12:00', 'Fri 09:00-11:00'],
       gaps: 1
     }
@@ -50,7 +64,11 @@ const generateSchedules = () => {
         <v-stepper-window>
           <!-- Step 1: Course Selection -->
           <v-stepper-window-item :value="0">
-            <CourseSelection @confirm-selection="handleConfirmCourses" />
+            <CourseSelection 
+              :selectedCourses="selectedCourses" 
+              @confirm-selection="handleConfirmCourses" 
+              @update:selectedCourses="selectedCourses = $event" 
+            />
           </v-stepper-window-item>
 
           <!-- Step 2: Optimization Options -->
@@ -88,9 +106,36 @@ const generateSchedules = () => {
       <v-card-actions class="d-flex justify-between mt-4">
         <v-btn v-if="currentStep > 0" @click="currentStep--" variant="tonal">Back</v-btn>
         <v-spacer></v-spacer>
-        <v-btn v-if="currentStep === 1" color="primary" @click="generateSchedules">Generate</v-btn>
-        <v-btn v-else-if="currentStep < 2" color="primary" @click="currentStep++">Continue</v-btn>
+        <v-btn 
+          v-if="currentStep === 1" 
+          color="primary" 
+          @click="generateSchedules"
+        >
+          Generate
+        </v-btn>
+        <v-btn 
+          v-else-if="currentStep < 2" 
+          color="primary" 
+          @click="handleContinue" 
+          :disabled="currentStep === 0 && selectedCourses.length === 0"
+        >
+          Continue
+        </v-btn>
       </v-card-actions>
     </v-card>
+
+    <!-- Snackbar for Alert -->
+    <v-snackbar
+      v-model="snackbar"
+      location="top"
+      :timeout="2000"
+      :color="snackbarColor"
+      elevation="8"
+    >
+      {{ snackbarText }}
+      <template v-slot:actions>
+        <v-btn variant="text" @click="snackbar = false">Close</v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>

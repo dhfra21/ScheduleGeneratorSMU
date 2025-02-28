@@ -56,7 +56,8 @@ onMounted(async () => {
         course_name: course.course_name,
         major: course.major || 'General',
         year: course.year || 'N/A',
-        credits: course.credits || 0
+        credits: course.credits || 0,
+        groups: course.groups || [] // Ensure groups are loaded
       }));
     }
   } catch (err) {

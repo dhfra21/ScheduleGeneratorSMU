@@ -10,20 +10,23 @@ const props = defineProps({
       course_name: '',
       major: 'General',
       year: 'N/A',
-      credits: 0
+      credits: 0,
+      groups: []
     })
   }
 });
 
 const isHovered = ref(false);
+const showDetails = ref(false);
 
 // Generate a consistent color based on the major name
 const majorColor = computed(() => {
   const colorMap = {
-    'general': '#8E24AA', // Purple
+    'pre-engineering': '#8E24AA', // Purple
     'software engineering': '#1E88E5', // Blue
     'computer systems engineering': '#43A047', // Green
-    'renewable energy engineering': '#FB8C00' // Orange
+    'renewable energy engineering': '#FB8C00', // Orange
+    'pre-engineering': '#757575' // Gray
   };
   
   const majorKey = props.course.major.toLowerCase();
@@ -36,7 +39,8 @@ const majorIcon = computed(() => {
     'general': 'mdi-book-open-page-variant',
     'software engineering': 'mdi-laptop-windows',
     'computer systems engineering': 'mdi-chip',
-    'renewable energy engineering': 'mdi-flash'
+    'renewable energy engineering': 'mdi-flash',
+    'pre-engineering': 'mdi-account-school'
   };
   
   const majorKey = props.course.major.toLowerCase();
@@ -55,6 +59,14 @@ const yearInfo = computed(() => {
   const yearKey = props.course.year.toLowerCase();
   return yearMap[yearKey] || { color: '#757575', icon: 'mdi-calendar' };
 });
+
+// Close details modal when clicking outside
+function closeDetailsOnOutsideClick(event) {
+  // Only close if clicking directly on the overlay background (not on its children)
+  if (event.target.classList.contains('details-overlay')) {
+    showDetails.value = false;
+  }
+}
 </script>
 
 <template>
@@ -121,6 +133,7 @@ const yearInfo = computed(() => {
           size="small" 
           block
           prepend-icon="mdi-information-outline"
+          @click="showDetails = true"
         >
           View Details
         </v-btn>
@@ -129,6 +142,100 @@ const yearInfo = computed(() => {
     
     <div class="year-marker" :style="{ backgroundColor: yearInfo.color }"></div>
   </v-card>
+
+  <!-- Course Details Modal -->
+  <div v-if="showDetails" class="details-overlay" @click="closeDetailsOnOutsideClick">
+    <div class="details-modal" :class="`border-${yearInfo.color}`">
+      <div class="modal-header" :style="{ backgroundColor: majorColor }">
+        <div class="course-title">
+          <h2>{{ course.course_code }}: {{ course.course_name }}</h2>
+        </div>
+        <v-btn 
+          icon 
+          variant="text" 
+          color="white" 
+          size="small"
+          @click="showDetails = false"
+        >
+          <v-icon icon="mdi-close"></v-icon>
+        </v-btn>
+      </div>
+
+      <div class="modal-content">
+        <div class="info-section">
+          <h3>Course Information</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <v-icon :icon="majorIcon" :color="majorColor" class="mr-2"></v-icon>
+              <span class="info-label">Major:</span> {{ course.major }}
+            </div>
+            <div class="info-item">
+              <v-icon :icon="yearInfo.icon" :color="yearInfo.color" class="mr-2"></v-icon>
+              <span class="info-label">Year:</span> {{ course.year }}
+            </div>
+            <div class="info-item">
+              <v-icon icon="mdi-weight" color="primary" class="mr-2"></v-icon>
+              <span class="info-label">Credits:</span> {{ course.credits }}
+            </div>
+          </div>
+        </div>
+
+        <v-divider class="my-4"></v-divider>
+
+        <!-- Groups Section -->
+        <div v-if="course.groups && course.groups.length > 0" class="groups-section">
+          <h3>Course Groups</h3>
+          
+          <v-expansion-panels variant="accordion">
+            <v-expansion-panel
+              v-for="group in course.groups"
+              :key="group.group_number"
+              :title="`Group ${group.group_number}`"
+              :text="`Professor: ${group.professor}`"
+            >
+              <template v-slot:text>
+                <div class="group-details">
+                  <div class="group-info">
+                    <v-icon icon="mdi-account-tie" color="primary" class="mr-2"></v-icon>
+                    <span class="info-label">Professor:</span> {{ group.professor }}
+                  </div>
+                  <div class="group-info">
+                    <v-icon icon="mdi-map-marker" color="primary" class="mr-2"></v-icon>
+                    <span class="info-label">Location:</span> {{ group.classroom }}
+                  </div>
+                  <div class="group-schedule">
+                    <div class="schedule-header">
+                      <v-icon icon="mdi-clock-outline" color="primary" class="mr-2"></v-icon>
+                      <span class="info-label">Schedule:</span>
+                    </div>
+                    <div class="time-slots">
+                      <div v-for="(slot, index) in group.time_slots" :key="index" class="time-slot">
+                        <v-icon icon="mdi-calendar-clock" size="small" class="mr-2"></v-icon>
+                        {{ slot }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </div>
+        
+        <v-divider class="my-4"></v-divider>
+        
+        <div class="actions">
+          <v-btn 
+            variant="tonal" 
+            :color="majorColor !== '#757575' ? majorColor : 'primary'" 
+            @click="showDetails = false"
+            prepend-icon="mdi-arrow-left"
+          >
+            Back to Catalog
+          </v-btn>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -194,5 +301,113 @@ const yearInfo = computed(() => {
 
 .on-hover .v-list-item:hover {
   transform: translateX(5px);
+}
+
+/* Details Modal Styling */
+.details-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn 0.2s ease;
+}
+
+.details-modal {
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease;
+}
+
+.modal-header {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.course-title h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.modal-content {
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.info-section h3,
+.groups-section h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.info-item, .group-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.group-details {
+  padding: 8px 0;
+}
+
+.group-schedule {
+  margin-top: 12px;
+}
+
+.schedule-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.time-slots {
+  padding-left: 28px;
+}
+
+.time-slot {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 </style>
