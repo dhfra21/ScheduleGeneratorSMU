@@ -26,7 +26,6 @@ const majorColor = computed(() => {
     'software engineering': '#1E88E5', // Blue
     'computer systems engineering': '#43A047', // Green
     'renewable energy engineering': '#FB8C00', // Orange
-    'pre-engineering': '#757575' // Gray
   };
   
   const majorKey = props.course.major.toLowerCase();
@@ -145,7 +144,7 @@ function closeDetailsOnOutsideClick(event) {
 
   <!-- Course Details Modal -->
   <div v-if="showDetails" class="details-overlay" @click="closeDetailsOnOutsideClick">
-    <div class="details-modal" :class="`border-${yearInfo.color}`">
+    <div class="details-modal">
       <div class="modal-header" :style="{ backgroundColor: majorColor }">
         <div class="course-title">
           <h2>{{ course.course_code }}: {{ course.course_name }}</h2>

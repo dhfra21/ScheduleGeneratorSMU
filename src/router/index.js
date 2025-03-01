@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import SchedulerView from '@/views/SchedulerView.vue';
 import HomeView from '@/views/HomeView.vue';
 import CoursesView from '@/views/CoursesView.vue';
+import AdminView from '@/views/AdminView.vue'; // Import Admin Panel
 
 const routes = [
   {
@@ -21,6 +22,12 @@ const routes = [
     name: 'courses',
     component: CoursesView,
     meta: { title: 'Course Catalog' }
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: AdminView,
+    meta: { title: 'Admin Panel' }
   },
   // Optional: Add a catch-all route for 404 pages
   {

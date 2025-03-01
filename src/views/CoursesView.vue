@@ -46,6 +46,8 @@ const filteredCourses = computed(() => {
   return result;
 });
 
+
+
 onMounted(async () => {
   try {
     const response = await fetch("/courses.json");
