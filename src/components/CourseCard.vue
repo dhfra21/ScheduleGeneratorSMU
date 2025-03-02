@@ -36,14 +36,15 @@ const majorColor = computed(() => {
 const majorIcon = computed(() => {
   const iconMap = {
     'general': 'mdi-book-open-page-variant',
-    'software engineering': 'mdi-laptop-windows',
+    'Software Engineering': 'mdi-laptop-windows',
     'computer systems engineering': 'mdi-chip',
     'renewable energy engineering': 'mdi-flash',
     'pre-engineering': 'mdi-account-school'
   };
   
   const majorKey = props.course.major.toLowerCase();
-  return iconMap[majorKey] || 'mdi-book-open-page-variant';
+  console.log('Computed Icon:', iconMap[majorKey] || 'mdi-book-open-page-variant'); // Debugging
+  return iconMap[majorKey] || 'mdi-book-open-page-variant'; 
 });
 
 // Get year-based styling
