@@ -43,6 +43,7 @@ const emit = defineEmits(['navigate']);
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
 }
 
+/* Sidebar item styling */
 .sidebar-item {
   border-radius: 8px;
   margin: 4px 8px;

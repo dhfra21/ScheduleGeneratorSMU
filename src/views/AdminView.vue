@@ -1,72 +1,36 @@
-<!-- views/AdminView.vue -->
-<script setup>
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router'; // Import useRouter for navigation
-import AdminSidebar from '@/components/AdminSidebar.vue';
-import ManageCourses from '@/components/ManageCourses.vue';
-
-const router = useRouter();
-const currentView = ref('courses');
-const isAdminLoggedIn = ref(localStorage.getItem('isAdminLoggedIn') === 'true');
-
-// Logout function
-const logout = () => {
-  localStorage.removeItem('isAdminLoggedIn');
-  isAdminLoggedIn.value = false;
-  router.push('/login'); // Redirect to login page after logout
-};
-
-onMounted(() => {
-  if (!isAdminLoggedIn.value) {
-    router.push('/login'); // Redirect to login if not authenticated
-  }
-});
-</script>
-
 <template>
-  <v-container v-if="isAdminLoggedIn" fluid class="admin-container d-flex">
-    <!-- Admin Sidebar Navigation -->
-    <AdminSidebar @navigate="(view) => { currentView = view; console.log('Navigated to:', view); }" />
+  <v-container v-if="isAdminLoggedIn" fluid class="admin-container">
+    <!-- Main Content Without Sidebar (Handled by AdminLayout.vue) -->
+    <v-main class="admin-content">
+      <v-container fluid>
+        <v-card class="pa-4 elevation-2">
+          <v-card-title class="text-h5 font-weight-bold mb-4" style="color: #1e293b;">
+            {{ currentView === 'courses' ? 'Manage Courses' : 'Dashboard Overview' }}
+          </v-card-title>
 
-    <v-main class="admin-content pa-6">
-      <v-card class="pa-4 elevation-2">
-        <!-- Dynamic Content Based on Current View -->
-        <v-card-title class="text-h5 font-weight-bold mb-4" style="color: #1e293b;">
-          {{ currentView === 'courses' ? 'Manage Courses' : 'Dashboard Overview' }}
-        </v-card-title>
+          <v-card-text>
+            <div v-if="currentView === 'courses'" class="table-container">
+              <ManageCourses />
+            </div>
+          </v-card-text>
 
-        <v-card-text>
-          <div v-if="currentView === 'courses'">
-            <ManageCourses />
-            <p class="text-caption">Rendering ManageCourses (currentView: {{ currentView }})</p>
-          </div>
-          <div v-else-if="currentView === 'dashboard'">
-            <h2 class="text-h6">Dashboard Overview</h2>
-            <p>Coming soon...</p>
-            <p class="text-caption">Rendering Dashboard (currentView: {{ currentView }})</p>
-          </div>
-          <div v-else>
-            <h2 class="text-h5">Unknown View</h2>
-            <p>Current view is '{{ currentView }}'. Please check navigation.</p>
-            <p class="text-caption">Rendering Unknown (currentView: {{ currentView }})</p>
-          </div>
-        </v-card-text>
-
-        <!-- Logout Button -->
-        <v-btn
-          color="error"
-          variant="outlined"
-          size="small"
-          class="mt-4"
-          @click="logout"
-          aria-label="Logout of Admin Panel"
-        >
-          Logout
-        </v-btn>
-      </v-card>
+          <!-- Logout Button -->
+          <v-btn
+            color="error"
+            variant="outlined"
+            size="small"
+            class="mt-4"
+            @click="logout"
+            aria-label="Logout of Admin Panel"
+          >
+            Logout
+          </v-btn>
+        </v-card>
+      </v-container>
     </v-main>
   </v-container>
 
+  <!-- Access Denied View -->
   <v-container v-else class="fill-height d-flex align-center justify-center">
     <v-card class="pa-4 elevation-2">
       <v-card-text>
@@ -80,14 +44,46 @@ onMounted(() => {
   </v-container>
 </template>
 
+<script setup>
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import ManageCourses from "@/components/ManageCourses.vue";
+
+const router = useRouter();
+const currentView = ref("courses");
+const isAdminLoggedIn = ref(localStorage.getItem("isAdminLoggedIn") === "true");
+
+const logout = () => {
+  localStorage.removeItem("isAdminLoggedIn");
+  isAdminLoggedIn.value = false;
+  router.push("/login");
+};
+
+onMounted(() => {
+  if (!isAdminLoggedIn.value) {
+    router.push("/login");
+  }
+});
+</script>
+
 <style scoped>
+/* Ensure full screen layout */
 .admin-container {
-  height: 100vh;
   display: flex;
+  height: 100vh;
 }
 
+/* Fix sidebar spacing */
 .admin-content {
   flex: 1;
   overflow-y: auto;
+  padding: 16px; /* No margin-left since AdminLayout.vue handles it */
+}
+
+/* Prevent table overflow */
+.table-container {
+  max-height: 75vh;
+  overflow-y: auto;
+  padding: 0 10px;
 }
 </style>

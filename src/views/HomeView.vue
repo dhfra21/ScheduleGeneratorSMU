@@ -23,7 +23,7 @@ const goToLogin = () => router.push('/login'); // Redirect to login for admin ac
         <v-col cols="12">
           <v-icon color="primary" size="60" class="mb-4 animate-icon" aria-hidden="true">mdi-calendar-clock</v-icon>
           <h1 class="text-h3 font-weight-bold mb-2" style="color: #1e293b; word-break: break-word;" aria-label="Welcome to University Scheduler">
-            Welcome to University Scheduler
+            Welcome to SMU Scheduler
           </h1>
           <p class="text-body-1" style="color: #64748b; word-break: break-word;" aria-label="Plan your perfect semester with ease. Build schedules, explore courses, and optimize your time.">
             Plan your perfect semester with ease. Build schedules, explore courses, and optimize your time.
@@ -44,7 +44,7 @@ const goToLogin = () => router.push('/login'); // Redirect to login for admin ac
             class="action-btn"
             aria-label="Navigate to Schedule Builder"
           >
-            Build Your Schedule
+            SCHEDULE BUILDER
           </v-btn>
         </v-col>
         <v-col cols="12" sm="6" md="4">
