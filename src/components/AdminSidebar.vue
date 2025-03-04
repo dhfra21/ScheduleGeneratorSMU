@@ -1,5 +1,17 @@
 <script setup>
+import { useRoute, useRouter } from 'vue-router';
+import { ref } from 'vue';
+
 const emit = defineEmits(['navigate']);
+const route = useRoute();
+const router = useRouter();
+const isAdminLoggedIn = ref(true);
+
+const logout = () => {
+  localStorage.removeItem("isAdminLoggedIn");
+  isAdminLoggedIn.value = false;
+  router.push("/login");
+};
 </script>
 
 <template>
@@ -20,16 +32,32 @@ const emit = defineEmits(['navigate']);
         @click="$emit('navigate', item.route)"
         link
         class="sidebar-item"
-        :class="{ 'selected': item.route === $route.name }"
+        :class="{ 'selected': item.route === route.name }"
       >
         <template v-slot:prepend>
-          <v-icon :size="20" :color="item.route === $route.name ? 'white' : 'grey-darken-2'">
+          <v-icon :size="20" :color="item.route === route.name ? 'white' : 'grey-darken-2'">
             {{ item.icon }}
           </v-icon>
         </template>
         <v-list-item-content>
-          <v-list-item-title class="text-body-2 font-weight-medium" :class="{ 'active-title': item.route === $route.name }">
+          <v-list-item-title class="text-body-2 font-weight-medium" :class="{ 'active-title': item.route === route.name }">
             {{ item.title }}
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      
+      <!-- Logout Button -->
+      <v-divider class="my-3"></v-divider>
+      <v-list-item
+        class="sidebar-item logout-btn"
+        @click="logout"
+      >
+        <template v-slot:prepend>
+          <v-icon size="20" color="red-darken-2">mdi-logout</v-icon>
+        </template>
+        <v-list-item-content>
+          <v-list-item-title class="text-body-2 font-weight-medium" style="color: red;">
+            Logout
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -43,7 +71,6 @@ const emit = defineEmits(['navigate']);
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Sidebar item styling */
 .sidebar-item {
   border-radius: 8px;
   margin: 4px 8px;
@@ -60,10 +87,10 @@ const emit = defineEmits(['navigate']);
 }
 
 .sidebar-item.selected {
-  background: #3b82f6; /* Stronger blue background for selected state */
+  background: #3b82f6;
   color: white !important;
-  border-left: 4px solid #2563eb; /* Distinct left border for emphasis */
-  padding-left: 12px; /* Adjust padding to account for border */
+  border-left: 4px solid #2563eb;
+  padding-left: 12px;
 }
 
 .sidebar-item.selected .v-icon {
@@ -84,5 +111,16 @@ const emit = defineEmits(['navigate']);
 
 .active-title {
   color: white !important;
+}
+
+/* Logout Button */
+.logout-btn {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 0, 0, 0.1);
 }
 </style>

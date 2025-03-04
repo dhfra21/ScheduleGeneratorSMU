@@ -15,16 +15,7 @@
           </v-card-text>
 
           <!-- Logout Button -->
-          <v-btn
-            color="error"
-            variant="outlined"
-            size="small"
-            class="mt-4"
-            @click="logout"
-            aria-label="Logout of Admin Panel"
-          >
-            Logout
-          </v-btn>
+          
         </v-card>
       </v-container>
     </v-main>
@@ -53,11 +44,6 @@ const router = useRouter();
 const currentView = ref("courses");
 const isAdminLoggedIn = ref(localStorage.getItem("isAdminLoggedIn") === "true");
 
-const logout = () => {
-  localStorage.removeItem("isAdminLoggedIn");
-  isAdminLoggedIn.value = false;
-  router.push("/login");
-};
 
 onMounted(() => {
   if (!isAdminLoggedIn.value) {
