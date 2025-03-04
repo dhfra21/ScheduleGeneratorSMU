@@ -459,7 +459,7 @@
     },
     {
       "course_code": "MATH341",
-      "course_name": "Differential Equation\u00a0",
+      "course_name": "Differential Equation ",
       "major": "Software Engineering",
       "year": "Senior",
       "credits": 3,
@@ -1647,7 +1647,7 @@
     },
     {
       "course_code": "CS220",
-      "course_name": "Introduction to automata theory\u00a0and compilation",
+      "course_name": "Introduction to automata theory and compilation",
       "major": "Pre-engineering",
       "year": "Senior",
       "credits": 3,

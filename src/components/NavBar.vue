@@ -9,7 +9,7 @@
           aria-label="Navigate to University Scheduler Home"
         >
           <v-icon icon="mdi-calendar-clock" class="mr-2"></v-icon>
-          <span class="app-title">University Scheduler</span>
+          <span class="app-title">SMU University Scheduler</span>
         </v-btn>
       </v-app-bar-title>
   

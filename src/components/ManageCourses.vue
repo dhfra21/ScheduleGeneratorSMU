@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios'; // Import axios
+import { ref, onMounted, computed } from 'vue';
+import axios from 'axios';
 import EditCourseDialog from '@/components/EditCourseDialog.vue';
 import DeleteCourseDialog from '@/components/DeleteCourseDialog.vue';
 import AddCourseDialog from '@/components/AddCourseDialog.vue';
@@ -16,6 +16,7 @@ const snackbar = ref(false);
 const snackbarText = ref('');
 const snackbarColor = ref('success');
 
+const searchQuery = ref(''); // Search bar input
 const courseToDelete = ref(null);
 const courseToEdit = ref(null);
 const newCourse = ref({
@@ -30,18 +31,27 @@ const newCourse = ref({
 onMounted(async () => {
   try {
     const response = await axios.get('http://localhost:3000/courses');
-    console.log("Courses fetched:", response.data); // Debugging
     courses.value = response.data || [];
   } catch (err) {
-    console.error("Error fetching courses:", err);
     error.value = 'Failed to load courses. Please try again.';
   } finally {
     loading.value = false;
   }
 });
 
+// Computed property for filtering courses based on search input
+const filteredCourses = computed(() => {
+  if (!searchQuery.value) {
+    return courses.value;
+  }
+  return courses.value.filter(course =>
+    Object.values(course).some(value =>
+      String(value).toLowerCase().includes(searchQuery.value.toLowerCase())
+    )
+  );
+});
+
 const confirmDeleteCourse = (index) => {
-  console.log('Confirming deletion of course at index:', index); // Debugging
   courseToDelete.value = index;
   deleteDialog.value = true;
 };
@@ -49,13 +59,11 @@ const confirmDeleteCourse = (index) => {
 const deleteCourse = async () => {
   try {
     const courseId = courses.value[courseToDelete.value].id;
-    console.log('Deleting course with ID:', courseId); // Debugging
     await axios.delete(`http://localhost:3000/courses/${courseId}`);
     courses.value.splice(courseToDelete.value, 1);
     snackbarText.value = 'Course deleted successfully!';
     snackbarColor.value = 'success';
   } catch (err) {
-    console.error("Error deleting course:", err);
     snackbarText.value = 'Failed to delete course';
     snackbarColor.value = 'error';
   } finally {
@@ -66,20 +74,18 @@ const deleteCourse = async () => {
 };
 
 const confirmEditCourse = (index) => {
-  courseToEdit.value = index;
   courseToEdit.value = { ...courses.value[index] };
   editDialog.value = true;
-  console.log('Editing course:', courseToEdit.value, 'ID:', courseToEdit.value.id); // Debugging
 };
 
 const saveEditedCourse = async (updatedCourse) => {
   try {
     await axios.put(`http://localhost:3000/courses/${updatedCourse.id}`, updatedCourse);
-    courses.value[courseToEdit.value] = { ...updatedCourse };
+    const index = courses.value.findIndex(course => course.id === updatedCourse.id);
+    if (index !== -1) courses.value[index] = { ...updatedCourse };
     snackbarText.value = 'Course updated successfully!';
     snackbarColor.value = 'success';
   } catch (err) {
-    console.error("Error updating course:", err);
     snackbarText.value = 'Failed to update course';
     snackbarColor.value = 'error';
   } finally {
@@ -89,16 +95,7 @@ const saveEditedCourse = async (updatedCourse) => {
 };
 
 const openAddCourseDialog = () => {
-  newCourse.value = {
-    course_code: '',
-    course_name: '',
-    major: '',
-    year: '',
-    credits: 0,
-    groups: [{ group_number: 1, professor: '', classroom: '', time_slots: [''] }],
-  };
   addDialog.value = true;
-  console.log('Adding new course:', newCourse.value); // Debugging
 };
 
 const saveNewCourse = async (newCourseData) => {
@@ -108,7 +105,6 @@ const saveNewCourse = async (newCourseData) => {
     snackbarText.value = 'Course added successfully!';
     snackbarColor.value = 'success';
   } catch (err) {
-    console.error("Error adding course:", err);
     snackbarText.value = 'Failed to add course';
     snackbarColor.value = 'error';
   } finally {
@@ -121,18 +117,22 @@ const saveNewCourse = async (newCourseData) => {
 <template>
   <v-container fluid>
     <v-card class="pa-4 elevation-2">
-      <v-card-title class="text-h5 d-flex justify-space-between align-center">
-        <span>Manage Courses</span>
-        <v-btn
-          color="primary"
-          variant="flat"
-          @click="openAddCourseDialog"
-          class="add-btn"
-        >
+      <v-card-title class="d-flex justify-space-between align-center">
+        <span class="text-h5">Manage Courses</span>
+        <v-btn color="primary" @click="openAddCourseDialog" class="add-btn">
           <v-icon left>mdi-plus</v-icon>
           Add Course
         </v-btn>
       </v-card-title>
+
+      <!-- Search Bar -->
+      <v-text-field
+        v-model="searchQuery"
+        label="Search courses..."
+        prepend-inner-icon="mdi-magnify"
+        clearable
+        class="mt-4"
+      ></v-text-field>
 
       <v-progress-linear v-if="loading" indeterminate color="primary"></v-progress-linear>
       <v-alert v-if="error" type="error" class="mb-4">{{ error }}</v-alert>
@@ -149,7 +149,7 @@ const saveNewCourse = async (newCourseData) => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(course, index) in courses" :key="course.id" class="course-row">
+          <tr v-for="(course, index) in filteredCourses" :key="course.id" class="course-row">
             <td class="highlightable">{{ course.course_code }}</td>
             <td class="highlightable">{{ course.course_name }}</td>
             <td>{{ course.major }}</td>
@@ -157,20 +157,8 @@ const saveNewCourse = async (newCourseData) => {
             <td>{{ course.credits }}</td>
             <td>
               <div class="action-buttons">
-                <v-btn
-                  icon="mdi-pencil"
-                  variant="text"
-                  color="primary"
-                  @click="confirmEditCourse(index)"
-                  class="action-btn"
-                ></v-btn>
-                <v-btn
-                  icon="mdi-delete"
-                  variant="text"
-                  color="error"
-                  @click="confirmDeleteCourse(index)"
-                  class="action-btn"
-                ></v-btn>
+                <v-btn icon="mdi-pencil" variant="text" color="primary" @click="confirmEditCourse(index)"></v-btn>
+                <v-btn icon="mdi-delete" variant="text" color="error" @click="confirmDeleteCourse(index)"></v-btn>
               </div>
             </td>
           </tr>
@@ -182,11 +170,7 @@ const saveNewCourse = async (newCourseData) => {
     <EditCourseDialog v-model="editDialog" :course="courseToEdit" @save="saveEditedCourse" />
 
     <!-- Delete Confirmation Dialog -->
-    <DeleteCourseDialog 
-      v-model="deleteDialog" 
-      :course-id="courses[courseToDelete]?.id" 
-      @confirm="deleteCourse" 
-    />
+    <DeleteCourseDialog v-model="deleteDialog" :course-id="courses[courseToDelete]?.id" @confirm="deleteCourse" />
 
     <!-- Add Course Dialog -->
     <AddCourseDialog v-model="addDialog" :course="newCourse" @save="saveNewCourse" />
@@ -208,20 +192,6 @@ const saveNewCourse = async (newCourseData) => {
 .action-buttons {
   display: flex;
   gap: 8px;
-}
-
-.action-btn {
-  transition: transform 0.2s ease;
-}
-
-.action-btn:hover ~ .highlightable {
-  background-color: #e6f0ff;
-  color: #1a202c;
-  border-left: 2px solid #3b82f6;
-}
-
-.action-btn:hover {
-  transform: scale(1.1);
 }
 
 .add-btn {
