@@ -48,9 +48,9 @@
         </v-card-text>
   
         <v-card-actions class="justify-center mt-4">
-          <p class="text-caption" style="color: #64748b;">
-            Need help? Contact support at admin@universityscheduler.com
-          </p>
+          <v-btn variant="text" color="secondary" @click="goHome">
+            <v-icon left>mdi-home</v-icon> Go to Home
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-container>
@@ -73,19 +73,23 @@
   };
   
   const login = () => {
-  isLoading.value = true;
-  error.value = '';
-
-  if (email.value === ADMIN_CREDENTIALS.email && password.value === ADMIN_CREDENTIALS.password) {
-    localStorage.setItem('isAdminLoggedIn', 'true'); // Set to true only after successful login
-    console.log('Login successful, isAdminLoggedIn set to true'); // Debugging
-    router.push('/admin');
-  } else {
-    error.value = 'Invalid email or password. Please try again.';
-  }
-
-  isLoading.value = false;
-};
+    isLoading.value = true;
+    error.value = '';
+  
+    if (email.value === ADMIN_CREDENTIALS.email && password.value === ADMIN_CREDENTIALS.password) {
+      localStorage.setItem('isAdminLoggedIn', 'true'); // Set to true only after successful login
+      console.log('Login successful, isAdminLoggedIn set to true'); // Debugging
+      router.push('/admin');
+    } else {
+      error.value = 'Invalid email or password. Please try again.';
+    }
+  
+    isLoading.value = false;
+  };
+  
+  const goHome = () => {
+    router.push('/');
+  };
   </script>
   
   <style scoped>

@@ -1,6 +1,71 @@
 {
   "courses": [
     {
+      "course_code": "CS101",
+      "course_name": "Introduction to Programming",
+      "major": "Software Engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. Johnson",
+          "classroom": "Room B202",
+          "time_slots": [
+            "Wednesday 10:00-12:00",
+            "Wednesday 14:00-16:00"
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Smith",
+          "classroom": "Room F606",
+          "time_slots": [
+            "Thursday 14:00-16:00",
+            "Friday 14:00-16:00"
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Dr. Hall",
+          "classroom": "Room B202",
+          "time_slots": [
+            "Tuesday 08:00-10:00",
+            "Monday 10:00-12:00"
+          ]
+        }
+      ],
+      "id": "8c13"
+    },
+    {
+      "course_code": "CS102",
+      "course_name": "Object-Oriented Programming",
+      "major": "Software Engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. Johnson",
+          "classroom": "Room G707",
+          "time_slots": [
+            "Thursday 08:00-10:00",
+            "Friday 10:00-12:00"
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Prof. Johnson",
+          "classroom": "Room B202",
+          "time_slots": [
+            "Friday 14:00-16:00",
+            "Tuesday 14:00-16:00"
+          ]
+        }
+      ],
+      "id": "112d"
+    },
+    {
       "course_code": "ENG111",
       "course_name": "Academic English",
       "major": "Pre-engineering",

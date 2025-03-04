@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <!-- Conditionally render NavBar based on isAdminLoggedIn -->
-    <NavBar v-if="!isAdminLoggedIn" />
     <v-main>
       <router-view></router-view>
     </v-main>

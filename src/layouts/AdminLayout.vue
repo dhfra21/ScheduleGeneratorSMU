@@ -13,7 +13,7 @@
 <script setup>
 import { ref } from "vue";
 import AdminSidebar from "@/components/AdminSidebar.vue";
-import AdminView from "@/components/AdminView.vue"; // Adjust the import path as needed
+import AdminView from "@/views/AdminView.vue"; // Adjust the import path as needed
 
 const currentView = ref("dashboard"); // Default view
 </script>
