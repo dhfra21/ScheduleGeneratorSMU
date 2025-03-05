@@ -1,6 +1,9 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
+import axios from 'axios';
 import CourseCard from '@/components/CourseCard.vue';
+
+const API_URL = 'http://localhost:3000/courses'; // Use '/api/courses' with proxy
 
 const courses = ref([]);
 const loading = ref(true);
@@ -9,7 +12,6 @@ const search = ref('');
 const selectedMajor = ref('All');
 const selectedYear = ref('All');
 
-// Get unique majors and years for filter options
 const majorOptions = computed(() => {
   const majors = new Set(courses.value.map(course => course.major));
   return ['All', ...Array.from(majors).sort()];
@@ -22,8 +24,6 @@ const yearOptions = computed(() => {
 
 const filteredCourses = computed(() => {
   let result = courses.value;
-  
-  // Apply search filter
   if (search.value) {
     const searchTerm = search.value.toLowerCase();
     result = result.filter(course => 
@@ -32,42 +32,35 @@ const filteredCourses = computed(() => {
       course.major.toLowerCase().includes(searchTerm)
     );
   }
-  
-  // Apply major filter
   if (selectedMajor.value !== 'All') {
     result = result.filter(course => course.major === selectedMajor.value);
   }
-  
-  // Apply year filter
   if (selectedYear.value !== 'All') {
     result = result.filter(course => course.year === selectedYear.value);
   }
-  
   return result;
 });
 
-
-
-onMounted(async () => {
+const fetchCourses = async () => {
   try {
-    const response = await fetch("/courses.json");
-    const data = await response.json();
-    if (data?.courses) {
-      courses.value = data.courses.map(course => ({
-        course_code: course.course_code,
-        course_name: course.course_name,
-        major: course.major || 'General',
-        year: course.year || 'N/A',
-        credits: course.credits || 0,
-        groups: course.groups || [] // Ensure groups are loaded
-      }));
-    }
+    loading.value = true;
+    const response = await axios.get(API_URL);
+    courses.value = response.data.map(course => ({
+      course_code: course.course_code,
+      course_name: course.course_name,
+      major: course.major || 'General',
+      year: course.year || 'N/A',
+      credits: course.credits || 0,
+      groups: course.groups || []
+    }));
   } catch (err) {
     error.value = err.message;
   } finally {
     loading.value = false;
   }
-});
+};
+
+onMounted(fetchCourses);
 </script>
 
 <template>
@@ -76,6 +69,14 @@ onMounted(async () => {
       <v-card-title class="text-h4 font-weight-bold mb-4">
         <v-icon color="primary" size="40" class="mr-2">mdi-book-multiple</v-icon>
         Course Catalog
+        <!-- Add a refresh button -->
+        <v-btn
+          icon="mdi-refresh"
+          variant="text"
+          color="primary"
+          @click="fetchCourses"
+          class="ml-2"
+        ></v-btn>
       </v-card-title>
       
       <!-- Search and filters -->

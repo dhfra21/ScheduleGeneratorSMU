@@ -1,18 +1,22 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue';
 
-const props = defineProps(['modelValue']);
+const props = defineProps(['value', 'courseId']);
 const emit = defineEmits(['update:modelValue', 'confirm']);
 
 const closeDialog = () => emit('update:modelValue', false);
+
 const confirmDelete = () => {
-  emit('confirm');
+  if (props.courseId) {
+    console.log('Emitting confirm with courseId:', props.courseId); // Debug log
+    emit('confirm', props.courseId);
+  }
   closeDialog();
 };
 </script>
 
 <template>
-  <v-dialog v-model="props.modelValue" max-width="400px">
+  <v-dialog :value="props.value" @update:modelValue="emit('update:modelValue', $event)" max-width="400px">
     <v-card class="pa-4 rounded-lg">
       <v-card-title>Confirm Deletion</v-card-title>
       <v-card-text>Are you sure you want to delete this course?</v-card-text>

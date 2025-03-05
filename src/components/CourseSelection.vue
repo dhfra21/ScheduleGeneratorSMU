@@ -1,5 +1,8 @@
-<script setup>
+<<script setup>
 import { ref, onMounted, computed } from 'vue';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:3000/courses'; // Use '/api/courses' with proxy
 
 const props = defineProps({
   selectedCourses: {
@@ -18,15 +21,13 @@ const snackbarColor = ref('success');
 
 onMounted(async () => {
   try {
-    const response = await fetch("/courses.json");
-    const data = await response.json();
-    if (data && Array.isArray(data.courses)) {
-      availableCourses.value = data.courses;
-    } else {
-      console.error("Invalid JSON structure (expected 'courses' key):", data);
-    }
+    const response = await axios.get(API_URL);
+    availableCourses.value = response.data;
   } catch (error) {
     console.error("Error loading courses:", error);
+    snackbarText.value = 'Failed to load courses';
+    snackbarColor.value = 'error';
+    snackbar.value = true;
   }
 });
 
@@ -146,8 +147,6 @@ const confirmSelection = () => {
         </div>
       </v-alert>
     </v-card-text>
-
-    
 
     <v-snackbar
       v-model="snackbar"

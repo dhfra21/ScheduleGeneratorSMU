@@ -1,45 +1,64 @@
+// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
-import SchedulerView from '@/views/SchedulerView.vue';
+import UserLayout from '@/layouts/UserLayout.vue';
+import AdminLayout from '@/layouts/AdminLayout.vue';
+
+// User-facing views
 import HomeView from '@/views/HomeView.vue';
+import SchedulerView from '@/views/SchedulerView.vue';
 import CoursesView from '@/views/CoursesView.vue';
-import AdminView from '@/views/AdminView.vue'; // Import Admin Panel
-import AdminLogin from '@/views/AdminLogin.vue'; // Import the Login view
+import AdminLogin from '@/views/AdminLogin.vue';
+
+// Admin-facing views
+import AdminView from '@/views/AdminView.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView,
-    meta: { title: 'Home - University Scheduler' },
-  },
-  {
-    path: '/schedule',
-    name: 'schedule',
-    component: SchedulerView,
-    meta: { title: 'Schedule Builder' },
-  },
-  {
-    path: '/courses',
-    name: 'courses',
-    component: CoursesView,
-    meta: { title: 'Course Catalog' },
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: AdminLogin,
-    meta: { title: 'Admin Login - University Scheduler' },
+    component: UserLayout,
+    children: [
+      {
+        path: '',
+        name: 'home',
+        component: HomeView,
+        meta: { title: 'Home - University Scheduler' },
+      },
+      {
+        path: 'schedule',
+        name: 'schedule',
+        component: SchedulerView,
+        meta: { title: 'Schedule Builder' },
+      },
+      {
+        path: 'courses',
+        name: 'courses',
+        component: CoursesView,
+        meta: { title: 'Course Catalog' },
+      },
+      {
+        path: 'login',
+        name: 'login',
+        component: AdminLogin,
+        meta: { title: 'Admin Login - University Scheduler' },
+      },
+    ],
   },
   {
     path: '/admin',
-    name: 'admin',
-    component: AdminView,
-    meta: { 
-      title: 'Admin Panel - University Scheduler',
-      requiresAuth: true, // Require admin login to access this route
-    },
+    component: AdminLayout,
+    children: [
+      {
+        path: '',
+        name: 'admin',
+        component: AdminView,
+        meta: {
+          title: 'Admin Panel - University Scheduler',
+          requiresAuth: true, // Require admin login to access this route
+        },
+      },
+    ],
   },
-  // Optional: Add a catch-all route for 404 pages
+  // Catch-all route for 404 pages
   {
     path: '/:pathMatch(.*)*',
     redirect: '/',
