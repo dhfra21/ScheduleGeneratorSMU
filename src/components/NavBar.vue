@@ -1,37 +1,36 @@
 <!-- components/NavBar.vue -->
 <template>
-    <v-app-bar app color="primary" density="comfortable">
-      <v-app-bar-title>
-        <v-icon icon="mdi-calendar-clock" class="mr-2"></v-icon>
-        University Scheduler
-      </v-app-bar-title>
-  
-      <v-spacer></v-spacer>
-  
-      <v-btn
-        variant="text"
-        :to="{ name: 'schedule' }"
-        :active-class="'text-white'"
-        class="mx-2 d-flex align-center justify-center"
-      >
-        <v-icon icon="mdi-calendar-edit" class="mr-2"></v-icon>
-        <span>Schedule Builder</span>
-      </v-btn>
-  
-      <v-btn
-        variant="text"
-        :to="{ name: 'courses' }"
-        :active-class="'text-white'"
-        class="mx-2 d-flex align-center justify-center"
-      >
-        <v-icon icon="mdi-book-multiple" class="mr-2"></v-icon>
-        <span>Course Catalog</span>
-      </v-btn>
-    </v-app-bar>
+    <!-- Global Navbar -->
+<v-app-bar color="primary" density="compact">
+  <v-container class="d-flex align-center">
+    <!-- Left: Page Title -->
+    <span class="text-h6 text-white">{{ currentTitle }}</span>
+
+    <v-spacer></v-spacer> <!-- Pushes user info to the right -->
+
+    <!-- Right: User Info -->
+    <div class="d-flex align-center">
+      <span class="text-h6 mr-2">Place Holder User</span>
+      <v-avatar size="40">
+        <img src="" alt="Profile">
+      </v-avatar>
+    </div>
+  </v-container>
+</v-app-bar>
   </template>
   
   <script setup>
   // Component logic (if needed) can go here
+import { ref, watchEffect } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const currentTitle = ref('');
+
+// Watch for route changes and update title dynamically
+watchEffect(() => {
+currentTitle.value = route.meta.title || 'Unknown Page';
+});
   </script>
   
   <style scoped>
