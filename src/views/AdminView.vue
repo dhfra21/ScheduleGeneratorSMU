@@ -1,22 +1,14 @@
 <template>
   <v-container v-if="isAdminLoggedIn" fluid class="admin-container">
-    <!-- Main Content Without Sidebar (Handled by AdminLayout.vue) -->
+    <!-- Title outside any card -->
+    <h1 class="text-h5 font-weight-bold mb-4 page-title">
+    </h1>
+
+    <!-- Main Content Without Extra Cards -->
     <v-main class="admin-content">
       <v-container fluid>
-        <v-card class="pa-4 elevation-2">
-          <v-card-title class="text-h5 font-weight-bold mb-4" style="color: #1e293b;">
-            {{ currentView === 'courses' ? 'Manage Courses' : 'Dashboard Overview' }}
-          </v-card-title>
-
-          <v-card-text>
-            <div v-if="currentView === 'courses'" class="table-container">
-              <ManageCourses />
-            </div>
-          </v-card-text>
-
-          <!-- Logout Button -->
-          
-        </v-card>
+        <!-- Keep table structured without unnecessary cards -->
+        <ManageCourses />
       </v-container>
     </v-main>
   </v-container>
@@ -41,9 +33,7 @@ import { useRouter } from "vue-router";
 import ManageCourses from "@/components/ManageCourses.vue";
 
 const router = useRouter();
-const currentView = ref("courses");
 const isAdminLoggedIn = ref(localStorage.getItem("isAdminLoggedIn") === "true");
-
 
 onMounted(() => {
   if (!isAdminLoggedIn.value) {
@@ -53,23 +43,23 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* Styling for the page title */
+.page-title {
+  color: #1e293b;
+  padding-left: 16px;
+}
+
 /* Ensure full screen layout */
 .admin-container {
   display: flex;
   height: 100vh;
+  flex-direction: column;
 }
 
-/* Fix sidebar spacing */
+/* Main content area */
 .admin-content {
   flex: 1;
   overflow-y: auto;
-  padding: 16px; /* No margin-left since AdminLayout.vue handles it */
-}
-
-/* Prevent table overflow */
-.table-container {
-  max-height: 75vh;
-  overflow-y: auto;
-  padding: 0 10px;
+  padding: 16px;
 }
 </style>

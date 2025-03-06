@@ -16,7 +16,7 @@ const snackbar = ref(false);
 const snackbarText = ref('');
 const snackbarColor = ref('success');
 
-const searchQuery = ref(''); // Search bar input
+const searchQuery = ref(''); // Search input
 const courseToDelete = ref(null);
 const courseToEdit = ref(null);
 const newCourse = ref({
@@ -116,61 +116,84 @@ const saveNewCourse = async (newCourseData) => {
 
 <template>
   <v-container fluid>
-    <v-card class="pa-4 elevation-2">
-      <v-card-title class="d-flex justify-space-between align-center">
-        <span class="text-h5">Manage Courses</span>
-        <v-btn color="primary" @click="openAddCourseDialog" class="add-btn">
-          <v-icon left>mdi-plus</v-icon>
-          Add Course
-        </v-btn>
-      </v-card-title>
+    <!-- Title -->
+    <h1 class="text-h5 font-weight-bold mb-4 page-title">
+      Manage Courses
+    </h1>
 
-      <!-- Search Bar -->
-      <v-text-field
-        v-model="searchQuery"
-        label="Search courses..."
-        prepend-inner-icon="mdi-magnify"
-        clearable
-        class="mt-4"
-      ></v-text-field>
+    <!-- Search Bar -->
+    <v-text-field
+      v-model="searchQuery"
+      label="Search courses..."
+      prepend-inner-icon="mdi-magnify"
+      clearable
+      class="mb-4"
+    ></v-text-field>
 
-      <v-progress-linear v-if="loading" indeterminate color="primary"></v-progress-linear>
-      <v-alert v-if="error" type="error" class="mb-4">{{ error }}</v-alert>
+    <!-- Add Course Button -->
+    <v-btn
+      color="primary"
+      variant="flat"
+      @click="openAddCourseDialog"
+      class="mb-4 add-btn"
+    >
+      <v-icon left>mdi-plus</v-icon>
+      Add Course
+    </v-btn>
 
-      <v-table v-if="!loading && !error">
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Major</th>
-            <th>Year</th>
-            <th>Credits</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(course, index) in filteredCourses" :key="course.id" class="course-row">
-            <td class="highlightable">{{ course.course_code }}</td>
-            <td class="highlightable">{{ course.course_name }}</td>
-            <td>{{ course.major }}</td>
-            <td>{{ course.year }}</td>
-            <td>{{ course.credits }}</td>
-            <td>
-              <div class="action-buttons">
-                <v-btn icon="mdi-pencil" variant="text" color="primary" @click="confirmEditCourse(index)"></v-btn>
-                <v-btn icon="mdi-delete" variant="text" color="error" @click="confirmDeleteCourse(index)"></v-btn>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </v-table>
-    </v-card>
+    <v-progress-linear v-if="loading" indeterminate color="primary"></v-progress-linear>
+    <v-alert v-if="error" type="error" class="mb-4">{{ error }}</v-alert>
+
+    <!-- Courses Table -->
+    <v-table v-if="!loading && !error">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Major</th>
+          <th>Year</th>
+          <th>Credits</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(course, index) in filteredCourses" :key="course.id" class="course-row">
+          <td class="highlightable">{{ course.course_code }}</td>
+          <td class="highlightable">{{ course.course_name }}</td>
+          <td>{{ course.major }}</td>
+          <td>{{ course.year }}</td>
+          <td>{{ course.credits }}</td>
+          <td>
+            <div class="action-buttons">
+              <v-btn
+                icon="mdi-pencil"
+                variant="text"
+                color="primary"
+                @click="confirmEditCourse(index)"
+                class="action-btn"
+              ></v-btn>
+              <v-btn
+                icon="mdi-delete"
+                variant="text"
+                color="error"
+                @click="confirmDeleteCourse(index)"
+                class="action-btn"
+              ></v-btn>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </v-table>
 
     <!-- Edit Course Dialog -->
     <EditCourseDialog v-model="editDialog" :course="courseToEdit" @save="saveEditedCourse" />
 
     <!-- Delete Confirmation Dialog -->
-    <DeleteCourseDialog v-model="deleteDialog" :course-id="courses[courseToDelete]?.id" @confirm="deleteCourse" />
+    <DeleteCourseDialog 
+      v-model="deleteDialog" 
+      :course-id="courses[courseToDelete]?.id" 
+      @confirm="deleteCourse" 
+    />
 
     <!-- Add Course Dialog -->
     <AddCourseDialog v-model="addDialog" :course="newCourse" @save="saveNewCourse" />
@@ -181,17 +204,33 @@ const saveNewCourse = async (newCourseData) => {
 </template>
 
 <style scoped>
+/* Styling for the page title */
+.page-title {
+  color: #1e293b;
+}
+
+/* Table row styling */
 .course-row {
   position: relative;
 }
 
-.highlightable {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+/* Search field */
+.v-text-field {
+  max-width: 400px;
 }
 
+/* Action buttons */
 .action-buttons {
   display: flex;
   gap: 8px;
+}
+
+.action-btn {
+  transition: transform 0.2s ease;
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
 }
 
 .add-btn {

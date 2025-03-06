@@ -8,8 +8,8 @@ const props = defineProps({
 const optimizationOptions = ref({
   minimizeGaps: true,
   maximizeSleep: false,
-  maximizeDaysOff: false,
-  minimizeCourses: false,
+  maximizeDaysOff: false
+  
 });
 </script>
 
@@ -80,7 +80,7 @@ export default {
         minimizeGaps: 'Reduce time gaps between classes',
         maximizeSleep: 'Prioritize later start times for more sleep',
         maximizeDaysOff: 'Increase the number of free days',
-        minimizeCourses: 'Reduce the total number of courses',
+        
       };
       return tooltips[option] || 'No description available';
     },
