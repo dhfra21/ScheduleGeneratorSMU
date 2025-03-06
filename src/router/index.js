@@ -14,6 +14,7 @@ import AdminView from '@/views/AdminView.vue';
 import UserMainView from '../views/UserMainView.vue';
 import { components } from 'vuetify/dist/vuetify-labs.js';
 import ProfileView from '../views/ProfileView.vue';
+import UserLogin from '../views/UserLogin.vue';
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
         name: 'login',
         component: AdminLogin,
         meta: { title: 'Admin Login - University Scheduler' },
+      },
+      { path: 'userLogin', 
+        name: 'UserLogin',
+        component: UserLogin,
+        meta:{ title: 'User Login - University Scheduler'},
       },
       {
         path: 'Profile',

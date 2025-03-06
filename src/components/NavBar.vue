@@ -15,7 +15,7 @@
       <v-menu offset-y>
         <template v-slot:activator="{ props }">
           <v-btn v-bind="props" variant="text" class="user-menu">
-            <span class="NavbarText mr-2">Place Holder User</span>
+            <span class="NavbarText mr-2">{{USER_CREDENTIALS?.value?.name || ' Mourad Koch' }}</span>
             <v-avatar size="40">
               <img src="" alt="Profile">
             </v-avatar>
@@ -42,10 +42,11 @@
 <script setup>
 import { ref, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-
+import { inject } from 'vue';
 const route = useRoute();
 const router = useRouter();
 const currentTitle = ref('');
+const USER_CREDENTIALS = inject('USER_CREDENTIALS')
 
 // Watch for route changes and update title dynamically
 watchEffect(() => {
