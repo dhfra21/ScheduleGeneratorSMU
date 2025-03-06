@@ -11,6 +11,9 @@ import AdminLogin from '@/views/AdminLogin.vue';
 
 // Admin-facing views
 import AdminView from '@/views/AdminView.vue';
+import UserMainView from '../views/UserMainView.vue';
+import { components } from 'vuetify/dist/vuetify-labs.js';
+import ProfileView from '../views/ProfileView.vue';
 
 const routes = [
   {
@@ -23,6 +26,11 @@ const routes = [
         component: HomeView,
         meta: { title: 'Home - University Scheduler' },
       },
+      { 
+        path: '/UserMain', 
+        component: UserMainView, 
+        name: 'MainPage',
+        meta: { title: 'Main Page' } },
       {
         path: 'schedule',
         name: 'schedule',
@@ -40,6 +48,12 @@ const routes = [
         name: 'login',
         component: AdminLogin,
         meta: { title: 'Admin Login - University Scheduler' },
+      },
+      {
+        path: 'Profile',
+        name: 'Profile',
+        component: ProfileView,
+        meta: {title: 'User Profile'},
       },
     ],
   },
@@ -63,6 +77,7 @@ const routes = [
     path: '/:pathMatch(.*)*',
     redirect: '/',
   },
+  
 ];
 
 const router = createRouter({
