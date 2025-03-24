@@ -1,7 +1,9 @@
+<!-- Stepper.vue -->
 <script setup>
 import { ref } from 'vue';
 import CourseSelection from './CourseSelection.vue';
 import ScheduleOptimization from './ScheduleOptimization.vue';
+import ScheduleDisplay from './ScheduleDisplay.vue';
 
 const steps = ['Courses', 'Options', 'Schedules'];
 const currentStep = ref(0);
@@ -14,17 +16,69 @@ const optimizationOptions = ref({
   minimizeCertificationPeriods: false
 });
 const generatedSchedules = ref([]);
-const snackbar = ref(false); // Added for alert
-const snackbarText = ref(''); // Added for alert message
-const snackbarColor = ref('warning'); // Added for alert styling
+const snackbar = ref(false);
+const snackbarText = ref('');
+const snackbarColor = ref('warning');
+const isLoading = ref(false);
 
-// Handle course selection confirmation
-const handleConfirmCourses = (courses) => {
-  selectedCourses.value = courses;
-  currentStep.value = 1; // Move to next step
+// Utility function to convert time to minutes for easier comparison
+const timeToMinutes = (time) => {
+  const [hours, minutes] = time.split(':').map(Number);
+  return hours * 60 + minutes;
 };
 
-// Handle continue button click with validation
+// Check if two time slots conflict
+const hasConflict = (slot1, slot2) => {
+  if (slot1.day !== slot2.day) return false;
+  
+  const start1 = timeToMinutes(slot1.start_time);
+  const end1 = timeToMinutes(slot1.end_time);
+  const start2 = timeToMinutes(slot2.start_time);
+  const end2 = timeToMinutes(slot2.end_time);
+  
+  return start1 < end2 && start2 < end1;
+};
+
+// Calculate gaps between time slots on the same day
+const calculateDayGaps = (timeSlots) => {
+  const days = {};
+  timeSlots.forEach(slot => {
+    if (!days[slot.day]) days[slot.day] = [];
+    days[slot.day].push(slot);
+  });
+
+  let totalGaps = 0;
+  for (const day in days) {
+    const slots = days[day].sort((a, b) => 
+      timeToMinutes(a.start_time) - timeToMinutes(b.start_time)
+    );
+    
+    for (let i = 1; i < slots.length; i++) {
+      const gap = timeToMinutes(slots[i].start_time) - 
+                 timeToMinutes(slots[i-1].end_time);
+      if (gap > 0) totalGaps += gap;
+    }
+  }
+  return totalGaps;
+};
+
+// Calculate number of days off
+const calculateDaysOff = (timeSlots) => {
+  const daysUsed = new Set(timeSlots.map(slot => slot.day.toLowerCase()));
+  const allDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+  return allDays.length - daysUsed.size;
+};
+
+// Calculate earliest start time
+const getEarliestStart = (timeSlots) => {
+  return Math.min(...timeSlots.map(slot => timeToMinutes(slot.start_time)));
+};
+
+const handleConfirmCourses = (courses) => {
+  selectedCourses.value = courses;
+  currentStep.value = 1;
+};
+
 const handleContinue = () => {
   if (currentStep.value === 0 && selectedCourses.value.length === 0) {
     snackbarText.value = 'Please select at least one course to continue!';
@@ -35,23 +89,132 @@ const handleContinue = () => {
   }
 };
 
-// Generate schedules (mocked for now)
 const generateSchedules = () => {
-  generatedSchedules.value = [
-    {
-      courses: selectedCourses.value.map(course => course.course_code), // Use course codes
-      days: ['Mon 08:00-12:00', 'Fri 09:00-11:00'],
-      gaps: 1
+  console.log('Starting schedule generation...');
+  console.log('selectedCourses:', selectedCourses.value);
+  console.log('isLoading before:', isLoading.value);
+
+  // Set loading state
+  isLoading.value = true;
+  currentStep.value = 2; // Move to Schedules step immediately to show loading
+  console.log('isLoading after setting to true:', isLoading.value);
+  console.log('currentStep:', currentStep.value);
+
+  // Simulate a delay of 3 seconds
+  setTimeout(() => {
+    console.log('setTimeout callback executed after 3 seconds');
+    try {
+      const possibleSchedules = [];
+      const allCombinations = [];
+
+      // Generate all possible group combinations
+      const coursesWithGroups = selectedCourses.value.map(course => ({
+        course_code: course.course_code,
+        groups: course.groups
+      }));
+
+      // Recursive function to generate combinations
+      const generateCombinations = (currentCombo = [], index = 0) => {
+        if (index === coursesWithGroups.length) {
+          allCombinations.push([...currentCombo]);
+          return;
+        }
+        
+        const currentCourse = coursesWithGroups[index];
+        for (const group of currentCourse.groups) {
+          currentCombo.push({
+            course_code: currentCourse.course_code,
+            group: group
+          });
+          generateCombinations(currentCombo, index + 1);
+          currentCombo.pop();
+        }
+      };
+
+      generateCombinations();
+
+      // Check each combination for conflicts and score it
+      for (const combo of allCombinations) {
+        const allTimeSlots = [];
+        let hasConflictFlag = false;
+
+        // Collect all time slots
+        for (const course of combo) {
+          allTimeSlots.push(...course.group.time_slots);
+        }
+
+        // Check for conflicts using nested loops
+        for (let i = 0; i < allTimeSlots.length - 1; i++) {
+          for (let j = i + 1; j < allTimeSlots.length; j++) {
+            if (hasConflict(allTimeSlots[i], allTimeSlots[j])) {
+              hasConflictFlag = true;
+              break;
+            }
+          }
+          if (hasConflictFlag) break;
+        }
+
+        if (!hasConflictFlag) {
+          const gaps = calculateDayGaps(allTimeSlots);
+          const daysOff = calculateDaysOff(allTimeSlots);
+          const earliestStart = getEarliestStart(allTimeSlots);
+
+          let score = 0;
+          if (optimizationOptions.value.minimizeGaps) score += (1440 - gaps) / 1440 * 100;
+          if (optimizationOptions.value.maximizeSleep) score += earliestStart / 1440 * 100;
+          if (optimizationOptions.value.maximizeDaysOff) score += daysOff / 5 * 100;
+
+          possibleSchedules.push({
+            courses: combo.map(c => c.course_code),
+            timeSlots: allTimeSlots,
+            gaps: gaps,
+            daysOff: daysOff,
+            earliestStart: earliestStart,
+            score: score
+          });
+        }
+      }
+
+      // Sort schedules by score and take top 3
+      generatedSchedules.value = possibleSchedules
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 3)
+        .map(schedule => ({
+          courses: schedule.courses,
+          days: schedule.timeSlots.map(slot => 
+            `${slot.day.toLowerCase()} ${slot.start_time}-${slot.end_time}`
+          ),
+          gaps: Math.round(schedule.gaps / 60) + ' hours',
+          daysOff: schedule.daysOff,
+          earliestStart: schedule.timeSlots
+            .find(slot => timeToMinutes(slot.start_time) === schedule.earliestStart)
+            .start_time
+        }));
+
+      if (generatedSchedules.value.length === 0) {
+        snackbarText.value = 'No valid schedules found with current selections!';
+        snackbarColor.value = 'warning';
+        snackbar.value = true;
+      }
+
+      console.log('Schedules generated:', generatedSchedules.value);
+    } catch (error) {
+      console.error('Error generating schedules:', error);
+      snackbarText.value = 'An error occurred while generating schedules.';
+      snackbarColor.value = 'error';
+      snackbar.value = true;
+    } finally {
+      // Clear loading state after processing
+      isLoading.value = false;
+      console.log('isLoading after setting to false:', isLoading.value);
     }
-  ];
-  currentStep.value = 2;
+  }, 3000); // 3-second delay
 };
 </script>
 
 <template>
   <v-container class="fill-height d-flex align-center justify-center">
-    <v-card class="pa-6 elevation-4" width="800" rounded="lg">
-      <!-- Stepper -->
+    <v-card class="pa-6 elevation-4" width="1000" rounded="lg">
       <v-stepper v-model="currentStep" alt-labels>
         <v-stepper-header>
           <v-stepper-item :complete="currentStep > 0" step="1">Courses</v-stepper-item>
@@ -62,7 +225,6 @@ const generateSchedules = () => {
         </v-stepper-header>
 
         <v-stepper-window>
-          <!-- Step 1: Course Selection -->
           <v-stepper-window-item :value="0">
             <CourseSelection 
               :selectedCourses="selectedCourses" 
@@ -71,38 +233,37 @@ const generateSchedules = () => {
             />
           </v-stepper-window-item>
 
-          <!-- Step 2: Optimization Options -->
           <v-stepper-window-item :value="1">
             <ScheduleOptimization :selectedCourses="selectedCourses" />
           </v-stepper-window-item>
 
-          <!-- Step 3: Generated Schedules -->
           <v-stepper-window-item :value="2">
-            <v-container>
-              <v-card class="pa-6 elevation-4">
-                <v-card-title class="text-h5 font-weight-bold">📅 Generated Schedules</v-card-title>
-                <v-card-subtitle>Review the best schedule options</v-card-subtitle>
-
-                <v-list class="mt-3">
-                  <v-list-item v-for="(schedule, index) in generatedSchedules" :key="index">
-                    <v-card class="pa-3 mb-3" variant="outlined">
-                      <v-card-title class="text-body-1 font-weight-medium">
-                        {{ schedule.courses.join(', ') }}
-                      </v-card-title>
-                      <v-card-subtitle>
-                        <span class="font-weight-bold">Days:</span> {{ schedule.days.join(', ') }}
-                        | <span class="font-weight-bold">Gaps:</span> {{ schedule.gaps }}
-                      </v-card-subtitle>
-                    </v-card>
-                  </v-list-item>
-                </v-list>
-              </v-card>
-            </v-container>
+            <v-overlay
+              :model-value="isLoading"
+              contained
+              class="align-center justify-center"
+              opacity="0.8"
+              style="z-index: 10;"
+            >
+              <v-progress-circular
+                indeterminate
+                color="primary"
+                size="64"
+                class="mb-4"
+              />
+              <div class="text-h6 text-center">
+                Generating schedules...
+              </div>
+            </v-overlay>
+            <ScheduleDisplay
+              v-if="!isLoading"
+              :schedules="generatedSchedules"
+              :selected-courses="selectedCourses"
+            />
           </v-stepper-window-item>
         </v-stepper-window>
       </v-stepper>
 
-      <!-- Navigation Buttons -->
       <v-card-actions class="d-flex justify-between mt-4">
         <v-btn v-if="currentStep > 0" @click="currentStep--" variant="tonal">Back</v-btn>
         <v-spacer></v-spacer>
@@ -110,6 +271,7 @@ const generateSchedules = () => {
           v-if="currentStep === 1" 
           color="primary" 
           @click="generateSchedules"
+          :disabled="isLoading"
         >
           Generate
         </v-btn>
@@ -124,7 +286,6 @@ const generateSchedules = () => {
       </v-card-actions>
     </v-card>
 
-    <!-- Snackbar for Alert -->
     <v-snackbar
       v-model="snackbar"
       location="top"
