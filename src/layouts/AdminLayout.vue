@@ -11,11 +11,18 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useRoute } from 'vue-router';
 import AdminSidebar from "@/components/AdminSidebar.vue";
 import AdminView from "@/views/AdminView.vue"; // Adjust the import path as needed
 
-const currentView = ref("dashboard"); // Default view
+const route = useRoute();
+const currentView = computed(() => {
+  const path = route.path;
+  if (path.includes('/admin/courses')) return 'courses';
+  if (path.includes('/admin/schedule-requests')) return 'schedule-requests';
+  return 'dashboard';
+});
 </script>
 
 <style scoped>

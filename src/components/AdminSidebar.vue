@@ -1,16 +1,18 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
-import { ref } from 'vue';
+import { useAuthStore } from '@/stores/auth';
 
-const emit = defineEmits(['navigate']);
-const route = useRoute();
 const router = useRouter();
-const isAdminLoggedIn = ref(true);
+const route = useRoute();
+const authStore = useAuthStore();
 
 const logout = () => {
-  localStorage.removeItem("isAdminLoggedIn");
-  isAdminLoggedIn.value = false;
+  authStore.logout();
   router.push("/login");
+};
+
+const navigate = (route) => {
+  router.push(`/admin/${route}`);
 };
 </script>
 
@@ -26,21 +28,22 @@ const logout = () => {
       <v-list-item
         v-for="item in [
           { title: 'Dashboard', icon: 'mdi-view-dashboard', route: 'dashboard' },
-          { title: 'Manage Courses', icon: 'mdi-book', route: 'courses' }
+          { title: 'Manage Courses', icon: 'mdi-book', route: 'courses' },
+          { title: 'Schedule Requests', icon: 'mdi-calendar-check', route: 'schedule-requests' }
         ]"
         :key="item.route"
-        @click="$emit('navigate', item.route)"
+        @click="navigate(item.route)"
         link
         class="sidebar-item"
-        :class="{ 'selected': item.route === route.name }"
+        :class="{ 'selected': route.path.includes(`/admin/${item.route}`) }"
       >
         <template v-slot:prepend>
-          <v-icon :size="20" :color="item.route === route.name ? 'white' : 'grey-darken-2'">
+          <v-icon :size="20" :color="route.path.includes(`/admin/${item.route}`) ? 'white' : 'grey-darken-2'">
             {{ item.icon }}
           </v-icon>
         </template>
         <v-list-item-content>
-          <v-list-item-title class="text-body-2 font-weight-medium" :class="{ 'active-title': item.route === route.name }">
+          <v-list-item-title class="text-body-2 font-weight-medium" :class="{ 'active-title': route.path.includes(`/admin/${item.route}`) }">
             {{ item.title }}
           </v-list-item-title>
         </v-list-item-content>

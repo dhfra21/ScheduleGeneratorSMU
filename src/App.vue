@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watchEffect } from 'vue';
+import { ref, onMounted, watchEffect, watch } from 'vue';
 import NavBar from './components/NavBar.vue';
 
 // Reactive variable to store the login state
@@ -36,5 +36,12 @@ window.addEventListener('storage', (event) => {
   if (event.key === 'isAdminLoggedIn') {
     checkLoginState();
   }
+});
+
+const loggedIn = ref(localStorage.getItem('isLoggedIn') === 'true');
+console.log('Logged in from localStorage:', loggedIn); // Debugging
+
+watch(() => localStorage.getItem('isLoggedIn'), (newValue) => {
+  loggedIn.value = newValue === 'true';
 });
 </script>

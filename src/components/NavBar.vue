@@ -36,13 +36,67 @@
         <v-icon icon="mdi-book-multiple" class="mr-2"></v-icon>
         <span>Course Catalog</span>
       </v-btn>
+  
+      <template v-if="!authStore.isAuthenticated">
+        <v-btn
+          variant="text"
+          :to="{ name: 'user-login' }"
+          class="mx-2 d-flex align-center justify-center nav-btn"
+          aria-label="Navigate to User Login"
+        >
+          <v-icon icon="mdi-account" class="mr-2"></v-icon>
+          <span>Login</span>
+        </v-btn>
+      </template>
+  
+      <template v-else>
+        <v-btn
+          variant="text"
+          @click="handleLogout"
+          class="mx-2 d-flex align-center justify-center nav-btn"
+          aria-label="Logout"
+        >
+          <v-icon icon="mdi-logout" class="mr-2"></v-icon>
+          <span>Logout</span>
+        </v-btn>
+      </template>
+  
+      <template v-if="authStore.isAdmin">
+        <v-btn
+          variant="text"
+          :to="{ name: 'admin' }"
+          class="mx-2 d-flex align-center justify-center nav-btn"
+          aria-label="Navigate to Admin Panel"
+        >
+          <v-icon icon="mdi-shield-account" class="mr-2"></v-icon>
+          <span>Admin Panel</span>
+        </v-btn>
+      </template>
+  
+      <template v-if="authStore.isAuthenticated && !authStore.isAdmin">
+        <ScheduleNotificationIcon class="mx-2" />
+      </template>
     </v-app-bar>
   </template>
   
   <script setup>
+  import { onMounted } from 'vue';
   import { useRouter } from 'vue-router';
+  import { useAuthStore } from '@/stores/auth';
+  import ScheduleNotificationIcon from './ScheduleNotificationIcon.vue';
   
   const router = useRouter();
+  const authStore = useAuthStore();
+  
+  const handleLogout = () => {
+    authStore.logout();
+    router.push('/');
+  };
+  
+  // Initialize auth state when component mounts
+  onMounted(() => {
+    authStore.initializeAuth();
+  });
   </script>
   
   <style scoped>
@@ -64,7 +118,7 @@
   /* Hover effects for buttons */
   .v-btn:hover {
     opacity: 0.9; /* Slight fade on hover */
-    transform: translateY(-1px); /* Lift effect */
+    transform: translateY(-2px); /* Lift effect */
   }
   
   /* Active state styling */

@@ -1,13 +1,34 @@
 <!-- views/Home.vue -->
 <script setup>
+import { ref, onMounted, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+const isUserLoggedIn = ref(false);
 
 // Navigation functions
 const goToSchedule = () => router.push('/schedule');
 const goToCatalog = () => router.push('/courses');
-const goToLogin = () => router.push('/login'); // Redirect to login for admin access
+const goToAdminLogin = () => router.push('/login');
+const goToUserLogin = () => router.push('/user-login');
+
+const checkLoginState = () => {
+  isUserLoggedIn.value = localStorage.getItem('isUserLoggedIn') === 'true';
+};
+
+onMounted(() => {
+  checkLoginState();
+});
+
+watchEffect(() => {
+  checkLoginState();
+});
+
+window.addEventListener('storage', (event) => {
+  if (event.key === 'isUserLoggedIn') {
+    checkLoginState();
+  }
+});
 </script>
 
 <template>
@@ -63,12 +84,26 @@ const goToLogin = () => router.push('/login'); // Redirect to login for admin ac
         </v-col>
         <v-col cols="12" sm="6" md="4">
           <v-btn
+            v-if="!isUserLoggedIn"
+            color="info"
+            variant="flat"
+            size="large"
+            block
+            prepend-icon="mdi-account"
+            @click="goToUserLogin"
+            class="action-btn"
+            aria-label="Navigate to User Login"
+          >
+            User Login
+          </v-btn>
+          <v-btn
+            v-else
             color="grey-darken-2"
             variant="outlined"
             size="large"
             block
             prepend-icon="mdi-shield-account"
-            @click="goToLogin"
+            @click="goToAdminLogin"
             class="action-btn"
             aria-label="Navigate to Admin Login"
           >
@@ -77,7 +112,7 @@ const goToLogin = () => router.push('/login'); // Redirect to login for admin ac
         </v-col>
       </v-row>
 
-      <!-- Footer Note (Optional) -->
+      <!-- Footer Note -->
       <v-row justify="center" class="mt-8">
         <v-col cols="12" class="text-center">
           <p class="text-caption" style="color: #94a3b8; word-break: break-word;" aria-label="Built with love by Your Name, powered by Vue.js and Vuetify">
@@ -105,7 +140,7 @@ const goToLogin = () => router.push('/login'); // Redirect to login for admin ac
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Ensure text doesn’t overflow */
+/* Ensure text doesn't overflow */
 .text-h3, .text-body-1, .text-caption {
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -114,7 +149,7 @@ const goToLogin = () => router.push('/login'); // Redirect to login for admin ac
   hyphens: auto;
 }
 
-/* Ensure buttons don’t overflow on small screens */
+/* Ensure buttons don't overflow on small screens */
 .v-btn {
   white-space: normal !important;
   word-break: break-word;

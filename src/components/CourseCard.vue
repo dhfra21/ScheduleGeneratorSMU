@@ -44,7 +44,7 @@ const majorIcon = computed(() => {
   
   const majorKey = props.course.major.toLowerCase();
   console.log('Computed Icon:', iconMap[majorKey] || 'mdi-book-open-page-variant'); // Debugging
-  return iconMap[majorKey] || 'mdi-book-open-page-variant'; 
+  return iconMap[majorKey] || 'mdi-book-open-page-variant';
 });
 
 // Get year-based styling

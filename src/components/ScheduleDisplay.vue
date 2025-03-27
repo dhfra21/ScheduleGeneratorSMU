@@ -1,6 +1,7 @@
 <!-- ScheduleDisplay.vue -->
 <script setup>
 import { ref, computed } from 'vue';
+import SubmitScheduleDialog from '@/components/SubmitScheduleDialog.vue';
 
 const props = defineProps({
   schedules: {
@@ -10,12 +11,27 @@ const props = defineProps({
   selectedCourses: {
     type: Array,
     required: true
+  },
+  hideSubmitButton: {
+    type: Boolean,
+    default: false
+  },
+  hideNavigation: {
+    type: Boolean,
+    default: false
+  },
+  hideTitle: {
+    type: Boolean,
+    default: false
   }
 });
+
+const emit = defineEmits(['submit', 'navigate']);
 
 const currentScheduleIndex = ref(0);
 const showDetails = ref(false);
 const selectedCourse = ref(null);
+const showSubmitDialog = ref(false);
 
 // Define the days and hours for the table
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
@@ -159,19 +175,31 @@ const closeDetailsOnOutsideClick = (event) => {
     showDetails.value = false;
   }
 };
+
+const handleSubmitSchedule = () => {
+  showSubmitDialog.value = true;
+};
+
+const handleScheduleSubmitted = () => {
+  // Handle the submission logic
+};
+
+const handleSubmit = () => {
+  emit('submit', selectedSchedule.value);
+};
 </script>
 
 <template>
   <v-container>
     <v-card class="pa-4 elevation-4 schedule-card">
-      <v-card-title class="text-h5 font-weight-bold primary--text">
+      <v-card-title v-if="!hideTitle" class="text-h5 font-weight-bold primary--text">
         📅 Schedule {{ currentScheduleIndex + 1 }} of {{ schedules.length }}
       </v-card-title>
-      <v-card-subtitle class="text-body-1 grey--text text--darken-1">
+      <v-card-subtitle v-if="!hideTitle" class="text-body-1 grey--text text--darken-1">
         Weekly Schedule View
       </v-card-subtitle>
 
-      <v-row class="mt-2">
+      <v-row class="mt-2" v-if="!hideNavigation">
         <v-col>
           <v-btn
             :disabled="currentScheduleIndex === 0"
@@ -247,7 +275,27 @@ const closeDetailsOnOutsideClick = (event) => {
           </div>
         </v-col>
       </v-row>
+
+      <v-row class="mt-4" v-if="!hideSubmitButton">
+        <v-col class="d-flex justify-center">
+          <v-btn
+            color="primary"
+            variant="flat"
+            @click="handleSubmitSchedule"
+            prepend-icon="mdi-send"
+          >
+            Submit Schedule for Approval
+          </v-btn>
+        </v-col>
+      </v-row>
     </v-card>
+
+    <!-- Add the submit dialog -->
+    <SubmitScheduleDialog
+      v-model="showSubmitDialog"
+      :schedule="props.schedules[currentScheduleIndex]"
+      @submitted="handleScheduleSubmitted"
+    />
 
     <!-- Course Details Modal -->
     <div v-if="showDetails" class="details-overlay" @click="closeDetailsOnOutsideClick">

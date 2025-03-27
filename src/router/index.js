@@ -2,12 +2,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import UserLayout from '@/layouts/UserLayout.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
+import { useAuthStore } from '@/stores/auth';
 
 // User-facing views
 import HomeView from '@/views/HomeView.vue';
 import SchedulerView from '@/views/SchedulerView.vue';
 import CoursesView from '@/views/CoursesView.vue';
 import AdminLogin from '@/views/AdminLogin.vue';
+import UserLogin from '@/views/UserLogin.vue';
 
 // Admin-facing views
 import AdminView from '@/views/AdminView.vue';
@@ -27,7 +29,10 @@ const routes = [
         path: 'schedule',
         name: 'schedule',
         component: SchedulerView,
-        meta: { title: 'Schedule Builder' },
+        meta: { 
+          title: 'Schedule Builder',
+          requiresAuth: true 
+        },
       },
       {
         path: 'courses',
@@ -39,7 +44,19 @@ const routes = [
         path: 'login',
         name: 'login',
         component: AdminLogin,
-        meta: { title: 'Admin Login - University Scheduler' },
+        meta: { 
+          title: 'Admin Login - University Scheduler',
+          requiresGuest: true
+        },
+      },
+      {
+        path: 'user-login',
+        name: 'user-login',
+        component: UserLogin,
+        meta: { 
+          title: 'User Login - University Scheduler',
+          requiresGuest: true
+        },
       },
     ],
   },
@@ -53,9 +70,40 @@ const routes = [
         component: AdminView,
         meta: {
           title: 'Admin Panel - University Scheduler',
-          requiresAuth: true, // Require admin login to access this route
+          requiresAuth: true,
+          requiresAdmin: true
         },
       },
+      {
+        path: 'dashboard',
+        name: 'admin-dashboard',
+        component: AdminView,
+        meta: {
+          title: 'Admin Dashboard - University Scheduler',
+          requiresAuth: true,
+          requiresAdmin: true
+        },
+      },
+      {
+        path: 'courses',
+        name: 'admin-courses',
+        component: AdminView,
+        meta: {
+          title: 'Manage Courses - University Scheduler',
+          requiresAuth: true,
+          requiresAdmin: true
+        },
+      },
+      {
+        path: 'schedule-requests',
+        name: 'admin-schedule-requests',
+        component: AdminView,
+        meta: {
+          title: 'Schedule Requests - University Scheduler',
+          requiresAuth: true,
+          requiresAdmin: true
+        },
+      }
     ],
   },
   // Catch-all route for 404 pages
@@ -73,19 +121,46 @@ const router = createRouter({
   },
 });
 
-// Navigation guard to protect the admin route
-router.beforeEach((to, from, next) => {
-  const isAdminLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true';
-
-  // Check if the route requires authentication
-  if (to.meta.requiresAuth && !isAdminLoggedIn) {
-    next('/login');
-  } else {
-    // Update document title
-    const title = to.meta.title || 'University Scheduler';
-    document.title = title;
-    next();
+// Navigation guard to protect routes
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore();
+  
+  // Initialize auth state if not already done
+  if (!authStore.isAuthenticated) {
+    authStore.initializeAuth();
   }
+
+  // Update document title
+  const title = to.meta.title || 'University Scheduler';
+  document.title = title;
+
+  // Handle guest-only routes (login pages)
+  if (to.meta.requiresGuest) {
+    if (authStore.isAuthenticated) {
+      // Redirect to appropriate dashboard based on role
+      next(authStore.isAdmin ? '/admin' : '/schedule');
+    } else {
+      next();
+    }
+    return;
+  }
+
+  // Handle protected routes
+  if (to.meta.requiresAuth) {
+    if (!authStore.isAuthenticated) {
+      // Redirect to appropriate login page
+      next(to.meta.requiresAdmin ? '/login' : '/user-login');
+      return;
+    }
+
+    // Check admin requirement
+    if (to.meta.requiresAdmin && !authStore.isAdmin) {
+      next('/schedule');
+      return;
+    }
+  }
+
+  next();
 });
 
 export default router;

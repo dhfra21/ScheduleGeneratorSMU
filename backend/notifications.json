@@ -1,0 +1,50 @@
+{
+  "notifications": {
+    "2": [
+      {
+        "id": "1743002007687",
+        "type": "info",
+        "title": "Schedule Submitted",
+        "message": "Your schedule has been submitted for approval.",
+        "createdAt": "2025-03-26T15:13:27.687Z"
+      },
+      {
+        "id": "1743002133910",
+        "type": "error",
+        "title": "Schedule Rejected",
+        "message": "Your schedule request has been rejected by the administrator.",
+        "createdAt": "2025-03-26T15:15:33.910Z"
+      },
+      {
+        "id": "1743032985200",
+        "type": "info",
+        "title": "Schedule Submitted",
+        "message": "Your schedule has been submitted for approval.",
+        "createdAt": "2025-03-26T23:49:45.200Z"
+      },
+      {
+        "id": "1743033036652",
+        "type": "success",
+        "title": "Schedule Approved",
+        "message": "Your schedule request has been approved by the administrator.",
+        "createdAt": "2025-03-26T23:50:36.652Z"
+      }
+    ],
+    "3": [
+      {
+        "id": "1743033113738",
+        "type": "info",
+        "title": "Schedule Submitted",
+        "message": "Your schedule has been submitted for approval.",
+        "createdAt": "2025-03-26T23:51:53.738Z"
+      },
+      {
+        "id": "1743033129042",
+        "type": "error",
+        "title": "Schedule Rejected",
+        "message": "Your schedule request has been rejected by the administrator.",
+        "createdAt": "2025-03-26T23:52:09.042Z"
+      }
+    ]
+  }
+}

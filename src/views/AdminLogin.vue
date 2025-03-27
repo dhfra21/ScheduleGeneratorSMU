@@ -7,7 +7,7 @@
         </v-card-title>
   
         <v-card-text>
-          <v-form @submit.prevent="login">
+          <v-form @submit.prevent="handleLogin">
             <v-text-field
               v-model="email"
               label="Email"
@@ -31,14 +31,14 @@
               class="mb-4"
             ></v-text-field>
   
-            <v-alert v-if="error" type="error" class="mb-4">{{ error }}</v-alert>
+            <v-alert v-if="authStore.error" type="error" class="mb-4">{{ authStore.error }}</v-alert>
   
             <v-btn
               color="primary"
               variant="flat"
               size="large"
               block
-              :loading="isLoading"
+              :loading="authStore.loading"
               type="submit"
               class="mt-2 action-btn"
             >
@@ -59,32 +59,28 @@
   <script setup>
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
+  import { useAuthStore } from '@/stores/auth';
   
   const router = useRouter();
+  const authStore = useAuthStore();
   const email = ref('');
   const password = ref('');
-  const error = ref('');
-  const isLoading = ref(false);
   
-  // Mock admin credentials (replace with real authentication logic)
-  const ADMIN_CREDENTIALS = {
-    email: 'admin@universityscheduler.com',
-    password: 'admin123'
-  };
-  
-  const login = () => {
-    isLoading.value = true;
-    error.value = '';
-  
-    if (email.value === ADMIN_CREDENTIALS.email && password.value === ADMIN_CREDENTIALS.password) {
-      localStorage.setItem('isAdminLoggedIn', 'true'); // Set to true only after successful login
-      console.log('Login successful, isAdminLoggedIn set to true'); // Debugging
+  const handleLogin = async () => {
+    const success = await authStore.login(email.value, password.value);
+    
+    if (success) {
+      // Verify admin role
+      if (!authStore.isAdmin) {
+        authStore.logout();
+        authStore.error = 'Access denied. Admin privileges required.';
+        return;
+      }
+      
+      // Clear any previous errors
+      authStore.clearError();
       router.push('/admin');
-    } else {
-      error.value = 'Invalid email or password. Please try again.';
     }
-  
-    isLoading.value = false;
   };
   
   const goHome = () => {

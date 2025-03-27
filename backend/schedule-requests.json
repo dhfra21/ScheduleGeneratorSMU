@@ -1,0 +1,67 @@
+{
+  "requests": [
+    {
+      "id": "1743002007687",
+      "userId": "2",
+      "userName": "Regular User",
+      "schedule": {
+        "courses": [
+          "CHEM161"
+        ],
+        "days": [
+          "friday 08:00-10:00",
+          "thursday 10:00-12:00"
+        ],
+        "gaps": "0 hours",
+        "daysOff": 3,
+        "earliestStart": "08:00"
+      },
+      "status": "rejected",
+      "requestedAt": "2025-03-26T15:13:27.687Z",
+      "rejectedAt": "2025-03-26T15:15:33.910Z"
+    },
+    {
+      "id": "1743032985200",
+      "userId": "2",
+      "userName": "Regular User",
+      "schedule": {
+        "courses": [
+          "CS101",
+          "CS102"
+        ],
+        "days": [
+          "tuesday 14:00-16:00",
+          "tuesday 08:00-10:00",
+          "wednesday 14:00-16:00",
+          "friday 14:00-16:00"
+        ],
+        "gaps": "4 hours",
+        "daysOff": 2,
+        "earliestStart": "08:00"
+      },
+      "status": "approved",
+      "requestedAt": "2025-03-26T23:49:45.200Z",
+      "approvedAt": "2025-03-26T23:50:36.652Z"
+    },
+    {
+      "id": "1743033113738",
+      "userId": "3",
+      "userName": "New Student",
+      "schedule": {
+        "courses": [
+          "ENG121"
+        ],
+        "days": [
+          "thursday 08:00-10:00",
+          "friday 08:00-10:00"
+        ],
+        "gaps": "0 hours",
+        "daysOff": 3,
+        "earliestStart": "08:00"
+      },
+      "status": "rejected",
+      "requestedAt": "2025-03-26T23:51:53.738Z",
+      "rejectedAt": "2025-03-26T23:52:09.042Z"
+    }
+  ]
+}

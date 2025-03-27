@@ -23,6 +23,10 @@ const isLoading = ref(false);
 
 // Utility function to convert time to minutes for easier comparison
 const timeToMinutes = (time) => {
+  if (!time || typeof time !== 'string') {
+    console.error('Invalid time value:', time);
+    return 0; // Default to 0 minutes; adjust as needed
+  }
   const [hours, minutes] = time.split(':').map(Number);
   return hours * 60 + minutes;
 };
@@ -89,126 +93,171 @@ const handleContinue = () => {
   }
 };
 
-const generateSchedules = () => {
-  console.log('Starting schedule generation...');
-  console.log('selectedCourses:', selectedCourses.value);
-  console.log('isLoading before:', isLoading.value);
+const generateSchedules = async () => {
+  if (!selectedCourses.value || selectedCourses.value.length === 0) {
+    console.error('No courses selected');
+    snackbarText.value = 'Please select at least one course!';
+    snackbarColor.value = 'error';
+    snackbar.value = true;
+    return;
+  }
 
-  // Set loading state
   isLoading.value = true;
-  currentStep.value = 2; // Move to Schedules step immediately to show loading
-  console.log('isLoading after setting to true:', isLoading.value);
-  console.log('currentStep:', currentStep.value);
+  currentStep.value = 2;
 
-  // Simulate a delay of 3 seconds
-  setTimeout(() => {
-    console.log('setTimeout callback executed after 3 seconds');
-    try {
-      const possibleSchedules = [];
-      const allCombinations = [];
+  try {
+    // Add a minimum delay to show loading state
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
-      // Generate all possible group combinations
-      const coursesWithGroups = selectedCourses.value.map(course => ({
+    const possibleSchedules = [];
+    const allCombinations = [];
+
+    // Generate all possible group combinations
+    const coursesWithGroups = selectedCourses.value.map(course => {
+      if (!course.groups || !Array.isArray(course.groups)) {
+        console.error(`Invalid groups for course ${course.course_code}:`, course);
+        return null;
+      }
+      
+      const validGroups = course.groups.filter(group => {
+        if (!group.time_slots || !Array.isArray(group.time_slots)) {
+          console.error(`Invalid time slots for group in course ${course.course_code}:`, group);
+          return false;
+        }
+        return true;
+      });
+
+      if (validGroups.length === 0) {
+        console.error(`No valid groups found for course ${course.course_code}`);
+        return null;
+      }
+
+      return {
         course_code: course.course_code,
-        groups: course.groups
-      }));
-
-      // Recursive function to generate combinations
-      const generateCombinations = (currentCombo = [], index = 0) => {
-        if (index === coursesWithGroups.length) {
-          allCombinations.push([...currentCombo]);
-          return;
-        }
-        
-        const currentCourse = coursesWithGroups[index];
-        for (const group of currentCourse.groups) {
-          currentCombo.push({
-            course_code: currentCourse.course_code,
-            group: group
-          });
-          generateCombinations(currentCombo, index + 1);
-          currentCombo.pop();
-        }
+        groups: validGroups
       };
+    }).filter(Boolean);
 
-      generateCombinations();
-
-      // Check each combination for conflicts and score it
-      for (const combo of allCombinations) {
-        const allTimeSlots = [];
-        let hasConflictFlag = false;
-
-        // Collect all time slots
-        for (const course of combo) {
-          allTimeSlots.push(...course.group.time_slots);
-        }
-
-        // Check for conflicts using nested loops
-        for (let i = 0; i < allTimeSlots.length - 1; i++) {
-          for (let j = i + 1; j < allTimeSlots.length; j++) {
-            if (hasConflict(allTimeSlots[i], allTimeSlots[j])) {
-              hasConflictFlag = true;
-              break;
-            }
-          }
-          if (hasConflictFlag) break;
-        }
-
-        if (!hasConflictFlag) {
-          const gaps = calculateDayGaps(allTimeSlots);
-          const daysOff = calculateDaysOff(allTimeSlots);
-          const earliestStart = getEarliestStart(allTimeSlots);
-
-          let score = 0;
-          if (optimizationOptions.value.minimizeGaps) score += (1440 - gaps) / 1440 * 100;
-          if (optimizationOptions.value.maximizeSleep) score += earliestStart / 1440 * 100;
-          if (optimizationOptions.value.maximizeDaysOff) score += daysOff / 5 * 100;
-
-          possibleSchedules.push({
-            courses: combo.map(c => c.course_code),
-            timeSlots: allTimeSlots,
-            gaps: gaps,
-            daysOff: daysOff,
-            earliestStart: earliestStart,
-            score: score
-          });
-        }
-      }
-
-      // Sort schedules by score and take top 3
-      generatedSchedules.value = possibleSchedules
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 3)
-        .map(schedule => ({
-          courses: schedule.courses,
-          days: schedule.timeSlots.map(slot => 
-            `${slot.day.toLowerCase()} ${slot.start_time}-${slot.end_time}`
-          ),
-          gaps: Math.round(schedule.gaps / 60) + ' hours',
-          daysOff: schedule.daysOff,
-          earliestStart: schedule.timeSlots
-            .find(slot => timeToMinutes(slot.start_time) === schedule.earliestStart)
-            .start_time
-        }));
-
-      if (generatedSchedules.value.length === 0) {
-        snackbarText.value = 'No valid schedules found with current selections!';
-        snackbarColor.value = 'warning';
-        snackbar.value = true;
-      }
-
-      console.log('Schedules generated:', generatedSchedules.value);
-    } catch (error) {
-      console.error('Error generating schedules:', error);
-      snackbarText.value = 'An error occurred while generating schedules.';
+    if (coursesWithGroups.length === 0) {
+      console.error('No valid courses found');
+      snackbarText.value = 'No valid courses found!';
       snackbarColor.value = 'error';
       snackbar.value = true;
-    } finally {
-      // Clear loading state after processing
-      isLoading.value = false;
-      console.log('isLoading after setting to false:', isLoading.value);
+      return;
     }
-  }, 3000); // 3-second delay
+
+    // Recursive function to generate combinations
+    const generateCombinations = (currentCombo = [], index = 0) => {
+      if (index === coursesWithGroups.length) {
+        allCombinations.push([...currentCombo]);
+        return;
+      }
+      
+      const currentCourse = coursesWithGroups[index];
+      for (const group of currentCourse.groups) {
+        currentCombo.push({
+          course_code: currentCourse.course_code,
+          group: group
+        });
+        generateCombinations(currentCombo, index + 1);
+        currentCombo.pop();
+      }
+    };
+
+    generateCombinations();
+
+    // Check each combination for conflicts and score it
+    for (const combo of allCombinations) {
+      const allTimeSlots = [];
+      let hasConflictFlag = false;
+
+      // Collect and validate time slots
+      for (const course of combo) {
+        const validTimeSlots = course.group.time_slots.filter(slot => {
+          const plainSlot = JSON.parse(JSON.stringify(slot));
+          const isValid = plainSlot && 
+            typeof plainSlot === 'object' &&
+            typeof plainSlot.start_time === 'string' && 
+            typeof plainSlot.end_time === 'string' &&
+            typeof plainSlot.day === 'string' &&
+            plainSlot.start_time.includes(':') &&
+            plainSlot.end_time.includes(':');
+          
+          if (!isValid) {
+            console.warn(`Invalid time slot for course ${course.course_code}:`, plainSlot);
+          }
+          return isValid;
+        });
+        
+        if (validTimeSlots.length !== course.group.time_slots.length) {
+          console.warn(`Invalid time slots filtered out for course ${course.course_code}. Valid: ${validTimeSlots.length}, Total: ${course.group.time_slots.length}`);
+        }
+        allTimeSlots.push(...validTimeSlots);
+      }
+
+      if (allTimeSlots.length === 0) continue; // Skip if no valid time slots
+
+      // Check for conflicts using nested loops
+      for (let i = 0; i < allTimeSlots.length - 1; i++) {
+        for (let j = i + 1; j < allTimeSlots.length; j++) {
+          if (hasConflict(allTimeSlots[i], allTimeSlots[j])) {
+            hasConflictFlag = true;
+            break;
+          }
+        }
+        if (hasConflictFlag) break;
+      }
+
+      if (!hasConflictFlag) {
+        const gaps = calculateDayGaps(allTimeSlots);
+        const daysOff = calculateDaysOff(allTimeSlots);
+        const earliestStart = getEarliestStart(allTimeSlots);
+
+        let score = 0;
+        if (optimizationOptions.value.minimizeGaps) score += (1440 - gaps) / 1440 * 100;
+        if (optimizationOptions.value.maximizeSleep) score += earliestStart / 1440 * 100;
+        if (optimizationOptions.value.maximizeDaysOff) score += daysOff / 5 * 100;
+
+        possibleSchedules.push({
+          courses: combo.map(c => c.course_code),
+          timeSlots: allTimeSlots,
+          gaps: gaps,
+          daysOff: daysOff,
+          earliestStart: earliestStart,
+          score: score
+        });
+      }
+    }
+
+    // Sort schedules by score and take top 3
+    generatedSchedules.value = possibleSchedules
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3)
+      .map(schedule => ({
+        courses: schedule.courses,
+        days: schedule.timeSlots.map(slot => 
+          `${slot.day.toLowerCase()} ${slot.start_time}-${slot.end_time}`
+        ),
+        gaps: Math.round(schedule.gaps / 60) + ' hours',
+        daysOff: schedule.daysOff,
+        earliestStart: schedule.timeSlots
+          .find(slot => timeToMinutes(slot.start_time) === schedule.earliestStart)
+          .start_time
+      }));
+
+    if (generatedSchedules.value.length === 0) {
+      snackbarText.value = 'No valid schedules found with current selections!';
+      snackbarColor.value = 'warning';
+      snackbar.value = true;
+    }
+  } catch (error) {
+    console.error('Error generating schedules:', error);
+    snackbarText.value = 'An error occurred while generating schedules.';
+    snackbarColor.value = 'error';
+    snackbar.value = true;
+  } finally {
+    isLoading.value = false;
+  }
 };
 </script>
 
@@ -245,15 +294,17 @@ const generateSchedules = () => {
               opacity="0.8"
               style="z-index: 10;"
             >
-              <v-progress-circular
-                indeterminate
-                color="primary"
-                size="64"
-                class="mb-4"
-              />
-              <div class="text-h6 text-center">
-                Generating schedules...
-              </div>
+              <v-card class="pa-4 d-flex flex-column align-center">
+                <v-progress-circular
+                  indeterminate
+                  color="primary"
+                  size="64"
+                  class="mb-4"
+                />
+                <div class="text-h6 text-center">
+                  Generating schedules...
+                </div>
+              </v-card>
             </v-overlay>
             <ScheduleDisplay
               v-if="!isLoading"
