@@ -20,6 +20,27 @@
       "password": "student123",
       "role": "user",
       "name": "New Student"
+    },
+    {
+      "id": "4",
+      "email": "test@universityscheduler.com",
+      "password": "test123",
+      "role": "user",
+      "name": "Test User"
+    },
+    {
+      "id": "5",
+      "email": "mouradkochkar@gmail.com",
+      "password": "dhiafrad002",
+      "role": "user",
+      "name": "Mourad Kochkar"
+    },
+    {
+      "id": "6",
+      "email": "123@gmail.com",
+      "password": "dhiafrad002",
+      "role": "user",
+      "name": "Alaa Aljane"
     }
   ]
-} 
+}

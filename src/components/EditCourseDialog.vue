@@ -1,28 +1,42 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue';
-
+import { ref, watch } from 'vue';
 
 const props = defineProps(['modelValue', 'course']);
 const emit = defineEmits(['update:modelValue', 'save']);
 
+const localCourse = ref({});
+
+// Watch for changes in the course prop and update localCourse
+watch(() => props.course, (newCourse) => {
+  localCourse.value = JSON.parse(JSON.stringify(newCourse));
+}, { immediate: true });
+
 const closeDialog = () => emit('update:modelValue', false);
-const saveChanges = () => emit('save');
+
+const saveChanges = () => {
+  emit('save', localCourse.value);
+  closeDialog();
+};
 
 // Add a new group
 const addGroup = () => {
-  props.course.groups.push({
-    group_number: props.course.groups.length + 1,
+  localCourse.value.groups.push({
+    group_number: localCourse.value.groups.length + 1,
     professor: '',
     classroom: '',
-    time_slots: ['']
+    time_slots: [{
+      day: '',
+      start_time: '',
+      end_time: ''
+    }]
   });
 };
 
 // Remove a group
 const removeGroup = (index) => {
-  if (props.course.groups.length > 1) {
-    props.course.groups.splice(index, 1);
-    props.course.groups.forEach((group, idx) => {
+  if (localCourse.value.groups.length > 1) {
+    localCourse.value.groups.splice(index, 1);
+    localCourse.value.groups.forEach((group, idx) => {
       group.group_number = idx + 1; // Reassign group numbers
     });
   }
@@ -30,13 +44,17 @@ const removeGroup = (index) => {
 
 // Add a new time slot
 const addTimeSlot = (groupIndex) => {
-  props.course.groups[groupIndex].time_slots.push('');
+  localCourse.value.groups[groupIndex].time_slots.push({
+    day: '',
+    start_time: '',
+    end_time: ''
+  });
 };
 
 // Remove a time slot
 const removeTimeSlot = (groupIndex, slotIndex) => {
-  if (props.course.groups[groupIndex].time_slots.length > 1) {
-    props.course.groups[groupIndex].time_slots.splice(slotIndex, 1);
+  if (localCourse.value.groups[groupIndex].time_slots.length > 1) {
+    localCourse.value.groups[groupIndex].time_slots.splice(slotIndex, 1);
   }
 };
 </script>
@@ -61,7 +79,7 @@ const removeTimeSlot = (groupIndex, slotIndex) => {
         <v-row dense>
           <v-col cols="6">
             <v-text-field
-              v-model="props.course.course_code"
+              v-model="localCourse.course_code"
               label="Course Code"
               variant="outlined"
               density="compact"
@@ -70,7 +88,7 @@ const removeTimeSlot = (groupIndex, slotIndex) => {
               style="color: #4a5568;"
             ></v-text-field>
             <v-text-field
-              v-model="props.course.course_name"
+              v-model="localCourse.course_name"
               label="Course Name"
               variant="outlined"
               density="compact"
@@ -79,7 +97,7 @@ const removeTimeSlot = (groupIndex, slotIndex) => {
               style="color: #4a5568;"
             ></v-text-field>
             <v-select
-              v-model="props.course.major"
+              v-model="localCourse.major"
               label="Major"
               :items="[
                 'Pre-engineering',
@@ -96,7 +114,7 @@ const removeTimeSlot = (groupIndex, slotIndex) => {
           </v-col>
           <v-col cols="6">
             <v-select
-              v-model="props.course.year"
+              v-model="localCourse.year"
               label="Year"
               :items="['Freshman', 'Sophomore', 'Junior', 'Senior', 'Final']"
               variant="outlined"
@@ -106,7 +124,7 @@ const removeTimeSlot = (groupIndex, slotIndex) => {
               style="color: #4a5568;"
             ></v-select>
             <v-text-field
-              v-model="props.course.credits"
+              v-model="localCourse.credits"
               label="Credits"
               variant="outlined"
               type="number"
@@ -126,7 +144,7 @@ const removeTimeSlot = (groupIndex, slotIndex) => {
             Course Groups
           </v-card-title>
           <v-row
-            v-for="(group, groupIndex) in props.course.groups"
+            v-for="(group, groupIndex) in localCourse.groups"
             :key="group.group_number"
             class="mb-2"
             dense
@@ -180,18 +198,40 @@ const removeTimeSlot = (groupIndex, slotIndex) => {
                   dense
                   class="mt-1"
                 >
-                  <v-col cols="8">
-                    <v-text-field
-                      v-model="group.time_slots[slotIndex]"
-                      label="Time Slot"
+                  <v-col cols="4">
+                    <v-select
+                      v-model="slot.day"
+                      label="Day"
+                      :items="['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']"
                       variant="outlined"
                       density="compact"
                       hide-details
-                      placeholder="e.g., Monday 10:00-12:00"
+                      style="color: #718096;"
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="4">
+                    <v-text-field
+                      v-model="slot.start_time"
+                      label="Start Time"
+                      variant="outlined"
+                      density="compact"
+                      hide-details
+                      placeholder="HH:MM"
                       style="color: #718096;"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="4" class="d-flex align-center justify-space-between">
+                  <v-col cols="4">
+                    <v-text-field
+                      v-model="slot.end_time"
+                      label="End Time"
+                      variant="outlined"
+                      density="compact"
+                      hide-details
+                      placeholder="HH:MM"
+                      style="color: #718096;"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" class="d-flex align-center justify-space-between">
                     <v-btn
                       v-if="group.time_slots.length > 1"
                       color="error"
@@ -213,7 +253,7 @@ const removeTimeSlot = (groupIndex, slotIndex) => {
                 </v-row>
 
                 <v-btn
-                  v-if="props.course.groups.length > 1"
+                  v-if="localCourse.groups.length > 1"
                   color="error"
                   variant="text"
                   icon="mdi-trash-can"
@@ -221,7 +261,6 @@ const removeTimeSlot = (groupIndex, slotIndex) => {
                   class="mt-2 action-btn"
                   size="small"
                 >
-                
                 </v-btn>
               </v-card>
             </v-col>

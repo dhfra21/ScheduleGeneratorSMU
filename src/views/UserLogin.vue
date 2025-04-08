@@ -52,6 +52,21 @@
           <v-icon left>mdi-home</v-icon> Go to Home
         </v-btn>
       </v-card-actions>
+      
+      <v-divider class="my-4"></v-divider>
+      
+      <v-card-text class="text-center">
+        <p class="text-body-2 mb-2">Don't have an account?</p>
+        <v-btn
+          color="primary"
+          variant="outlined"
+          size="small"
+          @click="goToRegister"
+          class="mt-1"
+        >
+          Create Account
+        </v-btn>
+      </v-card-text>
     </v-card>
   </v-container>
 </template>
@@ -79,6 +94,10 @@ const handleLogin = async () => {
 
 const goHome = () => {
   router.push('/');
+};
+
+const goToRegister = () => {
+  router.push('/register');
 };
 </script>
 

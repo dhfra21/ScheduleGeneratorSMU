@@ -74,16 +74,27 @@
       </template>
   
       <template v-if="authStore.isAuthenticated && !authStore.isAdmin">
+        <v-btn
+          variant="text"
+          @click="showAIChat = true"
+          class="mx-2 d-flex align-center justify-center nav-btn"
+          aria-label="Open AI Course Advisor"
+        >
+          <v-icon icon="mdi-robot" class="mr-2"></v-icon>
+          <span>AI Advisor</span>
+        </v-btn>
         <ScheduleNotificationIcon class="mx-2" />
       </template>
     </v-app-bar>
+    <AIChatDialog v-model="showAIChat" />
   </template>
   
   <script setup>
-  import { onMounted } from 'vue';
+  import { onMounted, ref } from 'vue';
   import { useRouter } from 'vue-router';
   import { useAuthStore } from '@/stores/auth';
   import ScheduleNotificationIcon from './ScheduleNotificationIcon.vue';
+  import AIChatDialog from './AIChatDialog.vue';
   
   const router = useRouter();
   const authStore = useAuthStore();
@@ -92,6 +103,8 @@
     authStore.logout();
     router.push('/');
   };
+  
+  const showAIChat = ref(false);
   
   // Initialize auth state when component mounts
   onMounted(() => {

@@ -10,6 +10,7 @@ import SchedulerView from '@/views/SchedulerView.vue';
 import CoursesView from '@/views/CoursesView.vue';
 import AdminLogin from '@/views/AdminLogin.vue';
 import UserLogin from '@/views/UserLogin.vue';
+import UserRegistration from '@/views/UserRegistration.vue';
 
 // Admin-facing views
 import AdminView from '@/views/AdminView.vue';
@@ -55,6 +56,15 @@ const routes = [
         component: UserLogin,
         meta: { 
           title: 'User Login - University Scheduler',
+          requiresGuest: true
+        },
+      },
+      {
+        path: 'register',
+        name: 'register',
+        component: UserRegistration,
+        meta: { 
+          title: 'User Registration - University Scheduler',
           requiresGuest: true
         },
       },

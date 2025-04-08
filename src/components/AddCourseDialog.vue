@@ -144,19 +144,45 @@
                   dense
                   class="mt-1"
                 >
-                  <v-col cols="8">
-                    <v-text-field
-                      v-model="group.time_slots[slotIndex]"
-                      label="Time Slot"
+                  <v-col cols="4">
+                    <v-select
+                      v-model="slot.day"
+                      label="Day"
+                      :items="days"
                       variant="outlined"
                       density="compact"
                       :rules="[requiredRule]"
                       hide-details="auto"
-                      placeholder="e.g., Monday 10:00-12:00"
+                      style="color: #718096;"
+                      menu-props="{ closeOnClick: true }"
+                      @update:model-value="handleDaySelect"
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="4">
+                    <v-text-field
+                      v-model="slot.start_time"
+                      label="Start Time"
+                      variant="outlined"
+                      density="compact"
+                      :rules="[requiredRule]"
+                      hide-details="auto"
+                      placeholder="HH:MM"
                       style="color: #718096;"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="4" class="d-flex align-center justify-space-between">
+                  <v-col cols="4">
+                    <v-text-field
+                      v-model="slot.end_time"
+                      label="End Time"
+                      variant="outlined"
+                      density="compact"
+                      :rules="[requiredRule]"
+                      hide-details="auto"
+                      placeholder="HH:MM"
+                      style="color: #718096;"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" class="d-flex align-center justify-space-between">
                     <v-btn
                       v-if="group.time_slots.length > 1"
                       color="error"
@@ -235,13 +261,28 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue', 'save']);
 
+const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
+const handleDaySelect = (value) => {
+  console.log('Selected day:', value); // For debugging
+};
+
 const localCourse = ref({
   course_code: '',
   course_name: '',
   major: '',
   year: '',
   credits: 0,
-  groups: [{ group_number: 1, professor: '', classroom: '', time_slots: [''] }],
+  groups: [{
+    group_number: 1,
+    professor: '',
+    classroom: '',
+    time_slots: [{
+      day: '',
+      start_time: '',
+      end_time: ''
+    }]
+  }],
 });
 
 // Sync localCourse when dialog opens, not on every course change
@@ -270,7 +311,7 @@ const isFormValid = computed(() => {
       (group) =>
         group.professor &&
         group.classroom &&
-        group.time_slots.every((slot) => slot)
+        group.time_slots.every((slot) => slot.day && slot.start_time && slot.end_time)
     )
   );
 });
@@ -289,20 +330,35 @@ const addGroup = () => {
     group_number: localCourse.value.groups.length + 1,
     professor: '',
     classroom: '',
-    time_slots: [''],
+    time_slots: [{
+      day: '',
+      start_time: '',
+      end_time: ''
+    }]
   });
 };
 
 const removeGroup = (groupIndex) => {
-  localCourse.value.groups.splice(groupIndex, 1);
+  if (localCourse.value.groups.length > 1) {
+    localCourse.value.groups.splice(groupIndex, 1);
+    localCourse.value.groups.forEach((group, idx) => {
+      group.group_number = idx + 1; // Reassign group numbers
+    });
+  }
 };
 
 const addTimeSlot = (groupIndex) => {
-  localCourse.value.groups[groupIndex].time_slots.push('');
+  localCourse.value.groups[groupIndex].time_slots.push({
+    day: '',
+    start_time: '',
+    end_time: ''
+  });
 };
 
 const removeTimeSlot = (groupIndex, slotIndex) => {
-  localCourse.value.groups[groupIndex].time_slots.splice(slotIndex, 1);
+  if (localCourse.value.groups[groupIndex].time_slots.length > 1) {
+    localCourse.value.groups[groupIndex].time_slots.splice(slotIndex, 1);
+  }
 };
 </script>
 

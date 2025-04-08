@@ -1,50 +1,33 @@
 {
   "requests": [
     {
-      "id": "1743002007687",
+      "id": "1743529258886",
       "userId": "2",
       "userName": "Regular User",
       "schedule": {
         "courses": [
-          "CHEM161"
+          "CHEM161",
+          "CS102",
+          "ISS196"
         ],
         "days": [
+          "monday 10:00-12:00",
+          "tuesday 08:00-10:00",
+          "thursday 08:00-10:00",
           "friday 08:00-10:00",
+          "monday 14:00-16:00",
           "thursday 10:00-12:00"
         ],
-        "gaps": "0 hours",
-        "daysOff": 3,
-        "earliestStart": "08:00"
-      },
-      "status": "rejected",
-      "requestedAt": "2025-03-26T15:13:27.687Z",
-      "rejectedAt": "2025-03-26T15:15:33.910Z"
-    },
-    {
-      "id": "1743032985200",
-      "userId": "2",
-      "userName": "Regular User",
-      "schedule": {
-        "courses": [
-          "CS101",
-          "CS102"
-        ],
-        "days": [
-          "tuesday 14:00-16:00",
-          "tuesday 08:00-10:00",
-          "wednesday 14:00-16:00",
-          "friday 14:00-16:00"
-        ],
-        "gaps": "4 hours",
-        "daysOff": 2,
+        "gaps": "2 hours",
+        "daysOff": 1,
         "earliestStart": "08:00"
       },
       "status": "approved",
-      "requestedAt": "2025-03-26T23:49:45.200Z",
-      "approvedAt": "2025-03-26T23:50:36.652Z"
+      "requestedAt": "2025-04-01T17:40:58.886Z",
+      "approvedAt": "2025-04-01T17:43:30.251Z"
     },
     {
-      "id": "1743033113738",
+      "id": "1743694608084",
       "userId": "3",
       "userName": "New Student",
       "schedule": {
@@ -59,9 +42,35 @@
         "daysOff": 3,
         "earliestStart": "08:00"
       },
-      "status": "rejected",
-      "requestedAt": "2025-03-26T23:51:53.738Z",
-      "rejectedAt": "2025-03-26T23:52:09.042Z"
+      "status": "approved",
+      "requestedAt": "2025-04-03T15:36:48.084Z",
+      "approvedAt": "2025-04-03T15:40:19.396Z"
+    },
+    {
+      "id": "1743761223806",
+      "userId": "5",
+      "userName": "Mourad Kochkar",
+      "schedule": {
+        "courses": [
+          "CHEM161",
+          "CS102",
+          "ISS196"
+        ],
+        "days": [
+          "monday 10:00-12:00",
+          "tuesday 08:00-10:00",
+          "wednesday 14:00-16:00",
+          "friday 14:00-16:00",
+          "thursday 14:00-16:00",
+          "thursday 08:00-10:00"
+        ],
+        "gaps": "4 hours",
+        "daysOff": 0,
+        "earliestStart": "08:00"
+      },
+      "status": "approved",
+      "requestedAt": "2025-04-04T10:07:03.806Z",
+      "approvedAt": "2025-04-04T10:08:30.515Z"
     }
   ]
 }

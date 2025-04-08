@@ -3,6 +3,7 @@ import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { aiAgent } from './aiAgent.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -60,7 +61,11 @@ app.post('/login', (req, res) => {
   const { email, password } = req.body;
   console.log('Login attempt for:', email);
   
-  const user = users.find(u => u.email === email && u.password === password);
+  // Reload users from file on each login attempt
+  const usersData = JSON.parse(fs.readFileSync(path.join(__dirname, 'users.json')));
+  const currentUsers = usersData.users;
+  
+  const user = currentUsers.find(u => u.email === email && u.password === password);
   
   if (user) {
     console.log('Login successful for:', email);
@@ -314,14 +319,38 @@ app.get('/approved-schedules/:userId', (req, res) => {
   }
 });
 
+// Helper function to load courses
+const loadCourses = () => {
+  try {
+    const coursesPath = path.join(__dirname, '../public/courses.json');
+    const coursesData = JSON.parse(fs.readFileSync(coursesPath));
+    return coursesData;
+  } catch (error) {
+    console.error('Error loading courses:', error);
+    return { courses: [] };
+  }
+};
+
+// Helper function to save courses
+const saveCourses = (courses) => {
+  try {
+    const coursesPath = path.join(__dirname, '../public/courses.json');
+    fs.writeFileSync(coursesPath, JSON.stringify(courses, null, 2));
+    console.log('Courses saved successfully');
+  } catch (error) {
+    console.error('Error saving courses:', error);
+  }
+};
+
 // Courses endpoints
 app.get('/courses', (req, res) => {
-  console.log('Courses endpoint hit');
-  if (!courses || courses.length === 0) {
-    console.error('No courses available');
-    return res.status(404).json({ message: 'No courses available' });
+  try {
+    const coursesData = loadCourses();
+    res.json(coursesData.courses);
+  } catch (error) {
+    console.error('Error fetching courses:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
-  res.json(courses);
 });
 
 app.get('/courses/:id', (req, res) => {
@@ -332,6 +361,65 @@ app.get('/courses/:id', (req, res) => {
     return res.status(404).json({ message: 'Course not found' });
   }
   res.json(course);
+});
+
+app.put('/courses/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedCourse = req.body;
+    const coursesData = loadCourses();
+    
+    const courseIndex = coursesData.courses.findIndex(course => course.id === id);
+    if (courseIndex === -1) {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+
+    coursesData.courses[courseIndex] = updatedCourse;
+    saveCourses(coursesData);
+
+    res.json(updatedCourse);
+  } catch (error) {
+    console.error('Error updating course:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/courses', (req, res) => {
+  try {
+    const newCourse = req.body;
+    const coursesData = loadCourses();
+    
+    // Generate a unique ID for the new course
+    newCourse.id = Math.random().toString(36).substr(2, 4);
+    
+    coursesData.courses.push(newCourse);
+    saveCourses(coursesData);
+
+    res.status(201).json(newCourse);
+  } catch (error) {
+    console.error('Error creating course:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.delete('/courses/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const coursesData = loadCourses();
+    
+    const courseIndex = coursesData.courses.findIndex(course => course.id === id);
+    if (courseIndex === -1) {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+
+    coursesData.courses.splice(courseIndex, 1);
+    saveCourses(coursesData);
+
+    res.status(204).send();
+  } catch (error) {
+    console.error('Error deleting course:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // Add notification endpoint
@@ -346,6 +434,132 @@ app.get('/notifications/:userId', (req, res) => {
   } catch (error) {
     console.error('Error fetching notifications:', error);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Helper function to load users
+const loadUsers = () => {
+  try {
+    const usersPath = path.join(__dirname, 'users.json');
+    const usersData = JSON.parse(fs.readFileSync(usersPath));
+    return usersData;
+  } catch (error) {
+    console.error('Error loading users:', error);
+    return { users: [] };
+  }
+};
+
+// Helper function to save users
+const saveUsers = (usersData) => {
+  try {
+    const usersPath = path.join(__dirname, 'users.json');
+    fs.writeFileSync(usersPath, JSON.stringify(usersData, null, 2));
+    console.log('Users saved successfully');
+  } catch (error) {
+    console.error('Error saving users:', error);
+  }
+};
+
+// User registration endpoint
+app.post('/register', (req, res) => {
+  try {
+    const { email, password, name } = req.body;
+    
+    // Validate input
+    if (!email || !password || !name) {
+      return res.status(400).json({ error: 'Email, password, and name are required' });
+    }
+    
+    // Check if user already exists
+    const usersData = loadUsers();
+    const existingUser = usersData.users.find(u => u.email === email);
+    
+    if (existingUser) {
+      return res.status(409).json({ error: 'User with this email already exists' });
+    }
+    
+    // Create new user
+    const newUser = {
+      id: (usersData.users.length + 1).toString(),
+      email,
+      password,
+      role: 'user',
+      name
+    };
+    
+    // Add user to the list
+    usersData.users.push(newUser);
+    saveUsers(usersData);
+    
+    console.log('New user registered:', { email, name });
+    
+    // Return user data without password
+    res.status(201).json({
+      id: newUser.id,
+      email: newUser.email,
+      role: newUser.role,
+      name: newUser.name
+    });
+  } catch (error) {
+    console.error('Error registering user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// AI Agent endpoints
+app.post('/api/ai/recommendations', async (req, res) => {
+  try {
+    const { studentId, preferences } = req.body;
+    const recommendations = await aiAgent.getCourseRecommendations(studentId, preferences);
+    res.json(recommendations);
+  } catch (error) {
+    console.error('Error getting AI recommendations:', error);
+    res.status(500).json({ error: 'Failed to get course recommendations' });
+  }
+});
+
+app.post('/api/ai/advice', async (req, res) => {
+  try {
+    const { studentId, question } = req.body;
+    const advice = await aiAgent.getPersonalizedAdvice(studentId, question);
+    res.json({ advice });
+  } catch (error) {
+    console.error('Error getting AI advice:', error);
+    res.status(500).json({ error: 'Failed to get personalized advice' });
+  }
+});
+
+app.post('/api/ai/context', (req, res) => {
+  try {
+    const { studentId, context } = req.body;
+    aiAgent.updateUserContext(studentId, context);
+    res.json({ message: 'Context updated successfully' });
+  } catch (error) {
+    console.error('Error updating AI context:', error);
+    res.status(500).json({ error: 'Failed to update context' });
+  }
+});
+
+// AI Chat endpoints
+app.post('/api/ai/chat/start', async (req, res) => {
+  try {
+    const { studentId } = req.body;
+    const response = await aiAgent.startConversation(studentId);
+    res.json({ message: response });
+  } catch (error) {
+    console.error('Error starting chat:', error);
+    res.status(500).json({ error: 'Failed to start chat' });
+  }
+});
+
+app.post('/api/ai/chat/message', async (req, res) => {
+  try {
+    const { studentId, message } = req.body;
+    const response = await aiAgent.handleUserResponse(studentId, message);
+    res.json({ message: response });
+  } catch (error) {
+    console.error('Error handling chat message:', error);
+    res.status(500).json({ error: 'Failed to process message' });
   }
 });
 

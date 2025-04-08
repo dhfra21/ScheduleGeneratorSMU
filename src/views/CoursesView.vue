@@ -1,9 +1,9 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import axios from 'axios';
+import axiosInstance from '@/plugins/axios';
 import CourseCard from '@/components/CourseCard.vue';
 
-const API_URL = 'http://localhost:3000/courses'; // Use '/api/courses' with proxy
+const API_URL = '/courses'; // Remove the base URL since it's in the axios instance
 
 const courses = ref([]);
 const loading = ref(true);
@@ -44,7 +44,7 @@ const filteredCourses = computed(() => {
 const fetchCourses = async () => {
   try {
     loading.value = true;
-    const response = await axios.get(API_URL);
+    const response = await axiosInstance.get(API_URL);
     courses.value = response.data.map(course => ({
       course_code: course.course_code,
       course_name: course.course_name,

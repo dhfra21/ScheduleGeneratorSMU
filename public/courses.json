@@ -10,7 +10,7 @@
         {
           "group_number": 1,
           "professor": "Dr. Green",
-          "classroom": "Room C303",
+          "classroom": "Room C303A",
           "time_slots": [
             {
               "day": "Friday",
@@ -723,7 +723,7 @@
     },
     {
       "course_code": "MATH341",
-      "course_name": "Differential Equation\u00c2\u00a0",
+      "course_name": "Differential EquationÂ ",
       "major": "Software Engineering",
       "year": "Senior",
       "credits": 3,
@@ -2567,7 +2567,7 @@
     },
     {
       "course_code": "CS220",
-      "course_name": "Introduction to automata theory\u00c2\u00a0and compilation",
+      "course_name": "Introduction to automata theoryÂ and compilation",
       "major": "Pre-engineering",
       "year": "Senior",
       "credits": 3,
@@ -2635,33 +2635,6 @@
         }
       ],
       "id": "cb94"
-    },
-    {
-      "course_code": "ISS295",
-      "course_name": "L2 Project",
-      "major": "Pre-engineering",
-      "year": "Senior",
-      "credits": 3,
-      "groups": [
-        {
-          "group_number": 1,
-          "professor": "Prof. White",
-          "classroom": "Room D404",
-          "time_slots": [
-            {
-              "day": "Tuesday",
-              "start_time": "14:00",
-              "end_time": "16:00"
-            },
-            {
-              "day": "Friday",
-              "start_time": "08:00",
-              "end_time": "10:00"
-            }
-          ]
-        }
-      ],
-      "id": "543c"
     }
   ]
 }

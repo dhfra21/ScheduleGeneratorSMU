@@ -10,12 +10,9 @@
     <!-- Main Content Without Extra Cards -->
     <v-main class="admin-content">
       <v-container fluid>
+        <AdminDashboard v-if="currentView === 'dashboard'" />
         <ManageCourses v-if="currentView === 'courses'" />
         <ManageScheduleRequests v-if="currentView === 'schedule-requests'" />
-        <div v-if="currentView === 'dashboard'" class="dashboard-content">
-          <h2>Welcome to the Admin Dashboard</h2>
-          <p>Select an option from the sidebar to get started.</p>
-        </div>
       </v-container>
     </v-main>
   </v-container>
@@ -40,6 +37,7 @@ import { useRouter, useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import ManageCourses from "@/components/ManageCourses.vue";
 import ManageScheduleRequests from "@/components/ManageScheduleRequests.vue";
+import AdminDashboard from "@/components/AdminDashboard.vue";
 
 const props = defineProps({
   currentView: {
@@ -78,10 +76,5 @@ onMounted(() => {
   flex: 1;
   overflow-y: auto;
   padding: 16px;
-}
-
-.dashboard-content {
-  text-align: center;
-  padding: 40px;
 }
 </style>

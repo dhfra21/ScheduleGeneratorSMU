@@ -5,20 +5,63 @@
       "userName": "Regular User",
       "schedule": {
         "courses": [
-          "CS101",
-          "CS102"
+          "CHEM161",
+          "CS102",
+          "ISS196"
         ],
         "days": [
-          "tuesday 14:00-16:00",
+          "monday 10:00-12:00",
           "tuesday 08:00-10:00",
-          "wednesday 14:00-16:00",
-          "friday 14:00-16:00"
+          "thursday 08:00-10:00",
+          "friday 08:00-10:00",
+          "monday 14:00-16:00",
+          "thursday 10:00-12:00"
         ],
-        "gaps": "4 hours",
-        "daysOff": 2,
+        "gaps": "2 hours",
+        "daysOff": 1,
         "earliestStart": "08:00"
       },
-      "approvedAt": "2025-03-26T23:50:36.652Z"
+      "approvedAt": "2025-04-01T17:43:30.251Z"
+    },
+    {
+      "userId": "3",
+      "userName": "New Student",
+      "schedule": {
+        "courses": [
+          "ENG121"
+        ],
+        "days": [
+          "thursday 08:00-10:00",
+          "friday 08:00-10:00"
+        ],
+        "gaps": "0 hours",
+        "daysOff": 3,
+        "earliestStart": "08:00"
+      },
+      "approvedAt": "2025-04-03T15:40:19.396Z"
+    },
+    {
+      "userId": "5",
+      "userName": "Mourad Kochkar",
+      "schedule": {
+        "courses": [
+          "CHEM161",
+          "CS102",
+          "ISS196"
+        ],
+        "days": [
+          "monday 10:00-12:00",
+          "tuesday 08:00-10:00",
+          "wednesday 14:00-16:00",
+          "friday 14:00-16:00",
+          "thursday 14:00-16:00",
+          "thursday 08:00-10:00"
+        ],
+        "gaps": "4 hours",
+        "daysOff": 0,
+        "earliestStart": "08:00"
+      },
+      "approvedAt": "2025-04-04T10:08:30.515Z"
     }
   ]
 }
