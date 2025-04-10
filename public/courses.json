@@ -2635,6 +2635,293 @@
         }
       ],
       "id": "cb94"
+    },
+    {
+      "course_code": "CS201",
+      "course_name": "Data Structures and Algorithms",
+      "major": "Computer Science",
+      "year": "Sophomore",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Anderson",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Prof. Martinez",
+          "classroom": "Room B203",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "cs201"
+    },
+    {
+      "course_code": "EE101",
+      "course_name": "Introduction to Electrical Engineering",
+      "major": "Electrical Engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Chen",
+          "classroom": "Room E101",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "ee101"
+    },
+    {
+      "course_code": "ME201",
+      "course_name": "Thermodynamics",
+      "major": "Mechanical Engineering",
+      "year": "Sophomore",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Wilson",
+          "classroom": "Room M201",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "me201"
+    },
+    {
+      "course_code": "CE101",
+      "course_name": "Introduction to Civil Engineering",
+      "major": "Civil Engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Rodriguez",
+          "classroom": "Room C101",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "ce101"
+    },
+    {
+      "course_code": "BUS101",
+      "course_name": "Introduction to Business",
+      "major": "Business Administration",
+      "year": "Freshman",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Thompson",
+          "classroom": "Room B101",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "bus101"
+    },
+    {
+      "course_code": "CS301",
+      "course_name": "Database Systems",
+      "major": "Computer Science",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Kim",
+          "classroom": "Room B301",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "cs301"
+    },
+    {
+      "course_code": "EE201",
+      "course_name": "Circuit Analysis",
+      "major": "Electrical Engineering",
+      "year": "Sophomore",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Patel",
+          "classroom": "Room E201",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "ee201"
+    },
+    {
+      "course_code": "ME301",
+      "course_name": "Fluid Mechanics",
+      "major": "Mechanical Engineering",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Garcia",
+          "classroom": "Room M301",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "me301"
+    },
+    {
+      "course_code": "CE201",
+      "course_name": "Structural Analysis",
+      "major": "Civil Engineering",
+      "year": "Sophomore",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Lee",
+          "classroom": "Room C201",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "ce201"
+    },
+    {
+      "course_code": "BUS201",
+      "course_name": "Business Statistics",
+      "major": "Business Administration",
+      "year": "Sophomore",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Brown",
+          "classroom": "Room B201",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "bus201"
     }
   ]
 }

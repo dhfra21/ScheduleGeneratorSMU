@@ -10,7 +10,7 @@ const isUserLoggedIn = ref(false);
 const goToSchedule = () => router.push('/schedule');
 const goToCatalog = () => router.push('/courses');
 const goToAdminLogin = () => router.push('/login');
-const goToUserLogin = () => router.push('/user-login');
+const goToUserLogin = () => router.push('/login');
 
 const checkLoginState = () => {
   isUserLoggedIn.value = localStorage.getItem('isUserLoggedIn') === 'true';

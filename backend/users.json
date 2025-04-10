@@ -41,6 +41,13 @@
       "password": "dhiafrad002",
       "role": "user",
       "name": "Alaa Aljane"
+    },
+    {
+      "id": "7",
+      "email": "mail@gmail.com",
+      "password": "dhiafrad",
+      "role": "user",
+      "name": "Sarra Boujday"
     }
   ]
 }

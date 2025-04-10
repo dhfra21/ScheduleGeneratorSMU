@@ -8,8 +8,7 @@ import { useAuthStore } from '@/stores/auth';
 import HomeView from '@/views/HomeView.vue';
 import SchedulerView from '@/views/SchedulerView.vue';
 import CoursesView from '@/views/CoursesView.vue';
-import AdminLogin from '@/views/AdminLogin.vue';
-import UserLogin from '@/views/UserLogin.vue';
+import Login from '@/views/Login.vue';
 import UserRegistration from '@/views/UserRegistration.vue';
 
 // Admin-facing views
@@ -44,18 +43,9 @@ const routes = [
       {
         path: 'login',
         name: 'login',
-        component: AdminLogin,
+        component: Login,
         meta: { 
-          title: 'Admin Login - University Scheduler',
-          requiresGuest: true
-        },
-      },
-      {
-        path: 'user-login',
-        name: 'user-login',
-        component: UserLogin,
-        meta: { 
-          title: 'User Login - University Scheduler',
+          title: 'Login - University Scheduler',
           requiresGuest: true
         },
       },
@@ -158,8 +148,8 @@ router.beforeEach(async (to, from, next) => {
   // Handle protected routes
   if (to.meta.requiresAuth) {
     if (!authStore.isAuthenticated) {
-      // Redirect to appropriate login page
-      next(to.meta.requiresAdmin ? '/login' : '/user-login');
+      // Redirect to login page
+      next('/login');
       return;
     }
 

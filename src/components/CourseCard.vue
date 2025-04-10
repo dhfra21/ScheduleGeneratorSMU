@@ -24,8 +24,11 @@ const majorColor = computed(() => {
   const colorMap = {
     'pre-engineering': '#8E24AA', // Purple
     'software engineering': '#1E88E5', // Blue
-    'computer systems engineering': '#43A047', // Green
-    'renewable energy engineering': '#FB8C00', // Orange
+    'computer science': '#43A047', // Green
+    'electrical engineering': '#FB8C00', // Orange
+    'mechanical engineering': '#E53935', // Red
+    'civil engineering': '#00ACC1', // Cyan
+    'business administration': '#6D4C41', // Brown
   };
   
   const majorKey = props.course.major.toLowerCase();
@@ -36,15 +39,46 @@ const majorColor = computed(() => {
 const majorIcon = computed(() => {
   const iconMap = {
     'general': 'mdi-book-open-page-variant',
-    'Software Engineering': 'mdi-laptop-windows',
-    'computer systems engineering': 'mdi-chip',
-    'renewable energy engineering': 'mdi-flash',
-    'pre-engineering': 'mdi-account-school'
+    'software e': 'mdi-code',
+    'software engineering': 'mdi-application',
+    'software': 'mdi-code',
+    'computer s': 'mdi-code-braces',
+    'computer science': 'mdi-code-braces',
+    'computer': 'mdi-code-braces',
+    'electrical e': 'mdi-flash',
+    'electrical engineering': 'mdi-flash',
+    'electrical': 'mdi-flash',
+    'mechanical e': 'mdi-cog',
+    'mechanical engineering': 'mdi-cog',
+    'mechanical': 'mdi-cog',
+    'civil e': 'mdi-bridge',
+    'civil engineering': 'mdi-bridge',
+    'civil': 'mdi-bridge',
+    'business a': 'mdi-briefcase',
+    'business administration': 'mdi-briefcase',
+    'business': 'mdi-briefcase',
+    'pre-e': 'mdi-account-school',
+    'pre-engineering': 'mdi-account-school',
+    'pre engineering': 'mdi-account-school'
   };
   
-  const majorKey = props.course.major.toLowerCase();
-  console.log('Computed Icon:', iconMap[majorKey] || 'mdi-book-open-page-variant'); // Debugging
-  return iconMap[majorKey] || 'mdi-book-open-page-variant';
+  // Normalize the major name by converting to lowercase and removing extra spaces
+  const normalizedMajor = props.course.major.toLowerCase().trim().replace(/\s+/g, ' ');
+  
+  // Try to find an exact match first
+  if (iconMap[normalizedMajor]) {
+    return iconMap[normalizedMajor];
+  }
+  
+  // If no exact match, try to find a partial match
+  for (const [key, icon] of Object.entries(iconMap)) {
+    if (normalizedMajor.startsWith(key) || key.startsWith(normalizedMajor)) {
+      return icon;
+    }
+  }
+  
+  // Default icon if no match found
+  return 'mdi-book-open-page-variant';
 });
 
 // Get year-based styling
@@ -211,7 +245,7 @@ function closeDetailsOnOutsideClick(event) {
                     <div class="time-slots">
                       <div v-for="(slot, index) in group.time_slots" :key="index" class="time-slot">
                         <v-icon icon="mdi-calendar-clock" size="small" class="mr-2"></v-icon>
-                        {{ slot }}
+                        {{ slot.day }}: {{ slot.start_time }} - {{ slot.end_time }}
                       </div>
                     </div>
                   </div>
@@ -385,13 +419,19 @@ function closeDetailsOnOutsideClick(event) {
 }
 
 .time-slots {
-  padding-left: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 .time-slot {
   display: flex;
   align-items: center;
-  margin-bottom: 6px;
+  padding: 4px 8px;
+  background-color: rgba(var(--v-theme-primary), 0.1);
+  border-radius: 4px;
+  font-size: 0.9rem;
 }
 
 .actions {

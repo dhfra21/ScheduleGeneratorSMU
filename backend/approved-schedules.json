@@ -62,6 +62,58 @@
         "earliestStart": "08:00"
       },
       "approvedAt": "2025-04-04T10:08:30.515Z"
+    },
+    {
+      "userId": "4",
+      "userName": "Test User",
+      "schedule": {
+        "courses": [
+          "CHEM161",
+          "CS202",
+          "FIN 101",
+          "ACT101"
+        ],
+        "days": [
+          "friday 08:00-10:00",
+          "thursday 10:00-12:00",
+          "wednesday 14:00-16:00",
+          "tuesday 08:00-10:00",
+          "monday 14:00-16:00",
+          "tuesday 14:00-16:00",
+          "thursday 14:00-16:00",
+          "monday 10:00-12:00"
+        ],
+        "gaps": "8 hours",
+        "daysOff": 0,
+        "earliestStart": "08:00",
+        "groups": [
+          {
+            "course_code": "CHEM161",
+            "group_number": 1,
+            "professor": "Dr. Green",
+            "classroom": "Room C303A"
+          },
+          {
+            "course_code": "CS202",
+            "group_number": 1,
+            "professor": "Prof. White",
+            "classroom": "Room A101"
+          },
+          {
+            "course_code": "FIN 101",
+            "group_number": 1,
+            "professor": "Dr. Hall",
+            "classroom": "Room D404"
+          },
+          {
+            "course_code": "ACT101",
+            "group_number": 1,
+            "professor": "Dr. Smith",
+            "classroom": "Room D404"
+          }
+        ]
+      },
+      "approvedAt": "2025-04-10T18:21:29.168Z"
     }
   ]
 }

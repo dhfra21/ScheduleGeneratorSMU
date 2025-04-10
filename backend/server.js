@@ -437,6 +437,22 @@ app.get('/notifications/:userId', (req, res) => {
   }
 });
 
+// Clear notifications endpoint
+app.delete('/notifications/:userId', (req, res) => {
+  try {
+    const { userId } = req.params;
+    console.log('Clearing notifications for user:', userId);
+    const notifications = loadNotifications();
+    notifications.notifications[userId] = [];
+    saveNotifications(notifications);
+    console.log('Notifications cleared for user:', userId);
+    res.json({ message: 'Notifications cleared successfully' });
+  } catch (error) {
+    console.error('Error clearing notifications:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Helper function to load users
 const loadUsers = () => {
   try {

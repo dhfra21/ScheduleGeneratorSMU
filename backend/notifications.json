@@ -1,21 +1,6 @@
 {
   "notifications": {
-    "2": [
-      {
-        "id": "1743529258886",
-        "type": "info",
-        "title": "Schedule Submitted",
-        "message": "Your schedule has been submitted for approval.",
-        "createdAt": "2025-04-01T17:40:58.886Z"
-      },
-      {
-        "id": "1743529410251",
-        "type": "success",
-        "title": "Schedule Approved",
-        "message": "Your schedule request has been approved by the administrator.",
-        "createdAt": "2025-04-01T17:43:30.251Z"
-      }
-    ],
+    "2": [],
     "3": [
       {
         "id": "1743694608084",
@@ -30,6 +15,15 @@
         "title": "Schedule Approved",
         "message": "Your schedule request has been approved by the administrator.",
         "createdAt": "2025-04-03T15:40:19.396Z"
+      }
+    ],
+    "4": [
+      {
+        "id": "1744309289168",
+        "type": "success",
+        "title": "Schedule Approved",
+        "message": "Your schedule request has been approved by the administrator.",
+        "createdAt": "2025-04-10T18:21:29.168Z"
       }
     ],
     "5": [

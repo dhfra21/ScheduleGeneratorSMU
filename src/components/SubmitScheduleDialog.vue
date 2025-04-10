@@ -10,6 +10,12 @@
           <v-list>
             <v-list-item v-for="(course, index) in schedule.courses" :key="index">
               <v-list-item-title class="font-weight-bold">{{ course }}</v-list-item-title>
+              <v-list-item-subtitle v-if="schedule.groups">
+                <div v-if="schedule.groups.find(g => g.course_code === course)">
+                  Group {{ schedule.groups.find(g => g.course_code === course).group_number }} - 
+                  {{ schedule.groups.find(g => g.course_code === course).professor }}
+                </div>
+              </v-list-item-subtitle>
             </v-list-item>
           </v-list>
           

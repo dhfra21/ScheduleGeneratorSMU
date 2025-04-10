@@ -2,9 +2,9 @@
   <v-container class="fill-height">
     <v-row>
       <v-col cols="12">
-        <ApprovedSchedule
+        <EnhancedScheduleView
           v-if="approvedSchedule"
-          :approved-schedule="approvedSchedule"
+          :schedule="approvedSchedule.schedule"
         />
         <Stepper v-else />
       </v-col>
@@ -15,15 +15,12 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import Stepper from '@/components/Stepper.vue';
-import ApprovedSchedule from '@/components/ApprovedSchedule.vue';
+import EnhancedScheduleView from '@/components/EnhancedScheduleView.vue';
 import axios from 'axios';
-import ScheduleDisplay from '@/components/ScheduleDisplay.vue';
 import { useAuthStore } from '@/stores/auth';
 
 const authStore = useAuthStore();
 const approvedSchedule = ref(null);
-const schedules = ref([]);
-const selectedCourses = ref([]);
 const loading = ref(false);
 const error = ref(null);
 
@@ -44,8 +41,6 @@ const fetchApprovedSchedule = async () => {
 };
 
 const handleScheduleSubmitted = () => {
-  // Reset the form
-  selectedCourses.value = [];
   // Fetch the latest approved schedule
   fetchApprovedSchedule();
 };
@@ -59,43 +54,6 @@ onMounted(() => {
 .scheduler-container {
   height: 100%;
   padding: 20px;
-}
-
-.scheduler-card {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.scheduler-card :deep(.v-card-text) {
-  flex: 1;
-  overflow: hidden;
-}
-
-.scheduler-card :deep(.v-window) {
-  height: 100%;
-}
-
-.scheduler-card :deep(.v-window__container) {
-  height: 100%;
-}
-
-.scheduler-card :deep(.v-window-item) {
-  height: 100%;
-}
-
-.scheduler-card :deep(.v-window-item__content) {
-  height: 100%;
-  overflow: hidden;
-}
-
-.scheduler-card :deep(.v-card) {
-  height: 100%;
-}
-
-.scheduler-card :deep(.v-card__text) {
-  height: 100%;
-  overflow: hidden;
 }
 </style>
   

@@ -224,7 +224,36 @@ const generateSchedules = async () => {
           gaps: gaps,
           daysOff: daysOff,
           earliestStart: earliestStart,
-          score: score
+          score: score,
+          groups: combo.map(course => {
+            // Find the matching group from the original course object
+            const originalCourse = selectedCourses.value.find(c => c.course_code === course.course_code);
+            if (!originalCourse || !originalCourse.groups) {
+              return {
+                course_code: course.course_code,
+                group_number: null,
+                professor: null,
+                classroom: null
+              };
+            }
+            
+            const matchingGroup = originalCourse.groups.find(group => 
+              group.time_slots.some(slot => 
+                allTimeSlots.some(timeSlot => 
+                  timeSlot.day.toLowerCase() === slot.day.toLowerCase() &&
+                  timeSlot.start_time === slot.start_time &&
+                  timeSlot.end_time === slot.end_time
+                )
+              )
+            );
+            
+            return {
+              course_code: course.course_code,
+              group_number: matchingGroup ? matchingGroup.group_number : null,
+              professor: matchingGroup ? matchingGroup.professor : null,
+              classroom: matchingGroup ? matchingGroup.classroom : null
+            };
+          })
         });
       }
     }
@@ -242,7 +271,8 @@ const generateSchedules = async () => {
         daysOff: schedule.daysOff,
         earliestStart: schedule.timeSlots
           .find(slot => timeToMinutes(slot.start_time) === schedule.earliestStart)
-          .start_time
+          .start_time,
+        groups: schedule.groups
       }));
 
     if (generatedSchedules.value.length === 0) {

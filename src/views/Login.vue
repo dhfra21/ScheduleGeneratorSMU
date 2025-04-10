@@ -3,7 +3,7 @@
     <v-card class="pa-6 elevation-6" width="400" rounded="xl" style="background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);">
       <v-card-title class="text-h5 font-weight-bold mb-4" style="color: #1e293b;">
         <v-icon color="primary" size="40" class="mr-2">mdi-account</v-icon>
-        User Login
+        Login
       </v-card-title>
 
       <v-card-text>

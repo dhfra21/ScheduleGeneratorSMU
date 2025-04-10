@@ -161,8 +161,14 @@ const currentScheduleDetails = computed(() => {
 // Handle clicking on a course to show details
 const handleCourseClick = (courseCode) => {
   const course = props.selectedCourses.find(c => c.course_code === courseCode);
+  const currentSchedule = props.schedules[currentScheduleIndex.value];
+  const groupInfo = currentSchedule.groups.find(g => g.course_code === courseCode);
+  
   if (course) {
-    selectedCourse.value = course;
+    selectedCourse.value = {
+      ...course,
+      selectedGroup: groupInfo
+    };
     showDetails.value = true;
   } else {
     console.warn(`Course ${courseCode} not found in selectedCourses`);
@@ -300,81 +306,45 @@ const handleSubmit = () => {
     <!-- Course Details Modal -->
     <div v-if="showDetails" class="details-overlay" @click="closeDetailsOnOutsideClick">
       <div class="details-modal">
-        <div class="modal-header" :style="{ backgroundColor: majorColor }">
-          <div class="course-title">
-            <h2>{{ selectedCourse.course_code }}: {{ selectedCourse.course_name }}</h2>
-          </div>
-          <v-btn 
-            icon 
-            variant="text" 
-            color="white" 
-            size="small"
-            @click="showDetails = false"
-          >
-            <v-icon icon="mdi-close"></v-icon>
-          </v-btn>
-        </div>
-
-        <div class="modal-content">
-          <div class="info-section">
-            <h3>Course Information</h3>
-            <div class="info-grid">
-              <div class="info-item">
-                <v-icon :icon="majorIcon" :color="majorColor" class="mr-2"></v-icon>
-                <span class="info-label">Major:</span> {{ selectedCourse.major }}
-              </div>
-              <div class="info-item">
-                <v-icon :icon="yearInfo.icon" :color="yearInfo.color" class="mr-2"></v-icon>
-                <span class="info-label">Year:</span> {{ selectedCourse.year }}
-              </div>
-              <div class="info-item">
-                <v-icon icon="mdi-weight" color="primary" class="mr-2"></v-icon>
-                <span class="info-label">Credits:</span> {{ selectedCourse.credits }}
-              </div>
+        <div class="details-content">
+          <h2 class="text-h5 mb-4">{{ selectedCourse.course_code }} - {{ selectedCourse.course_name }}</h2>
+          
+          <div class="course-info">
+            <div class="info-item">
+              <v-icon icon="mdi-school" color="primary" class="mr-2"></v-icon>
+              <span class="info-label">Major:</span> {{ selectedCourse.major }}
+            </div>
+            <div class="info-item">
+              <v-icon icon="mdi-account-school" color="primary" class="mr-2"></v-icon>
+              <span class="info-label">Year:</span> {{ selectedCourse.year }}
+            </div>
+            <div class="info-item">
+              <v-icon icon="mdi-credit-card" color="primary" class="mr-2"></v-icon>
+              <span class="info-label">Credits:</span> {{ selectedCourse.credits }}
             </div>
           </div>
 
           <v-divider class="my-4"></v-divider>
 
-          <!-- Groups Section -->
-          <div v-if="selectedCourse.groups && selectedCourse.groups.length > 0" class="groups-section">
-            <h3>Course Groups</h3>
-            
-            <v-expansion-panels variant="accordion">
-              <v-expansion-panel
-                v-for="group in selectedCourse.groups"
-                :key="group.group_number"
-                :title="`Group ${group.group_number}`"
-                :text="`Professor: ${group.professor}`"
-              >
-                <template v-slot:text>
-                  <div class="group-details">
-                    <div class="group-info">
-                      <v-icon icon="mdi-account-tie" color="primary" class="mr-2"></v-icon>
-                      <span class="info-label">Professor:</span> {{ group.professor }}
-                    </div>
-                    <div class="group-info">
-                      <v-icon icon="mdi-map-marker" color="primary" class="mr-2"></v-icon>
-                      <span class="info-label">Location:</span> {{ group.classroom }}
-                    </div>
-                    <div class="group-schedule">
-                      <div class="schedule-header">
-                        <v-icon icon="mdi-clock-outline" color="primary" class="mr-2"></v-icon>
-                        <span class="info-label">Schedule:</span>
-                      </div>
-                      <div class="time-slots">
-                        <div v-for="(slot, index) in group.time_slots" :key="index" class="time-slot">
-                          <v-icon icon="mdi-calendar-clock" size="small" class="mr-2"></v-icon>
-                          {{ slot.day }} {{ slot.start_time }}-{{ slot.end_time }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </template>
-              </v-expansion-panel>
-            </v-expansion-panels>
+          <!-- Selected Group Info -->
+          <div v-if="selectedCourse.selectedGroup" class="selected-group-info">
+            <h3>Selected Group</h3>
+            <div class="group-details">
+              <div class="group-info">
+                <v-icon icon="mdi-account-tie" color="primary" class="mr-2"></v-icon>
+                <span class="info-label">Group Number:</span> {{ selectedCourse.selectedGroup.group_number }}
+              </div>
+              <div class="group-info">
+                <v-icon icon="mdi-account-tie" color="primary" class="mr-2"></v-icon>
+                <span class="info-label">Professor:</span> {{ selectedCourse.selectedGroup.professor }}
+              </div>
+              <div class="group-info">
+                <v-icon icon="mdi-map-marker" color="primary" class="mr-2"></v-icon>
+                <span class="info-label">Location:</span> {{ selectedCourse.selectedGroup.classroom }}
+              </div>
+            </div>
           </div>
-          
+
           <v-divider class="my-4"></v-divider>
           
           <div class="actions">
@@ -523,67 +493,39 @@ const handleSubmit = () => {
   animation: slideIn 0.3s ease;
 }
 
-.modal-header {
-  padding: 16px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-}
-
-.course-title h2 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 500;
-}
-
-.modal-content {
+.details-content {
   padding: 24px;
   overflow-y: auto;
 }
 
-.info-section h3,
-.groups-section h3 {
-  margin-top: 0;
+.course-info {
   margin-bottom: 16px;
-  font-size: 1.2rem;
-  font-weight: 500;
 }
 
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 16px;
-}
-
-.info-item, .group-info {
+.info-item {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
+}
+
+.info-label {
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+.selected-group-info {
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .group-details {
   padding: 8px 0;
 }
 
-.group-schedule {
-  margin-top: 12px;
-}
-
-.schedule-header {
+.group-info {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
-}
-
-.time-slots {
-  padding-left: 28px;
-}
-
-.time-slot {
-  display: flex;
-  align-items: center;
-  margin-bottom: 6px;
 }
 
 .actions {

@@ -4,6 +4,7 @@
     :model-value="hasNotifications"
     color="error"
     class="notification-badge"
+    :dot="notificationCount > 99"
   >
     <v-btn
       icon
@@ -12,16 +13,20 @@
       :color="hasNotifications ? 'primary' : 'grey-darken-1'"
       class="notification-btn"
       size="large"
+      :class="{ 'pulse': hasNotifications }"
     >
       <v-icon size="24">mdi-bell</v-icon>
     </v-btn>
   </v-badge>
 
   <!-- Notifications Dialog -->
-  <v-dialog v-model="showDialog" max-width="500">
-    <v-card>
+  <v-dialog v-model="showDialog" max-width="500" transition="dialog-bottom-transition">
+    <v-card class="notification-dialog">
       <v-card-title class="d-flex justify-space-between align-center pa-4">
-        <span class="text-h6">Schedule Notifications</span>
+        <div class="d-flex align-center">
+          <v-icon color="primary" class="mr-2">mdi-bell</v-icon>
+          <span class="text-h6">Schedule Notifications</span>
+        </div>
         <v-btn icon="mdi-close" variant="text" @click="showDialog = false"></v-btn>
       </v-card-title>
       <v-card-text class="pa-4">
@@ -33,6 +38,7 @@
             :subtitle="notification.message"
             :color="getNotificationColor(notification.type)"
             class="mb-2 notification-item"
+            :class="getNotificationClass(notification.type)"
           >
             <template v-slot:prepend>
               <v-icon :color="getNotificationColor(notification.type)" size="24">
@@ -44,7 +50,8 @@
             </template>
           </v-list-item>
         </v-list>
-        <v-alert v-else type="info" class="mt-4">
+        <v-alert v-else type="info" class="mt-4" variant="tonal">
+          <v-icon left>mdi-information</v-icon>
           No notifications
         </v-alert>
       </v-card-text>
@@ -114,6 +121,19 @@ const formatTimestamp = (timestamp) => {
   });
 };
 
+const getNotificationClass = (type) => {
+  switch (type) {
+    case 'success':
+      return 'notification-success';
+    case 'error':
+      return 'notification-error';
+    case 'warning':
+      return 'notification-warning';
+    default:
+      return 'notification-info';
+  }
+};
+
 const fetchNotifications = async () => {
   try {
     if (!authStore.user?.id) {
@@ -155,6 +175,18 @@ const showNotifications = () => {
   showDialog.value = true;
   // Fetch immediately when opening dialog
   fetchNotifications();
+  // Clear notifications when user opens the dialog
+  clearNotifications();
+};
+
+const clearNotifications = async () => {
+  try {
+    if (!authStore.user?.id) return;
+    await axios.delete(`http://localhost:3000/notifications/${authStore.user.id}`);
+    notifications.value = [];
+  } catch (error) {
+    console.error('Error clearing notifications:', error);
+  }
 };
 
 // Watch for auth state changes
@@ -189,6 +221,8 @@ watch(showDialog, (newValue) => {
 <style scoped>
 .notification-badge {
   margin-right: 8px;
+  position: relative;
+  display: inline-flex;
 }
 
 .notification-badge :deep(.v-badge__badge) {
@@ -196,8 +230,15 @@ watch(showDialog, (newValue) => {
   height: 20px;
   padding: 0 6px;
   font-size: 12px;
-  right: -12px;
+  right: -6px;
   top: -2px;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  z-index: 2;
 }
 
 .notification-btn {
@@ -218,22 +259,64 @@ watch(showDialog, (newValue) => {
   transform: scale(1.05);
 }
 
+.notification-btn.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.notification-dialog {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
 .notification-list {
   max-height: 400px;
   overflow-y: auto;
+  padding: 8px;
 }
 
 .notification-item {
-  border-radius: 8px;
+  border-radius: 12px;
   margin-bottom: 8px;
-  background-color: rgba(0, 0, 0, 0.02);
   transition: all 0.3s ease;
   padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .notification-item:hover {
-  background-color: rgba(0, 0, 0, 0.04);
   transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notification-success {
+  background-color: rgba(var(--v-theme-success), 0.05);
+  border-left: 4px solid rgb(var(--v-theme-success));
+}
+
+.notification-error {
+  background-color: rgba(var(--v-theme-error), 0.05);
+  border-left: 4px solid rgb(var(--v-theme-error));
+}
+
+.notification-warning {
+  background-color: rgba(var(--v-theme-warning), 0.05);
+  border-left: 4px solid rgb(var(--v-theme-warning));
+}
+
+.notification-info {
+  background-color: rgba(var(--v-theme-primary), 0.05);
+  border-left: 4px solid rgb(var(--v-theme-primary));
 }
 
 .notification-item :deep(.v-list-item__append) {
