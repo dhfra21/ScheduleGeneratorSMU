@@ -1,191 +1,265 @@
 import fetch from 'node-fetch';
 
+/**
+ * A simplified AI Agent that focuses on course suggestion and
+ * information retrieval with minimal responses
+ */
 class AIAgent {
   constructor() {
+    // Store user context
     this.context = new Map();
+    // API endpoint for AI model
     this.baseUrl = 'http://localhost:11434/api';
+    // Track current state for each user
     this.conversationState = new Map();
   }
 
+  /**
+   * Starts a new conversation with a fixed, concise greeting
+   */
   async startConversation(studentId) {
     try {
-      const prompt = `You are a friendly and helpful AI academic advisor. Greet the student warmly and ask them about their academic year and major. Keep your response concise and friendly. IMPORTANT: Respond as if you are having a natural conversation with the student. Do not explain your reasoning or thought process. Do not mention what you're thinking or what you're going to do next.`;
-      
-      const response = await fetch(`${this.baseUrl}/generate`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'mistral',
-          prompt: prompt,
-          stream: false
-        })
+      // Set initial state
+      this.conversationState.set(studentId, { 
+        stage: 'initial_greeting'
       });
-
-      const data = await response.json();
-      this.conversationState.set(studentId, { stage: 'initial_greeting' });
-      return data.response;
+      
+      // Return fixed greeting - no AI generation
+      return "Hi! Select your year and major to get started.";
     } catch (error) {
       console.error('Error starting conversation:', error);
-      throw error;
+      return "Welcome! Select your academic details to begin.";
     }
   }
 
+  /**
+   * Processes user responses using pattern matching and state tracking
+   */
   async handleUserResponse(studentId, userMessage) {
     try {
+      // Get or initialize state and context
       const state = this.conversationState.get(studentId) || { stage: 'initial_greeting' };
       const userContext = this.context.get(studentId) || {};
       
-      // Extract information from user message
-      if (userMessage.toLowerCase().includes('junior') && userMessage.toLowerCase().includes('software')) {
-        this.updateUserContext(studentId, {
-          year: 'junior',
-          major: 'software engineering'
-        });
-      }
+      // Extract user info from message
+      this.extractAndUpdateContext(studentId, userMessage);
       
-      let prompt = '';
-      switch (state.stage) {
-        case 'initial_greeting':
-          prompt = `You are talking to a student who has just responded to your greeting. 
-          
-          If they mentioned their major and year, acknowledge it and ask about their course preferences.
-          If they haven't mentioned their major yet, ask for it politely.
-          
-          IMPORTANT: Respond as if you are having a natural conversation with the student. Do not explain your reasoning or thought process. Do not mention what you're thinking or what you're going to do next.`;
-          break;
-        case 'collecting_preferences':
-          prompt = `You are talking to a student who has shared their preferred courses. 
-          
-          Based on their major (${userContext.major}) and year (${userContext.year}), suggest relevant courses that would complement their interests.
-          
-          IMPORTANT: Respond as if you are having a natural conversation with the student. Do not explain your reasoning or thought process. Do not mention what you're thinking or what you're going to do next.`;
-          break;
-        case 'suggesting_courses':
-          prompt = `You are talking to a student who wants course suggestions.
-          
-          Their context:
-          - Major: ${userContext.major}
-          - Year: ${userContext.year}
-          - Previous courses: ${userContext.previousCourses?.join(', ') || 'None'}
-          - Preferred courses: ${userContext.preferredCourses?.join(', ') || 'None'}
-          
-          IMPORTANT: Respond as if you are having a natural conversation with the student. Do not explain your reasoning or thought process. Do not mention what you're thinking or what you're going to do next.`;
-          break;
-        case 'optimization':
-          prompt = `You are talking to a student who wants schedule optimization.
-          
-          Their preferences:
-          - Preferred times: ${userContext.preferredTimes?.join(', ') || 'Not specified'}
-          - Course load: ${userContext.courseLoad || 'Not specified'}
-          
-          IMPORTANT: Respond as if you are having a natural conversation with the student. Do not explain your reasoning or thought process. Do not mention what you're thinking or what you're going to do next.`;
-          break;
-      }
-
-      const response = await fetch(`${this.baseUrl}/generate`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'mistral',
-          prompt: prompt,
-          stream: false
-        })
+      // Get updated context after extraction
+      const updatedContext = this.context.get(studentId) || {};
+      
+      // Determine next state based on current state and context
+      const nextState = this.determineNextState(state.stage, updatedContext);
+      
+      // Get appropriate response for the current situation
+      let response = this.getResponseForState(nextState, updatedContext);
+      
+      // Update conversation state
+      this.conversationState.set(studentId, { 
+        stage: nextState
       });
-
-      const data = await response.json();
       
-      // Update conversation state based on the response
-      if (data.response.toLowerCase().includes('preferred courses')) {
-        this.conversationState.set(studentId, { stage: 'collecting_preferences' });
-      } else if (data.response.toLowerCase().includes('optimized schedule')) {
-        this.conversationState.set(studentId, { stage: 'optimization' });
-      } else if (data.response.toLowerCase().includes('suggest')) {
-        this.conversationState.set(studentId, { stage: 'suggesting_courses' });
-      }
-
-      return data.response;
+      return response;
     } catch (error) {
       console.error('Error handling user response:', error);
-      throw error;
+      return "I understand. How can I help with your courses?";
     }
   }
 
+  /**
+   * Extracts information from user messages using pattern matching
+   */
+  extractAndUpdateContext(studentId, message) {
+    const context = this.context.get(studentId) || {};
+    const updatedContext = {...context};
+    
+    // Extract academic year
+    const yearPatterns = {
+      freshman: /freshman|first.year|1st.year/i,
+      sophomore: /sophomore|second.year|2nd.year/i,
+      junior: /junior|third.year|3rd.year/i,
+      senior: /senior|fourth.year|4th.year/i
+    };
+    
+    Object.entries(yearPatterns).forEach(([year, pattern]) => {
+      if (pattern.test(message)) {
+        updatedContext.year = year;
+      }
+    });
+    
+    // Extract major
+    const majorPatterns = {
+      'software engineering': /software|software engineering/i,
+      'computer science': /computer science|cs/i,
+      'electrical engineering': /electrical|electrical engineering|ee/i,
+      'mechanical engineering': /mechanical|mechanical engineering/i,
+      'civil engineering': /civil|civil engineering/i,
+      'business administration': /business|business administration/i
+    };
+    
+    Object.entries(majorPatterns).forEach(([major, pattern]) => {
+      if (pattern.test(message)) {
+        updatedContext.major = major;
+      }
+    });
+    
+    // Update context
+    this.context.set(studentId, updatedContext);
+  }
+
+  /**
+   * Determines next conversation state based on current state and available context
+   */
+  determineNextState(currentState, context) {
+    switch (currentState) {
+      case 'initial_greeting':
+        // If we have both year and major, move to suggesting courses
+        if (context.year && context.major) {
+          return 'suggesting_courses';
+        }
+        return 'initial_greeting';
+      
+      case 'suggesting_courses':
+        // Stay in this state once we reach it
+        return 'suggesting_courses';
+      
+      default:
+        return currentState;
+    }
+  }
+
+  /**
+   * Gets appropriate response based on conversation state
+   */
+  getResponseForState(state, context) {
+    switch (state) {
+      case 'initial_greeting':
+        if (!context.year && !context.major) {
+          return "Please select your academic year and major to get started.";
+        } else if (context.year && !context.major) {
+          return `Thanks for sharing that you're a ${context.year}. What's your major?`;
+        } else if (!context.year && context.major) {
+          return `So you're studying ${context.major}. What year are you in?`;
+        }
+        break;
+      
+      case 'suggesting_courses':
+        return `Here are some recommended courses for ${context.year} ${context.major} students. Click any course for more details.`;
+      
+      default:
+        return "How else can I help with your course selection?";
+    }
+  }
+
+  /**
+   * Gets course recommendations based on student profile
+   */
   async getCourseRecommendations(studentId, preferences = {}) {
     try {
+      // Get current context
       const userContext = this.context.get(studentId) || {};
-      const prompt = this.buildRecommendationPrompt(userContext, preferences);
       
-      const response = await fetch(`${this.baseUrl}/generate`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'mistral',
-          prompt: `You are an AI academic advisor helping students choose their courses. Consider their academic history, interests, and requirements.\n\n${prompt}`,
-          stream: false
-        })
-      });
-
-      const data = await response.json();
+      // Update context with new preferences
+      const mergedContext = { ...userContext, ...preferences };
+      this.context.set(studentId, mergedContext);
+      
       return {
-        recommendations: data.response,
-        context: userContext
+        recommendations: `Here are some recommended courses for ${mergedContext.year} ${mergedContext.major} students:`,
+        context: mergedContext
       };
     } catch (error) {
       console.error('Error getting course recommendations:', error);
-      throw error;
+      return {
+        recommendations: "Here are some courses you might be interested in:",
+        context: {}
+      };
     }
   }
 
-  buildRecommendationPrompt(userContext, preferences) {
-    return `As an AI advisor, please help recommend courses for ${userContext.name || 'the student'}.
-    Consider the following context:
-    - Previous courses: ${userContext.previousCourses?.join(', ') || 'None'}
-    - Major: ${userContext.major || 'Not specified'}
-    - Year: ${userContext.year || 'Not specified'}
-    - Preferences: ${JSON.stringify(preferences)}
-    
-    Please provide personalized course recommendations based on this information.`;
+  /**
+   * Gets information about a specific course
+   */
+  async getCourseInfo(studentId, courseId) {
+    try {
+      return `This course is suitable for ${this.context.get(studentId)?.year || 'your'} level students.`;
+    } catch (error) {
+      console.error('Error getting course info:', error);
+      return "Information about this course is available in the details panel.";
+    }
   }
 
+  /**
+   * Provides personalized advice based on the question type
+   */
+  async getPersonalizedAdvice(studentId, question) {
+    try {
+      // Categorize the question
+      const category = this.categorizeQuestion(question);
+      
+      // Get appropriate response based on question category
+      switch (category) {
+        case 'schedule':
+          return "Consider spreading your courses throughout the week.";
+        
+        case 'professors':
+          return "Check the professor ratings in the course details.";
+        
+        case 'workload':
+          return "Most courses require about 3 hours of work per credit hour.";
+        
+        case 'prerequisites':
+          return "Prerequisites are listed in each course's details.";
+        
+        default:
+          return "Check the course details for more information.";
+      }
+    } catch (error) {
+      console.error('Error getting personalized advice:', error);
+      return "I suggest checking the course catalog for details.";
+    }
+  }
+
+  /**
+   * Categorizes questions using simple keyword matching
+   */
+  categorizeQuestion(question) {
+    const lowerQuestion = question.toLowerCase();
+    
+    if (/schedule|timetable|time|conflict|clash/i.test(lowerQuestion)) {
+      return 'schedule';
+    }
+    
+    if (/professor|instructor|teacher|faculty/i.test(lowerQuestion)) {
+      return 'professors';
+    }
+    
+    if (/workload|difficult|hard|challenging|easy/i.test(lowerQuestion)) {
+      return 'workload';
+    }
+    
+    if (/prerequisite|require|needed|before/i.test(lowerQuestion)) {
+      return 'prerequisites';
+    }
+    
+    return 'general';
+  }
+
+  /**
+   * Updates user context with new information
+   */
   updateUserContext(studentId, newContext) {
     const existingContext = this.context.get(studentId) || {};
     this.context.set(studentId, { ...existingContext, ...newContext });
+    return this.context.get(studentId);
   }
 
-  async getPersonalizedAdvice(studentId, question) {
-    try {
-      const userContext = this.context.get(studentId) || {};
-      const prompt = `As an AI advisor for ${userContext.name || 'the student'}, please provide advice on: ${question}
-      Consider their context:
-      - Major: ${userContext.major || 'Not specified'}
-      - Year: ${userContext.year || 'Not specified'}
-      - Previous courses: ${userContext.previousCourses?.join(', ') || 'None'}`;
-
-      const response = await fetch(`${this.baseUrl}/generate`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'mistral',
-          prompt: `You are a helpful AI academic advisor providing personalized guidance to students.\n\n${prompt}`,
-          stream: false
-        })
-      });
-
-      const data = await response.json();
-      return data.response;
-    } catch (error) {
-      console.error('Error getting personalized advice:', error);
-      throw error;
-    }
+  /**
+   * Resets student data
+   */
+  resetStudentData(studentId) {
+    this.context.delete(studentId);
+    this.conversationState.delete(studentId);
+    return { success: true, message: 'Student data reset successfully' };
   }
 }
 
-export const aiAgent = new AIAgent(); 
+export const aiAgent = new AIAgent();

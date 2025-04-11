@@ -26,21 +26,6 @@
         "createdAt": "2025-04-10T18:21:29.168Z"
       }
     ],
-    "5": [
-      {
-        "id": "1743761223806",
-        "type": "info",
-        "title": "Schedule Submitted",
-        "message": "Your schedule has been submitted for approval.",
-        "createdAt": "2025-04-04T10:07:03.806Z"
-      },
-      {
-        "id": "1743761310515",
-        "type": "success",
-        "title": "Schedule Approved",
-        "message": "Your schedule request has been approved by the administrator.",
-        "createdAt": "2025-04-04T10:08:30.515Z"
-      }
-    ]
+    "5": []
   }
 }

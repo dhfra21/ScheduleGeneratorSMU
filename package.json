@@ -30,7 +30,7 @@
     "vue-cal": "^4.10.2",
     "vue-router": "^4.3.0",
     "vue-weekly-schedule": "^0.3.3",
-    "vuetify": "^3.5.4"
+    "vuetify": "^3.8.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
