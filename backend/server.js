@@ -1,32 +1,48 @@
+import * as dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { aiAgent } from './aiAgent.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Load environment variables first
+dotenv.config({ path: path.join(__dirname, '../.env') });
+console.log('OpenRouter Key:', process.env.OPENROUTER_API_KEY);
+
+// Import AIAgent after environment variables are loaded
+import { aiAgent } from './aiAgent.js';
+
+
+
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+console.log("OpenRouter Key:", process.env.OPENROUTER_API_KEY);
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
+// Check for OpenRouter API key
+if (!process.env.OPENROUTER_API_KEY) {
+  console.warn('\x1b[33m%s\x1b[0m', 'WARNING: OpenRouter API key not set. Using default key from code.');
+  console.warn('\x1b[33m%s\x1b[0m', 'For production, set OPENROUTER_API_KEY in your .env file.');
+}
+
 // Read users from JSON file
 const users = JSON.parse(fs.readFileSync(path.join(__dirname, 'users.json'))).users;
-console.log('Loaded users:', users.map(u => ({ email: u.email, role: u.role })));
 
 // Read courses from JSON file
 let courses;
 try {
   const coursesPath = path.join(__dirname, '../public/courses.json');
-  console.log('Attempting to read courses from:', coursesPath);
   const coursesData = JSON.parse(fs.readFileSync(coursesPath));
   courses = coursesData.courses;
-  console.log('Successfully loaded courses. Total courses:', courses.length);
+  
+  // Initialize AI agent with course database
+  aiAgent.setCourseDatabase(courses);
 } catch (error) {
   console.error('Error loading courses:', error);
   courses = [];
@@ -38,7 +54,6 @@ try {
   const requestsPath = path.join(__dirname, 'schedule-requests.json');
   const requestsData = JSON.parse(fs.readFileSync(requestsPath));
   scheduleRequests = requestsData.requests;
-  console.log('Successfully loaded schedule requests. Total requests:', scheduleRequests.length);
 } catch (error) {
   console.error('Error loading schedule requests:', error);
   scheduleRequests = [];
@@ -50,7 +65,6 @@ try {
   const approvedSchedulesPath = path.join(__dirname, 'approved-schedules.json');
   const approvedSchedulesData = JSON.parse(fs.readFileSync(approvedSchedulesPath));
   approvedSchedules = approvedSchedulesData.schedules;
-  console.log('Successfully loaded approved schedules. Total schedules:', approvedSchedules.length);
 } catch (error) {
   console.error('Error loading approved schedules:', error);
   approvedSchedules = [];
@@ -68,7 +82,6 @@ app.post('/login', (req, res) => {
   const user = currentUsers.find(u => u.email === email && u.password === password);
   
   if (user) {
-    console.log('Login successful for:', email);
     res.json({
       id: user.id,
       email: user.email,
@@ -579,6 +592,81 @@ app.post('/api/ai/chat/message', async (req, res) => {
   }
 });
 
+// New OpenRouter specific endpoints
+app.post('/api/ai/set-model', async (req, res) => {
+  try {
+    const { modelName } = req.body;
+    
+    if (!modelName) {
+      return res.status(400).json({ error: 'Model name is required' });
+    }
+    
+    const result = aiAgent.setModel(modelName);
+    console.log(`AI model changed to: ${modelName}`);
+    res.json(result);
+  } catch (error) {
+    console.error('Error setting AI model:', error);
+    res.status(500).json({ error: 'Failed to set AI model' });
+  }
+});
+
+app.post('/api/ai/extract-courses', async (req, res) => {
+  try {
+    const { message } = req.body;
+    
+    if (!message) {
+      return res.status(400).json({ error: 'Message is required' });
+    }
+    
+    const courseCodes = aiAgent.extractCourseCodes(message);
+    const courses = aiAgent.findCoursesByCodes(courseCodes);
+    
+    res.json({ courseCodes, courses });
+  } catch (error) {
+    console.error('Error extracting course codes:', error);
+    res.status(500).json({ error: 'Failed to extract course codes' });
+  }
+});
+
+app.post('/api/ai/course-info', async (req, res) => {
+  try {
+    const { studentId, courseId } = req.body;
+    
+    if (!studentId || !courseId) {
+      return res.status(400).json({ error: 'Student ID and course ID are required' });
+    }
+    
+    const courseInfo = await aiAgent.getCourseInfo(studentId, courseId);
+    res.json(courseInfo);
+  } catch (error) {
+    console.error('Error getting course info:', error);
+    res.status(500).json({ error: 'Failed to get course information' });
+  }
+});
+
+app.post('/api/ai/reset', async (req, res) => {
+  try {
+    const { studentId } = req.body;
+    
+    if (!studentId) {
+      return res.status(400).json({ error: 'Student ID is required' });
+    }
+    
+    const result = aiAgent.resetStudentData(studentId);
+    res.json(result);
+  } catch (error) {
+    console.error('Error resetting student data:', error);
+    res.status(500).json({ error: 'Failed to reset student data' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
-}); 
+  
+  // Check OpenRouter API key status
+  if (process.env.OPENROUTER_API_KEY) {
+    console.log('\x1b[32m%s\x1b[0m', 'OpenRouter API key detected ✓');
+  } else {
+    console.log('\x1b[33m%s\x1b[0m', 'Using default OpenRouter API key from code. For production, set OPENROUTER_API_KEY in your .env file.');
+  }
+});

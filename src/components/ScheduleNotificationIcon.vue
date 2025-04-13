@@ -199,20 +199,17 @@ watch(() => authStore.user, (newUser) => {
 });
 
 onMounted(() => {
-  console.log('Component mounted, starting polling');
   startPolling();
 });
 
 // Clean up polling when component is unmounted
 onUnmounted(() => {
-  console.log('Component unmounted, stopping polling');
   stopPolling();
 });
 
 // Watch for dialog state to optimize polling
 watch(showDialog, (newValue) => {
   if (newValue) {
-    console.log('Dialog opened, fetching notifications');
     fetchNotifications();
   }
 });

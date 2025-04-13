@@ -1,9 +1,10 @@
-<!-- Stepper.vue -->
+<!-- Stepper.vue with AI Chat Integration -->
 <script setup>
 import { ref } from 'vue';
 import CourseSelection from './CourseSelection.vue';
 import ScheduleOptimization from './ScheduleOptimization.vue';
 import ScheduleDisplay from './ScheduleDisplay.vue';
+import AIChatDialog from './AIChatDialog.vue';
 
 const steps = ['Courses', 'Options', 'Schedules'];
 const currentStep = ref(0);
@@ -20,6 +21,9 @@ const snackbar = ref(false);
 const snackbarText = ref('');
 const snackbarColor = ref('warning');
 const isLoading = ref(false);
+
+// AI Chat dialog control
+const showAIChat = ref(false);
 
 // Utility function to convert time to minutes for easier comparison
 const timeToMinutes = (time) => {
@@ -91,6 +95,26 @@ const handleContinue = () => {
   } else if (currentStep.value < 2) {
     currentStep.value++;
   }
+};
+
+// Handle adding course from AI chat
+const handleAddCourse = (course) => {
+  // Check if course already exists in selectedCourses
+  const exists = selectedCourses.value.some(c => c.id === course.id);
+  
+  if (!exists) {
+    selectedCourses.value.push(course);
+    
+    // Show snackbar notification
+    snackbarText.value = `${course.course_code} added to your course selection.`;
+    snackbarColor.value = 'success';
+    snackbar.value = true;
+  }
+};
+
+// Toggle AI Assistant chat
+const toggleAIAssistant = () => {
+  showAIChat.value = !showAIChat.value;
 };
 
 const generateSchedules = async () => {
@@ -294,6 +318,21 @@ const generateSchedules = async () => {
 <template>
   <v-container class="fill-height d-flex align-center justify-center">
     <v-card class="pa-6 elevation-4" width="1000" rounded="lg">
+      <!-- Floating AI Assistant Button -->
+      <v-btn
+        class="ai-assistant-btn"
+        color="primary"
+        icon="mdi-robot"
+        size="large"
+        @click="toggleAIAssistant"
+        elevation="4"
+        fixed
+        bottom
+        right
+        style="margin: 16px; z-index: 5;"
+        title="AI Course Advisor"
+      ></v-btn>
+
       <v-stepper v-model="currentStep" alt-labels>
         <v-stepper-header>
           <v-stepper-item :complete="currentStep > 0" step="1">Courses</v-stepper-item>
@@ -367,6 +406,14 @@ const generateSchedules = async () => {
       </v-card-actions>
     </v-card>
 
+    <!-- AI Chat Dialog -->
+    <AIChatDialog 
+      v-model="showAIChat"
+      :selectedCoursesModel="selectedCourses"
+      @update:selectedCoursesModel="selectedCourses = $event"
+      @add-course="handleAddCourse"
+    />
+
     <v-snackbar
       v-model="snackbar"
       location="top"
@@ -381,3 +428,14 @@ const generateSchedules = async () => {
     </v-snackbar>
   </v-container>
 </template>
+
+<style scoped>
+.ai-assistant-btn {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.ai-assistant-btn:hover {
+  transform: scale(1.1);
+}
+</style>
