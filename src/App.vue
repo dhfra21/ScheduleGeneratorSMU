@@ -5,17 +5,42 @@
 </template>
 
 <script setup>
-// App.vue is now just a simple wrapper for the router view
-// All layout logic is handled by the layout components
+import { onMounted } from 'vue';
+import { useTheme } from 'vuetify';
+
+const theme = useTheme();
+
+onMounted(() => {
+  // Check if dark mode is enabled in localStorage
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    theme.global.name.value = 'dark';
+  }
+});
 </script>
 
 <style>
 :root {
-  --v-primary-base: #1976D2;
-  --v-primary-darken-1: #1565C0;
+  color-scheme: light dark;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: rgb(var(--v-theme-background)) !important;
 }
 
 .v-application {
-  background-color: #f8fafc !important;
+  background-color: rgb(var(--v-theme-background)) !important;
+}
+
+.v-application__wrap {
+  min-height: 100vh;
+  background-color: rgb(var(--v-theme-background)) !important;
+}
+
+.v-main {
+  background-color: rgb(var(--v-theme-background)) !important;
 }
 </style>

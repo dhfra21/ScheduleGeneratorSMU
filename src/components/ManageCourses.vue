@@ -289,21 +289,16 @@ const getYearColor = (year) => {
 
 <style scoped>
 .manage-courses-container {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 24px;
 }
 
 .page-title {
-  color: #1e293b;
-  background: linear-gradient(45deg, #1e293b, #3b82f6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: rgb(var(--v-theme-on-surface));
 }
 
 .search-card {
-  background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);
-  border: 1px solid #e5e7eb;
+  background-color: rgb(var(--v-theme-surface));
+  border: 1px solid rgba(var(--v-border-color), 0.12);
   border-radius: 12px;
 }
 
@@ -312,28 +307,26 @@ const getYearColor = (year) => {
 }
 
 .courses-table-card {
-  background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);
-  border: 1px solid #e5e7eb;
+  background-color: rgb(var(--v-theme-surface));
+  border: 1px solid rgba(var(--v-border-color), 0.12);
   border-radius: 12px;
   overflow: hidden;
 }
 
 .course-row {
-  transition: all 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
 .course-row:hover {
-  background-color: #f8fafc;
-  transform: translateY(-1px);
+  background-color: rgba(var(--v-theme-on-surface), 0.05);
 }
 
 .highlightable {
-  transition: all 0.2s ease;
+  transition: color 0.3s ease;
 }
 
 .highlightable:hover {
-  color: #3b82f6;
-  cursor: pointer;
+  color: rgb(var(--v-theme-primary));
 }
 
 .action-buttons {
@@ -343,42 +336,69 @@ const getYearColor = (year) => {
 }
 
 .action-btn {
-  transition: all 0.2s ease;
-  opacity: 0.7;
+  transition: all 0.3s ease;
 }
 
 .action-btn:hover {
-  opacity: 1;
-  transform: scale(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .add-btn {
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .add-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Table styling */
+/* Table styles */
 :deep(.v-table) {
-  background: transparent;
+  background-color: rgb(var(--v-theme-surface));
 }
 
 :deep(.v-table thead th) {
-  background-color: #f8fafc;
-  color: #64748b;
+  background-color: rgb(var(--v-theme-surface-variant));
+  color: rgb(var(--v-theme-on-surface-variant));
   font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+  padding: 12px 16px;
 }
 
 :deep(.v-table tbody td) {
-  border-bottom: 1px solid #e5e7eb;
-  padding: 16px;
+  color: rgb(var(--v-theme-on-surface));
+  padding: 12px 16px;
+}
+
+:deep(.v-table tbody tr:hover) {
+  background-color: rgba(var(--v-theme-on-surface), 0.05);
+}
+
+/* Dialog styles */
+:deep(.v-dialog) {
+  background-color: rgb(var(--v-theme-surface));
+}
+
+:deep(.v-dialog .v-card-title) {
+  color: rgb(var(--v-theme-on-surface));
+}
+
+:deep(.v-dialog .v-card-text) {
+  color: rgb(var(--v-theme-on-surface));
+}
+
+/* Form styles */
+:deep(.v-text-field .v-field__input) {
+  color: rgb(var(--v-theme-on-surface));
+}
+
+:deep(.v-text-field .v-field__outline) {
+  color: rgba(var(--v-border-color), 0.12);
+}
+
+:deep(.v-text-field .v-field--focused .v-field__outline) {
+  color: rgb(var(--v-theme-primary));
 }
 
 /* Responsive adjustments */

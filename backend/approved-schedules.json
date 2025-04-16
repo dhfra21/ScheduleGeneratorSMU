@@ -114,6 +114,92 @@
         ]
       },
       "approvedAt": "2025-04-10T18:21:29.168Z"
+    },
+    {
+      "userId": "8",
+      "userName": "mourad Kochkar",
+      "schedule": {
+        "courses": [
+          "ENG121",
+          "ISS196",
+          "CS210"
+        ],
+        "days": [
+          "thursday 08:00-10:00",
+          "friday 08:00-10:00",
+          "tuesday 08:00-10:00",
+          "tuesday 14:00-16:00",
+          "thursday 10:00-12:00",
+          "monday 14:00-16:00"
+        ],
+        "gaps": "4 hours",
+        "daysOff": 1,
+        "earliestStart": "08:00",
+        "groups": [
+          {
+            "course_code": "ENG121",
+            "group_number": 1,
+            "professor": "Dr. Hall",
+            "classroom": "Room A101"
+          },
+          {
+            "course_code": "ISS196",
+            "group_number": 1,
+            "professor": "Dr. Green",
+            "classroom": "Room F606"
+          },
+          {
+            "course_code": "CS210",
+            "group_number": 1,
+            "professor": "Dr. Smith",
+            "classroom": "Room D404"
+          }
+        ]
+      },
+      "approvedAt": "2025-04-15T10:07:12.722Z"
+    },
+    {
+      "userId": "10",
+      "userName": "souissi",
+      "schedule": {
+        "courses": [
+          "MGMT102",
+          "CS210",
+          "ECO172"
+        ],
+        "days": [
+          "thursday 08:00-10:00",
+          "wednesday 14:00-16:00",
+          "thursday 10:00-12:00",
+          "monday 14:00-16:00",
+          "tuesday 14:00-16:00",
+          "thursday 14:00-16:00"
+        ],
+        "gaps": "2 hours",
+        "daysOff": 1,
+        "earliestStart": "08:00",
+        "groups": [
+          {
+            "course_code": "MGMT102",
+            "group_number": 1,
+            "professor": "Prof. Johnson",
+            "classroom": "Room D404"
+          },
+          {
+            "course_code": "CS210",
+            "group_number": 1,
+            "professor": "Dr. Smith",
+            "classroom": "Room D404"
+          },
+          {
+            "course_code": "ECO172",
+            "group_number": 1,
+            "professor": "Dr. Lee",
+            "classroom": "Room A101"
+          }
+        ]
+      },
+      "approvedAt": "2025-04-16T09:24:49.756Z"
     }
   ]
 }

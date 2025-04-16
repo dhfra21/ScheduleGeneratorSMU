@@ -1,10 +1,20 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
+import { useTheme } from 'vuetify';
+import { computed } from 'vue';
 
 const router = useRouter();
 const route = useRoute();
 const authStore = useAuthStore();
+const theme = useTheme();
+
+const themeIcon = computed(() => theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night');
+
+const toggleTheme = () => {
+  theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark';
+  localStorage.setItem('theme', theme.global.name.value);
+};
 
 const logout = () => {
   authStore.logout();
@@ -22,7 +32,7 @@ const navigate = (route) => {
     permanent
     class="admin-sidebar"
     width="250"
-    style="background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); border-right: 1px solid #e5e7eb;"
+    :style="{ background: `linear-gradient(135deg, rgb(var(--v-theme-surface)) 0%, rgb(var(--v-theme-background)) 100%)`, borderRight: `1px solid rgba(var(--v-border-color), 0.12)` }"
   >
     <v-list density="compact" nav>
       <v-list-item
@@ -49,6 +59,22 @@ const navigate = (route) => {
         </v-list-item-content>
       </v-list-item>
       
+      <!-- Theme Toggle Button -->
+      <v-divider class="my-3"></v-divider>
+      <v-list-item
+        class="sidebar-item theme-toggle"
+        @click="toggleTheme"
+      >
+        <template v-slot:prepend>
+          <v-icon :icon="themeIcon" size="20" color="grey-darken-2"></v-icon>
+        </template>
+        <v-list-item-content>
+          <v-list-item-title class="text-body-2 font-weight-medium">
+            {{ theme.global.current.value.dark ? 'Light Mode' : 'Dark Mode' }}
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
       <!-- Logout Button -->
       <v-divider class="my-3"></v-divider>
       <v-list-item
@@ -81,49 +107,35 @@ const navigate = (route) => {
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
+  color: rgb(var(--v-theme-on-surface));
 }
 
 .sidebar-item:hover {
-  background: #edf2f7;
+  background: rgba(var(--v-theme-on-surface), 0.05);
   transform: translateX(5px);
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-item.selected {
-  background: #3b82f6;
-  color: white !important;
-  border-left: 4px solid #2563eb;
+  background: rgb(var(--v-theme-primary));
+  color: rgb(var(--v-theme-on-primary)) !important;
+  border-left: 4px solid rgb(var(--v-theme-primary-darken-1));
   padding-left: 12px;
 }
 
 .sidebar-item.selected .v-icon {
-  color: white !important;
-}
-
-.v-icon {
-  transition: color 0.3s ease;
-  margin-right: 12px;
-}
-
-.v-list-item__title {
-  transition: color 0.3s ease;
-  white-space: nowrap;
-  overflow: visible;
-  text-overflow: unset;
+  color: rgb(var(--v-theme-on-primary)) !important;
 }
 
 .active-title {
-  color: white !important;
-}
-
-/* Logout Button */
-.logout-btn {
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  cursor: pointer;
+  color: rgb(var(--v-theme-on-primary)) !important;
 }
 
 .logout-btn:hover {
-  background: rgba(255, 0, 0, 0.1);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.theme-toggle:hover {
+  background: rgba(var(--v-theme-on-surface), 0.05);
 }
 </style>

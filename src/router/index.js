@@ -10,6 +10,8 @@ import SchedulerView from '@/views/SchedulerView.vue';
 import CoursesView from '@/views/CoursesView.vue';
 import Login from '@/views/Login.vue';
 import UserRegistration from '@/views/UserRegistration.vue';
+import ProfileSettings from '@/views/ProfileSettings.vue';
+import SettingsView from '@/views/SettingsView.vue';
 
 // Admin-facing views
 import AdminView from '@/views/AdminView.vue';
@@ -57,6 +59,18 @@ const routes = [
           title: 'User Registration - University Scheduler',
           requiresGuest: true
         },
+      },
+      {
+        path: 'profile',
+        name: 'profile',
+        component: ProfileSettings,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: 'settings',
+        name: 'settings',
+        component: SettingsView,
+        meta: { requiresAuth: true }
       },
     ],
   },

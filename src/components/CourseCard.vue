@@ -282,7 +282,7 @@ function closeDetailsOnOutsideClick(event) {
   overflow: hidden;
   border-radius: 8px;
   transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(var(--v-border-color), 0.12);
 }
 
 .on-hover {
@@ -320,7 +320,7 @@ function closeDetailsOnOutsideClick(event) {
 }
 
 .on-hover .course-info-item {
-  color: var(--v-theme-primary);
+  color: rgb(var(--v-theme-primary));
 }
 
 .info-label {
@@ -356,7 +356,7 @@ function closeDetailsOnOutsideClick(event) {
   width: 90%;
   max-width: 600px;
   max-height: 80vh;
-  background-color: white;
+  background-color: rgb(var(--v-theme-surface));
   border-radius: 8px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -366,7 +366,7 @@ function closeDetailsOnOutsideClick(event) {
 }
 
 .modal-header {
-  padding: 16px 24px;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -375,79 +375,77 @@ function closeDetailsOnOutsideClick(event) {
 
 .course-title h2 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 500;
 }
 
 .modal-content {
-  padding: 24px;
+  padding: 1.5rem;
   overflow-y: auto;
+  color: rgb(var(--v-theme-on-surface));
 }
 
-.info-section h3,
-.groups-section h3 {
-  margin-top: 0;
-  margin-bottom: 16px;
-  font-size: 1.2rem;
-  font-weight: 500;
+.info-section h3 {
+  margin-bottom: 1rem;
+  color: rgb(var(--v-theme-on-surface));
 }
 
 .info-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 16px;
+  gap: 1rem;
 }
 
-.info-item, .group-info {
+.info-item {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  gap: 0.5rem;
 }
 
 .group-details {
-  padding: 8px 0;
+  padding: 1rem;
 }
 
-.group-schedule {
-  margin-top: 12px;
+.group-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .schedule-header {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .time-slots {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 8px;
+  display: grid;
+  gap: 0.5rem;
 }
 
 .time-slot {
   display: flex;
   align-items: center;
-  padding: 4px 8px;
-  background-color: rgba(var(--v-theme-primary), 0.1);
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background-color: rgba(var(--v-theme-surface-variant), 0.1);
   border-radius: 4px;
-  font-size: 0.9rem;
 }
 
 .actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 16px;
+  margin-top: 1rem;
 }
 
-/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
 @keyframes slideIn {
-  from { transform: translateY(30px); opacity: 0; }
+  from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 </style>

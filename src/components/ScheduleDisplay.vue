@@ -379,37 +379,39 @@ const handleSubmit = () => {
 }
 
 .day-header, .hour-header {
-  background-color: #f1f5f9;
-  border: 1px solid #e2e8f0;
+  background-color: rgb(var(--v-theme-surface));
+  border: 1px solid rgba(var(--v-border-color), 0.12);
   padding: 8px;
   text-align: center;
   font-weight: 600;
   font-size: 0.9em;
-  color: #1e293b;
+  color: rgb(var(--v-theme-on-surface));
 }
 
 .day-cell {
-  background-color: #f1f5f9;
-  border: 1px solid #e2e8f0;
+  background-color: rgb(var(--v-theme-surface));
+  border: 1px solid rgba(var(--v-border-color), 0.12);
   padding: 8px;
   text-align: left;
   font-weight: 500;
   width: 120px;
+  color: rgb(var(--v-theme-on-surface));
 }
 
 .event-cell {
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(var(--v-border-color), 0.12);
   padding: 4px;
   min-height: 60px;
   vertical-align: top;
+  background-color: rgb(var(--v-theme-surface));
 }
 
 .event {
-  background-color: #4ECDC4;
+  background-color: rgb(var(--v-theme-primary));
   border-radius: 4px;
   padding: 4px;
   margin: 2px 0;
-  color: white;
+  color: rgb(var(--v-theme-on-primary));
   cursor: pointer;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -424,11 +426,13 @@ const handleSubmit = () => {
   font-weight: 600;
   font-size: 0.8em;
   margin-bottom: 1px;
+  color: rgb(var(--v-theme-on-primary));
 }
 
 .event-time {
   font-size: 0.65em;
   opacity: 0.9;
+  color: rgb(var(--v-theme-on-primary));
 }
 
 /* Responsive adjustments */
@@ -465,7 +469,7 @@ const handleSubmit = () => {
   }
 }
 
-/* Modal styles (unchanged) */
+/* Modal styles */
 .details-overlay {
   position: fixed;
   top: 0;
@@ -484,7 +488,7 @@ const handleSubmit = () => {
   width: 90%;
   max-width: 600px;
   max-height: 80vh;
-  background-color: white;
+  background-color: rgb(var(--v-theme-surface));
   border-radius: 8px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -496,6 +500,7 @@ const handleSubmit = () => {
 .details-content {
   padding: 24px;
   overflow-y: auto;
+  color: rgb(var(--v-theme-on-surface));
 }
 
 .course-info {
@@ -506,6 +511,7 @@ const handleSubmit = () => {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
+  color: rgb(var(--v-theme-on-surface));
 }
 
 .info-label {
@@ -541,7 +547,7 @@ const handleSubmit = () => {
 }
 
 @keyframes slideIn {
-  from { transform: translateY(30px); opacity: 0; }
+  from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 </style>

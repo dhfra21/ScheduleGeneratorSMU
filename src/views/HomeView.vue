@@ -2,9 +2,10 @@
 <script setup>
 import { ref, onMounted, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
 
 const router = useRouter();
-const isUserLoggedIn = ref(false);
+const authStore = useAuthStore();
 
 // Navigation functions
 const goToSchedule = () => router.push('/schedule');
@@ -12,24 +13,11 @@ const goToCatalog = () => router.push('/courses');
 const goToAdminLogin = () => router.push('/login');
 const goToUserLogin = () => router.push('/login');
 
-const checkLoginState = () => {
-  isUserLoggedIn.value = localStorage.getItem('isUserLoggedIn') === 'true';
-};
-
+// Initialize auth state when component mounts
 onMounted(() => {
-  checkLoginState();
+  authStore.initializeAuth();
 });
-
-watchEffect(() => {
-  checkLoginState();
-});
-
-window.addEventListener('storage', (event) => {
-  if (event.key === 'isUserLoggedIn') {
-    checkLoginState();
-  }
-});
-</script>
+</script> 
 
 <template>
   <v-container class="fill-height d-flex align-center justify-center" style="padding: 16px;">
@@ -37,16 +25,16 @@ window.addEventListener('storage', (event) => {
       class="pa-8 elevation-6"
       :max-width="800"
       rounded="xl"
-      style="background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); overflow: hidden;"
+      :style="{ background: `linear-gradient(145deg, rgb(var(--v-theme-surface)) 0%, rgb(var(--v-theme-background)) 100%)` }"
     >
       <!-- Header Section -->
       <v-row justify="center" class="text-center">
         <v-col cols="12">
           <v-icon color="primary" size="60" class="mb-4 animate-icon" aria-hidden="true">mdi-calendar-clock</v-icon>
-          <h1 class="text-h3 font-weight-bold mb-2" style="color: #1e293b; word-break: break-word;" aria-label="Welcome to University Scheduler">
+          <h1 class="text-h3 font-weight-bold mb-2" style="color: rgb(var(--v-theme-on-surface)); word-break: break-word;" aria-label="Welcome to University Scheduler">
             Welcome to SMU Scheduler
           </h1>
-          <p class="text-body-1" style="color: #64748b; word-break: break-word;" aria-label="Plan your perfect semester with ease. Build schedules, explore courses, and optimize your time.">
+          <p class="text-body-1" style="color: rgb(var(--v-theme-on-surface-variant)); word-break: break-word;" aria-label="Plan your perfect semester with ease. Build schedules, explore courses, and optimize your time.">
             Plan your perfect semester with ease. Build schedules, explore courses, and optimize your time.
           </p>
         </v-col>
@@ -84,7 +72,7 @@ window.addEventListener('storage', (event) => {
         </v-col>
         <v-col cols="12" sm="6" md="4">
           <v-btn
-            v-if="!isUserLoggedIn"
+            v-if="!authStore.isAuthenticated"
             color="info"
             variant="flat"
             size="large"
@@ -98,16 +86,16 @@ window.addEventListener('storage', (event) => {
           </v-btn>
           <v-btn
             v-else
-            color="grey-darken-2"
-            variant="outlined"
+            color="info"
+            variant="flat"
             size="large"
             block
-            prepend-icon="mdi-shield-account"
-            @click="goToAdminLogin"
+            prepend-icon="mdi-account-cog"
+            :to="{ name: 'profile' }"
             class="action-btn"
-            aria-label="Navigate to Admin Login"
+            aria-label="Navigate to Profile Settings"
           >
-            Admin Portal
+            User Settings
           </v-btn>
         </v-col>
       </v-row>
@@ -115,7 +103,7 @@ window.addEventListener('storage', (event) => {
       <!-- Footer Note -->
       <v-row justify="center" class="mt-8">
         <v-col cols="12" class="text-center">
-          <p class="text-caption" style="color: #94a3b8; word-break: break-word;" aria-label="Built with love by Your Name, powered by Vue.js and Vuetify">
+          <p class="text-caption" style="color: rgb(var(--v-theme-on-surface-variant)); word-break: break-word;" aria-label="Built with love by Your Name, powered by Vue.js and Vuetify">
             Powered by Vue.js & Vuetify
           </p>
         </v-col>

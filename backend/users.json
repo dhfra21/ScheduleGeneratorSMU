@@ -48,6 +48,27 @@
       "password": "dhiafrad",
       "role": "user",
       "name": "Sarra Boujday"
+    },
+    {
+      "id": "8",
+      "email": "mourad@gmail.com",
+      "password": "123456",
+      "role": "user",
+      "name": "mourad Kochkar"
+    },
+    {
+      "id": "9",
+      "email": "amine@gmail.com",
+      "password": "amine123",
+      "role": "user",
+      "name": "amine zekri"
+    },
+    {
+      "id": "10",
+      "email": "souissi@gmail.com",
+      "password": "123456",
+      "role": "user",
+      "name": "souissi"
     }
   ]
 }

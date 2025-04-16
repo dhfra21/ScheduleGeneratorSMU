@@ -14,6 +14,7 @@
       class="notification-btn"
       size="large"
       :class="{ 'pulse': hasNotifications }"
+      :style="{ color: hasNotifications ? 'rgb(var(--v-theme-primary))' : 'rgb(var(--v-theme-on-surface))' }"
     >
       <v-icon size="24">mdi-bell</v-icon>
     </v-btn>
@@ -248,11 +249,11 @@ watch(showDialog, (newValue) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white !important;
+  color: rgb(var(--v-theme-on-surface)) !important;
 }
 
 .notification-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(var(--v-theme-on-surface), 0.1);
   transform: scale(1.05);
 }
 
