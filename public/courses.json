@@ -1,0 +1,2927 @@
+{
+  "courses": [
+    {
+      "course_code": "CHEM161",
+      "course_name": "General Chemistry",
+      "major": "Software Engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Green",
+          "classroom": "Room C303A",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Green",
+          "classroom": "Room G707",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Dr. Smith",
+          "classroom": "Room H808",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "f172"
+    },
+    {
+      "course_code": "CS101",
+      "course_name": "Introduction to Programming",
+      "major": "Pre-engineering",
+      "year": "Sophomore",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room C303",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "5b94"
+    },
+    {
+      "course_code": "CS102",
+      "course_name": "Object-Oriented Programming",
+      "major": "Software Engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. Johnson",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Prof. White",
+          "classroom": "Room H808",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Dr. Smith",
+          "classroom": "Room E505",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "8039"
+    },
+    {
+      "course_code": "ENG111",
+      "course_name": "Academic English",
+      "major": "Pre-engineering",
+      "year": "Junior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room G707",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Lee",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "d8d1"
+    },
+    {
+      "course_code": "ENG121",
+      "course_name": "English Composition",
+      "major": "Software Engineering",
+      "year": "Sophomore",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "013e"
+    },
+    {
+      "course_code": "ISS196",
+      "course_name": "Freshman Project",
+      "major": "Software Engineering",
+      "year": "Freshman",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Green",
+          "classroom": "Room F606",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Lee",
+          "classroom": "Room F606",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Dr. Green",
+          "classroom": "Room H808",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "fda1"
+    },
+    {
+      "course_code": "MATH141",
+      "course_name": "Calculus I",
+      "major": "Pre-engineering",
+      "year": "Junior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. Johnson",
+          "classroom": "Room F606",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Prof. Johnson",
+          "classroom": "Room C303",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Dr. Green",
+          "classroom": "Room G707",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "fed2"
+    },
+    {
+      "course_code": "MATH142",
+      "course_name": "Calculus II",
+      "major": "Pre-engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Smith",
+          "classroom": "Room G707",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "cc2d"
+    },
+    {
+      "course_code": "MATH243",
+      "course_name": "Discrete Mathematics",
+      "major": "Pre-engineering",
+      "year": "Junior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room H808",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Hall",
+          "classroom": "Room E505",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Prof. Johnson",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "458a"
+    },
+    {
+      "course_code": "PHYS151",
+      "course_name": "Classical Mechanics",
+      "major": "Software Engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Lee",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Dr. Green",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "64ba"
+    },
+    {
+      "course_code": "MGMT102",
+      "course_name": "Management and leadership (MSB)",
+      "major": "Software Engineering",
+      "year": "Junior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. Johnson",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Hall",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "3a06"
+    },
+    {
+      "course_code": "MATH244",
+      "course_name": "Probability & Statistics",
+      "major": "Pre-engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. White",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "1f81"
+    },
+    {
+      "course_code": "CS261",
+      "course_name": "Computer Organization & Design",
+      "major": "Software Engineering",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room G707",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "1486"
+    },
+    {
+      "course_code": "CS210",
+      "course_name": "System Development",
+      "major": "Software Engineering",
+      "year": "Sophomore",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Smith",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "0306"
+    },
+    {
+      "course_code": "ECO172",
+      "course_name": "Introduction to Macroeconomics",
+      "major": "Software Engineering",
+      "year": "Freshman",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Lee",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Hall",
+          "classroom": "Room F606",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "6bc1"
+    },
+    {
+      "course_code": "ISS296",
+      "course_name": "Sophomore Project",
+      "major": "Software Engineering",
+      "year": "Sophomore",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. White",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Prof. Johnson",
+          "classroom": "Room F606",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Dr. Smith",
+          "classroom": "Room C303",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "43b5"
+    },
+    {
+      "course_code": "MATH341",
+      "course_name": "Differential EquationÂ ",
+      "major": "Software Engineering",
+      "year": "Senior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Smith",
+          "classroom": "Room C303",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Green",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "40e3"
+    },
+    {
+      "course_code": "CS202",
+      "course_name": "Advanced Object-Oriented Programming",
+      "major": "Pre-engineering",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. White",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Smith",
+          "classroom": "Room H808",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Prof. Johnson",
+          "classroom": "Room F606",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "40cf"
+    },
+    {
+      "course_code": "FIN 101",
+      "course_name": "Finance (MSB)",
+      "major": "Software Engineering",
+      "year": "Freshman",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Prof. Johnson",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Dr. Smith",
+          "classroom": "Room G707",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "23af"
+    },
+    {
+      "course_code": "CS 210",
+      "course_name": "System development",
+      "major": "Software Engineering",
+      "year": "Senior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "b0ce"
+    },
+    {
+      "course_code": "CS 202",
+      "course_name": "Advanced object oriented programming",
+      "major": "Pre-engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. Johnson",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "fabd"
+    },
+    {
+      "course_code": "ISS 296",
+      "course_name": "Sophomore project",
+      "major": "Pre-engineering",
+      "year": "Senior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Green",
+          "classroom": "Room C303",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Prof. Johnson",
+          "classroom": "Room F606",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Dr. Smith",
+          "classroom": "Room C303",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "78ed"
+    },
+    {
+      "course_code": "ACT101",
+      "course_name": "Financial accounting (MSB)",
+      "major": "Software Engineering",
+      "year": "Junior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Smith",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "5afe"
+    },
+    {
+      "course_code": "CS 261",
+      "course_name": "Computer Organization and Design",
+      "major": "Pre-engineering",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Smith",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "780d"
+    },
+    {
+      "course_code": "MATH 348",
+      "course_name": "Graph Theory & Applications",
+      "major": "Software Engineering",
+      "year": "Senior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. Johnson",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "9313"
+    },
+    {
+      "course_code": "ECE251",
+      "course_name": "Electrical Circuits",
+      "major": "Pre-engineering",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. White",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Green",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Dr. Hall",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "eb98"
+    },
+    {
+      "course_code": "PHYS253",
+      "course_name": "Waves, Optics & Quantum Physics",
+      "major": "Software Engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room G707",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Smith",
+          "classroom": "Room H808",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "9384"
+    },
+    {
+      "course_code": "PHYS 253",
+      "course_name": "Waves, Optics and Quantum physics",
+      "major": "Software Engineering",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. Johnson",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "edcf"
+    },
+    {
+      "course_code": "ECE 251",
+      "course_name": "Electrical Circuits",
+      "major": "Software Engineering",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Green",
+          "classroom": "Room F606",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "0479"
+    },
+    {
+      "course_code": "CHEM262",
+      "course_name": "Chemistry II",
+      "major": "Pre-engineering",
+      "year": "Sophomore",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Green",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "6a78"
+    },
+    {
+      "course_code": "MATH348",
+      "course_name": "Graph Theory & Application",
+      "major": "Pre-engineering",
+      "year": "Freshman",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. Johnson",
+          "classroom": "Room E505",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Prof. White",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "47a0"
+    },
+    {
+      "course_code": "MGMT101",
+      "course_name": "Introduction to Management ",
+      "major": "Software Engineering",
+      "year": "Junior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. White",
+          "classroom": "Room C303",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "5a60"
+    },
+    {
+      "course_code": "ISS396",
+      "course_name": "Junior Project",
+      "major": "Pre-engineering",
+      "year": "Sophomore",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Green",
+          "classroom": "Room G707",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Lee",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "9cb5"
+    },
+    {
+      "course_code": "CS350",
+      "course_name": "Global Software Development",
+      "major": "Software Engineering",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "5ee0"
+    },
+    {
+      "course_code": "CS421",
+      "course_name": "Requirements & User Experience ",
+      "major": "Software Engineering",
+      "year": "Sophomore",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "db88"
+    },
+    {
+      "course_code": "CS425",
+      "course_name": "Mobile Software Development",
+      "major": "Pre-engineering",
+      "year": "Senior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. Johnson",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Lee",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "d348"
+    },
+    {
+      "course_code": "GOV101",
+      "course_name": "Governance & Citizenship",
+      "major": "Software Engineering",
+      "year": "Junior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Smith",
+          "classroom": "Room E505",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Lee",
+          "classroom": "Room C303",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Dr. Hall",
+          "classroom": "Room E505",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "76fd"
+    },
+    {
+      "course_code": "ISS197",
+      "course_name": "Startup Engineering",
+      "major": "Software Engineering",
+      "year": "Freshman",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. White",
+          "classroom": "Room C303",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "8861"
+    },
+    {
+      "course_code": "MATH342",
+      "course_name": "Multivariable Calculus & Numerical Methods",
+      "major": "Pre-engineering",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Smith",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Prof. White",
+          "classroom": "Room G707",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "004f"
+    },
+    {
+      "course_code": "CS331",
+      "course_name": "Database Management Systems",
+      "major": "Pre-engineering",
+      "year": "Sophomore",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Lee",
+          "classroom": "Room F606",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Prof. White",
+          "classroom": "Room G707",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "450a"
+    },
+    {
+      "course_code": "ECE372",
+      "course_name": "Feedback Control Systems",
+      "major": "Pre-engineering",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. Johnson",
+          "classroom": "Room F606",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Green",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Dr. Smith",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "1a78"
+    },
+    {
+      "course_code": "ME350",
+      "course_name": "Electromechanical Conversion Systems",
+      "major": "Software Engineering",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Lee",
+          "classroom": "Room C303",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "5ebb"
+    },
+    {
+      "course_code": "ME311",
+      "course_name": "Intermediate Heat Transfer ",
+      "major": "Software Engineering",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Hall",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "a8f1"
+    },
+    {
+      "course_code": "ETH391",
+      "course_name": "Engineering Ethics & Professional Practice",
+      "major": "Software Engineering",
+      "year": "Sophomore",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room C303",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Green",
+          "classroom": "Room C303",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Prof. White",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "2d7d"
+    },
+    {
+      "course_code": "ISS496",
+      "course_name": "Senior Project",
+      "major": "Software Engineering",
+      "year": "Senior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Lee",
+          "classroom": "Room H808",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Lee",
+          "classroom": "Room E505",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "3f25"
+    },
+    {
+      "course_code": "CS404",
+      "course_name": "Distributed Systems",
+      "major": "Software Engineering",
+      "year": "Senior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Green",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Prof. White",
+          "classroom": "Room E505",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "df4c"
+    },
+    {
+      "course_code": "CS423",
+      "course_name": "Software Architecture",
+      "major": "Software Engineering",
+      "year": "Senior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Lee",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Lee",
+          "classroom": "Room E505",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "473a"
+    },
+    {
+      "course_code": "CS428",
+      "course_name": "Software Quality & Testing",
+      "major": "Software Engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Lee",
+          "classroom": "Room G707",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "5204"
+    },
+    {
+      "course_code": "CS485",
+      "course_name": "Artificial Intelligence",
+      "major": "Pre-engineering",
+      "year": "Sophomore",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Green",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "be56"
+    },
+    {
+      "course_code": "CS412",
+      "course_name": "Cyber Security Assessment and Management",
+      "major": "Pre-engineering",
+      "year": "Junior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. Johnson",
+          "classroom": "Room H808",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "8fd3"
+    },
+    {
+      "course_code": "ECE455",
+      "course_name": "Hardware/Software Co-design",
+      "major": "Software Engineering",
+      "year": "Sophomore",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Smith",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Hall",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "1b60"
+    },
+    {
+      "course_code": "ME330",
+      "course_name": "HVAC in Building",
+      "major": "Pre-engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Smith",
+          "classroom": "Room G707",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Green",
+          "classroom": "Room H808",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Dr. Green",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "1bc1"
+    },
+    {
+      "course_code": "ECE460",
+      "course_name": "Power Electronics",
+      "major": "Pre-engineering",
+      "year": "Senior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. Johnson",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Smith",
+          "classroom": "Room F606",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Dr. Lee",
+          "classroom": "Room E505",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "2229"
+    },
+    {
+      "course_code": "RE451",
+      "course_name": "Wind Energy",
+      "major": "Software Engineering",
+      "year": "Senior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Lee",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Lee",
+          "classroom": "Room C303",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 3,
+          "professor": "Prof. White",
+          "classroom": "Room E505",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "782f"
+    },
+    {
+      "course_code": "RE453",
+      "course_name": "Energy Management & Analysis",
+      "major": "Pre-engineering",
+      "year": "Sophomore",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Green",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "f63f"
+    },
+    {
+      "course_code": "CS131",
+      "course_name": "Databases",
+      "major": "Pre-engineering",
+      "year": "Junior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. White",
+          "classroom": "Room E505",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Prof. White",
+          "classroom": "Room G707",
+          "time_slots": [
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "d905"
+    },
+    {
+      "course_code": "CS130",
+      "course_name": "Introduction to Computer Networks",
+      "major": "Software Engineering",
+      "year": "Sophomore",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Smith",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Lee",
+          "classroom": "Room E505",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "65b9"
+    },
+    {
+      "course_code": "ISS195",
+      "course_name": "L1 Project",
+      "major": "Pre-engineering",
+      "year": "Senior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room E505",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Smith",
+          "classroom": "Room A101",
+          "time_slots": [
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "030d"
+    },
+    {
+      "course_code": "CS325 Licence",
+      "course_name": "Web and Mobile Software Dev",
+      "major": "Software Engineering",
+      "year": "Junior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. White",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "2ff2"
+    },
+    {
+      "course_code": "ECE250",
+      "course_name": "Introduction to Electrical Circuits",
+      "major": "Pre-engineering",
+      "year": "Senior",
+      "credits": 2,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Prof. Johnson",
+          "classroom": "Room E505",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Prof. Johnson",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "cf32"
+    },
+    {
+      "course_code": "CS204",
+      "course_name": "Introduction to Distributed Systems",
+      "major": "Software Engineering",
+      "year": "Senior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room F606",
+          "time_slots": [
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "3cbb"
+    },
+    {
+      "course_code": "CS220",
+      "course_name": "Introduction to automata theoryÂ and compilation",
+      "major": "Pre-engineering",
+      "year": "Senior",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Hall",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "a8ae"
+    },
+    {
+      "course_code": "CS341",
+      "course_name": "Data Structures & Algorithms",
+      "major": "Pre-engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Lee",
+          "classroom": "Room D404",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Friday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Dr. Lee",
+          "classroom": "Room F606",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "cb94"
+    },
+    {
+      "course_code": "CS201",
+      "course_name": "Data Structures and Algorithms",
+      "major": "Computer Science",
+      "year": "Sophomore",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Anderson",
+          "classroom": "Room B202",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        },
+        {
+          "group_number": 2,
+          "professor": "Prof. Martinez",
+          "classroom": "Room B203",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "cs201"
+    },
+    {
+      "course_code": "EE101",
+      "course_name": "Introduction to Electrical Engineering",
+      "major": "Electrical Engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Chen",
+          "classroom": "Room E101",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "ee101"
+    },
+    {
+      "course_code": "ME201",
+      "course_name": "Thermodynamics",
+      "major": "Mechanical Engineering",
+      "year": "Sophomore",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Wilson",
+          "classroom": "Room M201",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "me201"
+    },
+    {
+      "course_code": "CE101",
+      "course_name": "Introduction to Civil Engineering",
+      "major": "Civil Engineering",
+      "year": "Freshman",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Rodriguez",
+          "classroom": "Room C101",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "ce101"
+    },
+    {
+      "course_code": "BUS101",
+      "course_name": "Introduction to Business",
+      "major": "Business Administration",
+      "year": "Freshman",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Thompson",
+          "classroom": "Room B101",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "bus101"
+    },
+    {
+      "course_code": "CS301",
+      "course_name": "Database Systems",
+      "major": "Computer Science",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Kim",
+          "classroom": "Room B301",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "cs301"
+    },
+    {
+      "course_code": "EE201",
+      "course_name": "Circuit Analysis",
+      "major": "Electrical Engineering",
+      "year": "Sophomore",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Patel",
+          "classroom": "Room E201",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "ee201"
+    },
+    {
+      "course_code": "ME301",
+      "course_name": "Fluid Mechanics",
+      "major": "Mechanical Engineering",
+      "year": "Junior",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Garcia",
+          "classroom": "Room M301",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "10:00",
+              "end_time": "12:00"
+            }
+          ]
+        }
+      ],
+      "id": "me301"
+    },
+    {
+      "course_code": "CE201",
+      "course_name": "Structural Analysis",
+      "major": "Civil Engineering",
+      "year": "Sophomore",
+      "credits": 4,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Lee",
+          "classroom": "Room C201",
+          "time_slots": [
+            {
+              "day": "Tuesday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            },
+            {
+              "day": "Thursday",
+              "start_time": "14:00",
+              "end_time": "16:00"
+            }
+          ]
+        }
+      ],
+      "id": "ce201"
+    },
+    {
+      "course_code": "BUS201",
+      "course_name": "Business Statistics",
+      "major": "Business Administration",
+      "year": "Sophomore",
+      "credits": 3,
+      "groups": [
+        {
+          "group_number": 1,
+          "professor": "Dr. Brown",
+          "classroom": "Room B201",
+          "time_slots": [
+            {
+              "day": "Monday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            },
+            {
+              "day": "Wednesday",
+              "start_time": "08:00",
+              "end_time": "10:00"
+            }
+          ]
+        }
+      ],
+      "id": "bus201"
+    }
+  ]
+}

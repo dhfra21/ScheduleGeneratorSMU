@@ -1,0 +1,53 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@universityscheduler.com",
+      "password": "admin123",
+      "role": "admin",
+      "name": "Admin User"
+    },
+    {
+      "id": "2",
+      "email": "user@example.com",
+      "password": "user123",
+      "role": "user",
+      "name": "Regular User"
+    },
+    {
+      "id": "3",
+      "email": "student@universityscheduler.com",
+      "password": "student123",
+      "role": "user",
+      "name": "New Student"
+    },
+    {
+      "id": "4",
+      "email": "test@universityscheduler.com",
+      "password": "test123",
+      "role": "user",
+      "name": "Test User"
+    },
+    {
+      "id": "5",
+      "email": "mouradkochkar@gmail.com",
+      "password": "dhiafrad002",
+      "role": "user",
+      "name": "Mourad Kochkar"
+    },
+    {
+      "id": "6",
+      "email": "123@gmail.com",
+      "password": "dhiafrad002",
+      "role": "user",
+      "name": "Alaa Aljane"
+    },
+    {
+      "id": "7",
+      "email": "mail@gmail.com",
+      "password": "dhiafrad",
+      "role": "user",
+      "name": "Sarra Boujday"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+<template>
+  <v-app class="admin-layout">
+    <!-- Sidebar -->
+    <AdminSidebar @navigate="(view) => currentView = view" />
+
+    <!-- Main Content -->
+    <v-main class="admin-main">
+      <AdminView :current-view="currentView" />
+    </v-main>
+  </v-app>
+</template>
+
+<script setup>
+import { ref, computed } from "vue";
+import { useRoute } from 'vue-router';
+import AdminSidebar from "@/components/AdminSidebar.vue";
+import AdminView from "@/views/AdminView.vue"; // Adjust the import path as needed
+
+const route = useRoute();
+const currentView = computed(() => {
+  const path = route.path;
+  if (path.includes('/admin/courses')) return 'courses';
+  if (path.includes('/admin/schedule-requests')) return 'schedule-requests';
+  return 'dashboard';
+});
+</script>
+
+<style scoped>
+/* Ensure layout uses flexbox and prevents overlap */
+.admin-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Main content should start after the sidebar */
+.admin-main {
+  flex-grow: 1;
+  margin-left: 250px; /* Match the sidebar width from AdminSidebar */
+  overflow-y: auto; /* Allow scrolling if content exceeds viewport */
+  min-height: 100vh;
+  padding: 16px;
+}
+</style>
